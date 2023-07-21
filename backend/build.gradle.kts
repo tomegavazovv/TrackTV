@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "3.1.1"
 	id("io.spring.dependency-management") version "1.1.0"
+	id("org.jetbrains.kotlin.plugin.jpa") version "1.8.22"
+	id("org.flywaydb.flyway") version "9.20.1"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
 }
@@ -22,6 +24,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.postgresql:postgresql:42.6.0")
+	implementation("org.flywaydb:flyway-core")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -34,4 +39,13 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+flyway {
+	url = "jdbc:postgresql://localhost:5432/tracktv" // Replace with your database URL
+	user = "postgres" // Replace with your database username
+	password = "postgres" // Replace with your database password
+	locations = arrayOf("classpath:db/migration") // Location of your migration scripts
+	baselineOnMigrate = true // Automatically create and execute the baseline migration on an empty schema
+	validateOnMigrate = false // Set to true to validate applied migrations against resolved ones
 }
