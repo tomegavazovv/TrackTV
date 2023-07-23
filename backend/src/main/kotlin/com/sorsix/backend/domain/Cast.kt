@@ -4,7 +4,7 @@ import com.sorsix.backend.domain.movie.MovieCast
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "cast")
+@Table(name = "tracktv_cast")
 data class Cast(
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

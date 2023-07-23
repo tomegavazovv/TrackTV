@@ -3,7 +3,7 @@ package com.sorsix.backend.domain
 import jakarta.persistence.*
 
 @Entity
-@Table(name="users")
+@Table(name="tracktv_user")
 open class User() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
