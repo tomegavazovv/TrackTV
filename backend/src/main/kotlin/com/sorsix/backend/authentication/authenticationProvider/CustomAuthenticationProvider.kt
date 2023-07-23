@@ -1,6 +1,6 @@
-package com.sorsix.backend.config
+package com.sorsix.backend.authentication.authenticationProvider
 
-import com.sorsix.backend.service.TokenService
+import com.sorsix.backend.authentication.service.TokenService
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

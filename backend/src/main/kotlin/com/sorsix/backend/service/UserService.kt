@@ -1,29 +1,16 @@
 package com.sorsix.backend.service
 
 import com.sorsix.backend.domain.User
-import com.sorsix.backend.repository.UserRepository
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.stereotype.Service
 
-@Service
-class UserService(
-    private val userRepo: UserRepository,
-) {
-    fun findById(id: Long): User? {
-        return userRepo.findByIdOrNull(id)
-    }
+interface UserService {
+    fun findById(id: Long): User?
 
-    fun findByName(name: String): User? {
-        return userRepo.findByName(name)
-    }
+    fun findByUsername(username: String): User?
 
-    fun findByEmail(email: String): User? = userRepo.findByEmail(email)
+    fun findByEmail(email: String): User?
 
-    fun existsByName(name: String): Boolean {
-        return userRepo.existsByName(name)
-    }
+    fun existsByUsername(username: String): Boolean
 
-    fun save(user: User): User {
-        return userRepo.save(user)
-    }
+    fun existsByEmail(email: String): Boolean
+    fun registerUser(username: String, password: String, email: String): User
 }

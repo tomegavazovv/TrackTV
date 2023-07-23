@@ -1,4 +1,4 @@
-package com.sorsix.backend.service
+package com.sorsix.backend.authentication.service
 
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Service

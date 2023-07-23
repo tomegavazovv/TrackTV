@@ -1,21 +1,18 @@
 package com.sorsix.backend.config
 
-import com.sorsix.backend.service.TokenService
-import org.springframework.beans.factory.annotation.Autowired
+import com.sorsix.backend.authentication.authenticationProvider.CustomAuthenticationProvider
+import com.sorsix.backend.authentication.filters.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
-import org.springframework.security.authentication.AuthenticationProvider
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.ProviderManager
 import org.springframework.security.config.Customizer
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException
-import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -23,8 +20,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 class SecurityConfig (
-    private val tokenService: TokenService,
+    private val customAuthenticationProvider: CustomAuthenticationProvider
 ) {
+
+    @Bean
+    fun authenticationManager(): AuthenticationManager {
+        return ProviderManager(listOf(customAuthenticationProvider))
+    }
+
+    @Bean
+    fun jwtAuthenticationFilter(): JwtAuthenticationFilter{
+        return JwtAuthenticationFilter(authenticationManager())
+    }
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -44,19 +51,14 @@ class SecurityConfig (
                 .jwt(Customizer.withDefaults())
         }
 
-        http.authenticationManager { auth ->
-            val jwt = auth as BearerTokenAuthenticationToken
-            val user = tokenService.parseToken(jwt.token) ?: throw InvalidBearerTokenException("Invalid token")
-            UsernamePasswordAuthenticationToken(user, "", listOf(SimpleGrantedAuthority("USER")))
-        }
-
+        http.addFilterAt(jwtAuthenticationFilter(), BasicAuthenticationFilter::class.java)
         return http.build()
     }
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000", "http://localhost:8080")
+        configuration.allowedOrigins = listOf("http://localhost:4200", "http://localhost:8080")
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE")
         configuration.allowedHeaders = listOf("authorization", "content-type")
         val source = UrlBasedCorsConfigurationSource()

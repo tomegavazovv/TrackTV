@@ -1,4 +1,4 @@
-package com.sorsix.backend.service
+package com.sorsix.backend.authentication.service
 
 import com.sorsix.backend.domain.User
 import org.springframework.security.core.userdetails.UserDetails

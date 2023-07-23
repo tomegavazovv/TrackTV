@@ -15,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec
 class JwtEncodingConfig(
     @Value("\${security.key}")
     private val jwtKey: String,
+
 ) {
     private val secretKey = SecretKeySpec(jwtKey.toByteArray(), "HmacSHA256")
 

@@ -1,10 +1,14 @@
-package com.sorsix.backend.domain
+package com.sorsix.backend.authentication
 
+import com.sorsix.backend.domain.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
 
-class UserSecurity(user: User) : User(user), UserDetails {
+class UserSecurity(user: User) : UserDetails {
+
+    private val email: String = user.email
+    private val password: String = user.password
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
         return AuthorityUtils.createAuthorityList("USER")

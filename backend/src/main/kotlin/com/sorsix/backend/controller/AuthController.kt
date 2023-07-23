@@ -1,13 +1,13 @@
 package com.sorsix.backend.controller
 
-import com.sorsix.backend.domain.User
-import com.sorsix.backend.dto.ApiException
+import com.sorsix.backend.authentication.service.HashService
+import com.sorsix.backend.authentication.service.TokenService
 import com.sorsix.backend.dto.LoginDto
 import com.sorsix.backend.dto.LoginResponseDto
 import com.sorsix.backend.dto.RegisterDto
-import com.sorsix.backend.service.HashService
-import com.sorsix.backend.service.TokenService
 import com.sorsix.backend.service.UserService
+import com.sorsix.backend.service.implementations.UserServiceImpl
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,29 +21,26 @@ class AuthController(
     private val userService: UserService,
 ) {
     @PostMapping("/login")
-    fun login(@RequestBody payload: LoginDto): LoginResponseDto {
-        val user = userService.findByEmail(payload.email) ?: throw ApiException(400, "Login failed")
-
-        if (!hashService.checkBcrypt(payload.password, user.password)) {
-            throw ApiException(400, "Login failed")
+    fun login(@RequestBody payload: LoginDto): ResponseEntity<*> {
+        val user = userService.findByEmail(payload.email)?.takeIf {
+            hashService.checkBcrypt(payload.password, it.password)
         }
 
-        return LoginResponseDto(
-            token = tokenService.createToken(user),
-        )
+        return user?.let { ResponseEntity.ok(LoginResponseDto(token = tokenService.createToken(it))) }
+            ?: ResponseEntity.badRequest().body("Invalid Credentials.")
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody payload: RegisterDto): LoginResponseDto {
-        if (userService.existsByName(payload.username)) {
-            throw ApiException(400, "Name already exists")
+    fun register(@RequestBody payload: RegisterDto): ResponseEntity<*> {
+        if (userService.existsByUsername(payload.username)) {
+            return ResponseEntity.badRequest().body("A user with this username already exists.")
         }
 
-        val user = User(payload.username, hashService.hashBcrypt(payload.password), payload.email)
-        val savedUser = userService.save(user)
+        if (userService.existsByEmail(payload.email)) {
+            return ResponseEntity.badRequest().body("A user with this email already exists.")
+        }
 
-        return LoginResponseDto(
-            token = tokenService.createToken(savedUser),
-        )
+        val savedUser = userService.registerUser(payload.username, payload.password, payload.email)
+        return ResponseEntity.ok(LoginResponseDto(token = tokenService.createToken(savedUser)))
     }
 }
