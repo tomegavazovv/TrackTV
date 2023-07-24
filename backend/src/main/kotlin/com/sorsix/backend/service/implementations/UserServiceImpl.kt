@@ -1,5 +1,6 @@
 package com.sorsix.backend.service.implementations
 
+import com.sorsix.backend.authentication.service.HashService
 import com.sorsix.backend.domain.User
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.service.UserService
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl(
     private val userRepo: UserRepository,
+    private val hashService: HashService,
 ) : UserService {
     override fun findById(id: Long): User? = userRepo.findByIdOrNull(id)
 
@@ -20,5 +22,5 @@ class UserServiceImpl(
     override fun existsByEmail(email: String): Boolean = userRepo.existsByEmail(email)
 
     override fun registerUser(username: String, password: String, email: String): User =
-        userRepo.save(User(username, password, email))
+        userRepo.save(User(username, hashService.hashBcrypt(password), email))
 }

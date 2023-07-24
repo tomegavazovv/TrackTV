@@ -6,6 +6,19 @@ CREATE TABLE tracktv_user
     password VARCHAR(255)
 );
 
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    role_name VARCHAR(255) unique
+);
+
+CREATE TABLE user_role(
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    FOREIGN KEY (user_id) references tracktv_user(id),
+    FOREIGN KEY (role_id) references roles(id)
+);
+
 CREATE TABLE "movie"
 (
     id        SERIAL PRIMARY KEY,
@@ -39,6 +52,15 @@ CREATE TABLE "show"
     num_of_episodes INT
 );
 
+CREATE TABLE "show_cast"
+(
+    id      SERIAL PRIMARY KEY,
+    show_id INT NOT NULL,
+    cast_id INT NOT NULL,
+    FOREIGN KEY (show_id) REFERENCES show (id),
+    FOREIGN KEY (cast_id) REFERENCES tracktv_cast (id)
+);
+
 CREATE TABLE "season"
 (
     number SERIAL PRIMARY KEY
@@ -53,15 +75,6 @@ CREATE TABLE "episode"
     title         text NOT NULL,
     FOREIGN KEY (show_id) REFERENCES show (id),
     FOREIGN KEY (season_number) REFERENCES season (number)
-);
-
-CREATE TABLE "show_cast"
-(
-    id      SERIAL PRIMARY KEY,
-    show_id INT NOT NULL,
-    cast_id INT NOT NULL,
-    FOREIGN KEY (show_id) REFERENCES show (id),
-    FOREIGN KEY (cast_id) REFERENCES tracktv_cast (id)
 );
 
 CREATE TABLE "user_watched_movie"

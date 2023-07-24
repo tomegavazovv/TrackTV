@@ -1,4 +1,4 @@
-package com.sorsix.backend.controller
+package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.service.HashService
 import com.sorsix.backend.authentication.service.TokenService
@@ -6,7 +6,6 @@ import com.sorsix.backend.dto.LoginDto
 import com.sorsix.backend.dto.LoginResponseDto
 import com.sorsix.backend.dto.RegisterDto
 import com.sorsix.backend.service.UserService
-import com.sorsix.backend.service.implementations.UserServiceImpl
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

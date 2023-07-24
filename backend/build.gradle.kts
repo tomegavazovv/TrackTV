@@ -48,7 +48,7 @@ tasks.withType<Test> {
 flyway {
 	url = "jdbc:postgresql://localhost:5432/tracktv" // Replace with your database URL
 	user = "postgres" // Replace with your database username
-	password = "postgres" // Replace with your database password
+	password = "admin" // Replace with your database password
 	locations = arrayOf("classpath:db/migration") // Location of your migration scripts
 	baselineOnMigrate = true // Automatically create and execute the baseline migration on an empty schema
 	validateOnMigrate = false // Set to true to validate applied migrations against resolved ones

@@ -1,4 +1,4 @@
-package com.sorsix.backend.controller
+package com.sorsix.backend.api
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
