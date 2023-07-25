@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "user_favorite_show_cast")
-data class UserFavoriteShowCast(
+data class FavoriteShowCast(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,

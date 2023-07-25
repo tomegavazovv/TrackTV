@@ -4,14 +4,14 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "user_rate_movie")
-data class UserRateMovie(
+data class RateMovie(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "watched_movie_id")
-    val userWatchedMovie: UserWatchedMovie = UserWatchedMovie(),
+    val watchedMovie: WatchedMovie = WatchedMovie(),
 
     @Column(name = "rating", nullable = false)
     val rating: Int = 0,

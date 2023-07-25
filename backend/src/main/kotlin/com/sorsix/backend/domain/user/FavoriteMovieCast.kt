@@ -5,16 +5,17 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "user_favorite_movie_cast")
-data class UserFavoriteMovieCast(
+data class FavoriteMovieCast(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "user_movie_id")
-    val userWatchedMovie: UserWatchedMovie = UserWatchedMovie(),
+    val watchedMovie: WatchedMovie = WatchedMovie(),
 
     @ManyToOne
     @JoinColumn(name = "cast_id")
     val cast: Cast = Cast()
+
 )

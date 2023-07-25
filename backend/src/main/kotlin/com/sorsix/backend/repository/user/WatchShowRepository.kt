@@ -5,4 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserWatchShowRepository : JpaRepository<UserWatchShow, Long>
+interface WatchShowRepository : JpaRepository<UserWatchShow, Long>{
+    fun findByUserIdAndShowId(userId: Long, showId: Long): UserWatchShow?
+
+    fun findByUserId(userId: Long): List<UserWatchShow>
+}

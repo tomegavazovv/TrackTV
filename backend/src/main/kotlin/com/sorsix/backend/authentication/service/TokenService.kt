@@ -33,8 +33,8 @@ class TokenService(
     fun parseToken(token: String): UserDetails? {
         return try {
             val jwt = jwtDecoder.decode(token)
-            val username = jwt.claims["email"] as String
-            userDetailsService.loadUserByUsername(username)
+            val id = jwt.claims["userId"].toString()
+            userDetailsService.loadUserByUsername(id)
         } catch (e: Exception) {
             null
         }

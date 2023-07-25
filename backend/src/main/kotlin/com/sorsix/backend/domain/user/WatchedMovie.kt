@@ -1,13 +1,13 @@
 package com.sorsix.backend.domain.user
 
 import com.sorsix.backend.domain.User
-import com.sorsix.backend.domain.show.Episode
+import com.sorsix.backend.domain.movie.Movie
 import jakarta.persistence.*
 import java.time.LocalDate
 
 @Entity
-@Table(name = "user_watched_episode")
-data class UserWatchedEpisode(
+@Table(name = "user_watched_movie")
+data class WatchedMovie(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
@@ -17,8 +17,8 @@ data class UserWatchedEpisode(
     val user: User = User(),
 
     @ManyToOne
-    @JoinColumn(name = "episode_id")
-    val episode: Episode = Episode(),
+    @JoinColumn(name = "movie_id")
+    val movie: Movie = Movie(),
 
     @Column(name = "date")
     val date: LocalDate = LocalDate.now()

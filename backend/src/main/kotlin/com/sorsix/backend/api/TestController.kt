@@ -1,5 +1,6 @@
 package com.sorsix.backend.api
 
+import com.sorsix.backend.service.FavoriteCastService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -8,10 +9,14 @@ import java.security.Principal
 
 @RestController
 @RequestMapping("/api/test")
-class TestController {
+class TestController(val favoriteCastService: FavoriteCastService) {
 
     @GetMapping
     fun testAuth(principal: Principal): ResponseEntity<String>{
-        return ResponseEntity.ok(principal.name);
+        principal.name.toLong()
+        return ResponseEntity.ok("");
+
     }
+
+
 }

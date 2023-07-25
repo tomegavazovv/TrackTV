@@ -12,9 +12,8 @@ class JwtAuthenticationFilter(private val authenticationManager: AuthenticationM
     override fun doFilterInternal(
         request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain
     ) {
-        val jwt: String = request.getHeader("Authorization")
-
         try {
+            val jwt: String = request.getHeader("Authorization")
             val authentication = BearerTokenAuthenticationToken(jwt)
             val authResult = authenticationManager.authenticate(authentication)
             SecurityContextHolder.getContext().authentication = authResult

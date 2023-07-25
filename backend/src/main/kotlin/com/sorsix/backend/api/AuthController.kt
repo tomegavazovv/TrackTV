@@ -21,7 +21,7 @@ class AuthController(
 ) {
     @PostMapping("/login")
     fun login(@RequestBody payload: LoginDto): ResponseEntity<*> {
-        val user = userService.findByEmail(payload.email)?.takeIf {
+        val user = userService.findByEmailOrNull(payload.email)?.takeIf {
             hashService.checkBcrypt(payload.password, it.password)
         }
 

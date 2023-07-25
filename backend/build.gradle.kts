@@ -32,6 +32,9 @@ dependencies {
 	implementation("org.postgresql:postgresql:42.6.0")
 	implementation("org.flywaydb:flyway-core")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation ("org.junit.jupiter:junit-jupiter-api:5.7.0")
+	testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+	testImplementation ("org.mockito:mockito-core:3.12.4")
 }
 
 tasks.withType<KotlinCompile> {

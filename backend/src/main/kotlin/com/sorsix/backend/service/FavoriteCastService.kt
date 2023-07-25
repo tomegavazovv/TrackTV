@@ -1,19 +1,20 @@
 package com.sorsix.backend.service
 
-import com.sorsix.backend.domain.Cast
-import com.sorsix.backend.domain.user.UserFavoriteMovieCast
+import com.sorsix.backend.domain.TopFiveCastProjection
+import com.sorsix.backend.domain.user.FavoriteMovieCast
+import com.sorsix.backend.domain.user.FavoriteShowCast
 
 interface FavoriteCastService {
-    fun addFavoriteMovieCast(userId: Long, movieId: Long, castId: Long): UserFavoriteMovieCast
+    fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): FavoriteMovieCast?
 
-    fun getFavoriteMovieCastByUser(userId: Long, movieId: Long): UserFavoriteMovieCast
+    fun getFavoriteCastOfMovieByUser(userId: Long, movieId: Long): FavoriteMovieCast?
 
-    fun getTopFiveCastsOfMovie(movieId: Long): Map<Cast, Double>
+    fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastProjection>
 
-    fun addFavoriteTvShowCast(userId: Long, showId: Long, castId: Long): Cast
+    fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): FavoriteShowCast?
 
-    fun getFavoriteTvShowCastByUser(userId: Long, showId: Long): Cast
+    fun getFavoriteCastOfTvShowByUser(userId: Long, showId: Long): FavoriteShowCast?
 
-    fun getTopFiveCastsOfTvShow(showId: Long): Map<Cast, Double>
+    fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastProjection>
 
 }
