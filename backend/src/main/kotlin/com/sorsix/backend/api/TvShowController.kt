@@ -75,7 +75,7 @@ class TvShowController(
         @AuthenticationPrincipal principal: CustomPrincipal,
         @PathVariable episodeId: Long
     ): ResponseEntity<*> {
-        return ResponseEntity.ok(watchService.addWatchedEpisode(principal.name, episodeId))
+        return ResponseEntity.ok(watchService.addWatchedEpisode(principal.userId, episodeId))
     }
 
     @GetMapping("/watched")

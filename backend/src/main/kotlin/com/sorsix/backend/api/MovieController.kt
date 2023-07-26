@@ -29,13 +29,8 @@ class MovieController(
     fun addFavoriteCastOfMovie(
         @RequestBody body: AddFavoriteCastDto, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<*> {
-        return ResponseEntity.ok(
-            favoriteCastService.addFavoriteCastOfMovie(
-                principal.userId,
-                body.id,
-                body.castId
-            )
-        )
+            val favoriteMovieCast = favoriteCastService.addFavoriteCastOfMovie(principal.userId, body.id, body.castId)
+            return ResponseEntity.ok(favoriteMovieCast)
     }
 
     @GetMapping("/favoriteCast/{movieId}")
@@ -67,7 +62,7 @@ class MovieController(
 
     @PostMapping("/addWatched/{movieId}")
     fun addWatchedMovie(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable movieId: Long): ResponseEntity<*>{
-        return ResponseEntity.ok(watchService.addWatchedMovie(principal.name, movieId))
+        return ResponseEntity.ok(watchService.addWatchedMovie(principal.userId, movieId))
     }
 
     @GetMapping("/watched")

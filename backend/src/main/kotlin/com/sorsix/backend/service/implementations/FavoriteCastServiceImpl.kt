@@ -4,11 +4,15 @@ import com.sorsix.backend.domain.Cast
 import com.sorsix.backend.domain.TopFiveCastProjection
 import com.sorsix.backend.domain.user.FavoriteMovieCast
 import com.sorsix.backend.domain.user.FavoriteShowCast
+import com.sorsix.backend.exceptions.CastNotFoundException
+import com.sorsix.backend.exceptions.FavoriteCastNotFoundException
+import com.sorsix.backend.exceptions.WatchedMovieNotFoundException
+import com.sorsix.backend.exceptions.WatchedShowNotFoundException
 import com.sorsix.backend.repository.CastRepository
 import com.sorsix.backend.repository.user.FavoriteMovieCastRepository
 import com.sorsix.backend.repository.user.FavoriteShowCastRepository
-import com.sorsix.backend.repository.user.WatchShowRepository
 import com.sorsix.backend.repository.user.WatchMovieRepository
+import com.sorsix.backend.repository.user.WatchShowRepository
 import com.sorsix.backend.service.FavoriteCastService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -21,65 +25,53 @@ class FavoriteCastServiceImpl(
     val favoriteShowCastRepository: FavoriteShowCastRepository,
     val watchShowRepository: WatchShowRepository
 ) : FavoriteCastService {
-    override fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): FavoriteMovieCast? =
-        watchMovieRepository.findByUserIdAndMovieId(userId, movieId)?.let { uwm ->
-            val cast: Cast? = castRepository.findByIdOrNull(castId)
+    override fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): FavoriteMovieCast {
+        val uwm = watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
 
-            return cast?.let {
-                val favoriteMovieCast = FavoriteMovieCast(watchedMovie = uwm, cast = cast)
-                return favoriteMovieCastRepository.save(favoriteMovieCast)
-            }
-        }
+        val cast: Cast = castRepository.findByIdOrNull(castId) ?: throw CastNotFoundException(castId)
 
-    override fun getFavoriteCastOfMovieByUser(userId: Long, movieId: Long): FavoriteMovieCast? =
-        watchMovieRepository.findByUserIdAndMovieId(userId, movieId)?.let {
-            favoriteMovieCastRepository.findByWatchedMovie(it)
-        }
+        val favoriteMovieCast = FavoriteMovieCast(watchedMovie = uwm, cast = cast)
+        return favoriteMovieCastRepository.save(favoriteMovieCast)
+    }
+
+    override fun getFavoriteCastOfMovieByUser(userId: Long, movieId: Long): FavoriteMovieCast {
+        val uwm = watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
+
+        return favoriteMovieCastRepository.findByWatchedMovie(uwm) ?: throw FavoriteCastNotFoundException()
+    }
 
     override fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastProjection> =
-        favoriteMovieCastRepository.getTopFiveCastOfMovie(movieId).let { topFiveCastProjections(it) }
+        topFiveCastProjections(favoriteMovieCastRepository.getTopFiveCastOfMovie(movieId))
 
 
-    override fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): FavoriteShowCast? =
-        watchShowRepository.findByUserIdAndShowId(userId, showId)?.let { uws ->
-            val cast: Cast? = castRepository.findByIdOrNull(castId)
+    override fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): FavoriteShowCast {
+        val watchedShow =
+            watchShowRepository.findByUserIdAndShowId(userId, showId) ?: throw WatchedShowNotFoundException()
 
-            return cast?.let {
-                val userFavoriteMovieCast = FavoriteShowCast(userWatchShow = uws, cast = cast)
-                return favoriteShowCastRepository.save(userFavoriteMovieCast)
+        val cast = castRepository.findByIdOrNull(castId) ?: throw CastNotFoundException(castId)
+
+        return favoriteShowCastRepository.save(FavoriteShowCast(userWatchShow = watchedShow, cast = cast))
+    }
+
+    override fun getFavoriteCastOfTvShowByUser(userId: Long, showId: Long): FavoriteShowCast {
+        val watchedShow =
+            watchShowRepository.findByUserIdAndShowId(userId, showId) ?: throw WatchedShowNotFoundException()
+
+        return favoriteShowCastRepository.findByUserWatchShow(watchedShow) ?: throw FavoriteCastNotFoundException()
+    }
+
+    override fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastProjection> =
+        topFiveCastProjections(favoriteShowCastRepository.getTopFiveCastOfShow(showId))
+
+    private fun topFiveCastProjections(topFiveCastsData: List<TopFiveCastProjection>): List<TopFiveCastProjection> =
+        topFiveCastsData.map { castData ->
+            object : TopFiveCastProjection {
+                override val id: Long = castData.id
+                override val role: String = castData.role
+                override val name: String = castData.name
+                override val imageUrl: String = castData.imageUrl
             }
         }
-
-    override fun getFavoriteCastOfTvShowByUser(userId: Long, showId: Long): FavoriteShowCast? =
-        watchShowRepository.findByUserIdAndShowId(userId, showId)?.let {
-            favoriteShowCastRepository.findByUserWatchShow(it)
-        }
-
-
-    override fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastProjection> {
-        val topFiveCastsData = favoriteShowCastRepository.getTopFiveCastOfShow(showId)
-        return topFiveCastProjections(topFiveCastsData)
-    }
-
-    private fun topFiveCastProjections(topFiveCastsData: List<TopFiveCastProjection>): MutableList<TopFiveCastProjection> {
-        val topFiveCasts: MutableList<TopFiveCastProjection> = mutableListOf()
-
-        for (castData in topFiveCastsData) {
-            val castId = castData.id
-            val role = castData.role
-            val name = castData.name
-            val imageUrl = castData.imageUrl
-
-            topFiveCasts.add(object : TopFiveCastProjection {
-                override val id: Long = castId
-                override val role: String = role
-                override val name: String = name
-                override val imageUrl: String = imageUrl
-            })
-        }
-
-        return topFiveCasts
-    }
 }
 
 
