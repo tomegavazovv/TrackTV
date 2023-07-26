@@ -7,14 +7,16 @@ import com.sorsix.backend.repository.user.RateMovieRepository
 import com.sorsix.backend.repository.user.WatchEpisodeRepository
 import com.sorsix.backend.repository.user.WatchMovieRepository
 import com.sorsix.backend.service.RatingService
+import org.springframework.stereotype.Service
 
+@Service
 class RatingServiceImpl(
     private val watchMovieRepository: WatchMovieRepository,
     private val rateMovieRepository: RateMovieRepository,
     private val rateEpisodeRepository: RateEpisodeRepository,
     private val watchEpisodeRepository: WatchEpisodeRepository
 ) : RatingService {
-    override fun addMovieRating(userId: Long, movieId: Long, rating: Int, comment: String?): RateMovie? =
+    override fun rateMovie(userId: Long, movieId: Long, rating: Int, comment: String?): RateMovie? =
         watchMovieRepository.findByUserIdAndMovieId(userId, movieId)?.let {
             return if (rateMovieRepository.existsByWatchedMovie(it)) {
                 val rateMovie = RateMovie(watchedMovie = it, rating = rating, comment = comment)

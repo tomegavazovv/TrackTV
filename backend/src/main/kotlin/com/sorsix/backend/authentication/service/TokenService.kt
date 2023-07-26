@@ -39,4 +39,8 @@ class TokenService(
             null
         }
     }
+
+    fun getUserIdFromToken(token: String): Long{
+        return jwtDecoder.decode(token).claims["userId"] as Long
+    }
 }

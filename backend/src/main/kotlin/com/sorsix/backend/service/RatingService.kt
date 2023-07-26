@@ -4,7 +4,7 @@ import com.sorsix.backend.domain.user.RateEpisode
 import com.sorsix.backend.domain.user.RateMovie
 
 interface RatingService {
-    fun addMovieRating(userId: Long, movieId: Long, rating: Int, comment: String?): RateMovie?
+    fun rateMovie(userId: Long, movieId: Long, rating: Int, comment: String?): RateMovie?
 
     fun getMovieRatingByUser(userId: Long, movieId: Long): RateMovie?
 
