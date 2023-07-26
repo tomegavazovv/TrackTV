@@ -15,5 +15,6 @@ interface WatchService {
 
     fun addWatchedEpisode(userEmail: String, episodeId: Long): WatchedEpisode?
 
+    fun getRecentlyWatched(userId: Long): List<WatchedMovie>
 
 }

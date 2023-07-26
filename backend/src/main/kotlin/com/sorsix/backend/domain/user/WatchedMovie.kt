@@ -14,11 +14,11 @@ data class WatchedMovie(
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: User = User(),
+    val user: User,
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    val movie: Movie = Movie(),
+    val movie: Movie ,
 
     @Column(name = "date")
     val date: LocalDate = LocalDate.now()

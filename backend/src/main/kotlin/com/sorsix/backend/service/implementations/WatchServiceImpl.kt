@@ -1,5 +1,6 @@
 package com.sorsix.backend.service.implementations
 
+import com.sorsix.backend.domain.User
 import com.sorsix.backend.domain.user.UserWatchShow
 import com.sorsix.backend.domain.user.WatchedEpisode
 import com.sorsix.backend.domain.user.WatchedMovie
@@ -12,7 +13,9 @@ import com.sorsix.backend.repository.user.WatchEpisodeRepository
 import com.sorsix.backend.repository.user.WatchMovieRepository
 import com.sorsix.backend.service.WatchService
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
 
+@Service
 class WatchServiceImpl(
     private val watchMovieRepository: WatchMovieRepository,
     private val watchEpisodeRepository: WatchEpisodeRepository,
@@ -47,12 +50,21 @@ class WatchServiceImpl(
     override fun getWatchedTvShows(userId: Long): List<UserWatchShow> = watchShowRepository.findByUserId(userId)
 
     override fun addWatchedEpisode(userEmail: String, episodeId: Long): WatchedEpisode? {
-        val user = userRepository.findByEmail(email = userEmail)
+        val user = userRepository.findByEmail(userEmail)
         val episode = episodeRepository.findByIdOrNull(episodeId)
 
+
         return episode?.let {
+            val showId = it.show.id
+            if(watchShowRepository.findByUserIdAndShowId(user.id!!, showId) == null) {
+                watchShowRepository.save(UserWatchShow(user=user, show=episode.show))
+            }
             watchEpisodeRepository.save(WatchedEpisode(user=user, episode = episode))
         }
+    }
+
+    override fun getRecentlyWatched(userId: Long): List<WatchedMovie> {
+        return watchMovieRepository.findRecentlyWatchedByUser(userId)
     }
 
 }

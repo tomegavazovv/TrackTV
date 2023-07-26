@@ -8,13 +8,13 @@ import jakarta.persistence.*
 data class FriendRequest(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long = 0 ,
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    val sender_id: User = User(),
+    val sender_id: User,
 
     @ManyToOne
     @JoinColumn(name = "reciever_id")
-    val reciever_id: User = User()
+    val reciever_id: User
 )

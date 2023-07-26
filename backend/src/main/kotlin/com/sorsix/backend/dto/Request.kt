@@ -9,8 +9,8 @@ data class RegisterDto(
     val username: String, val password: String, val email: String
 )
 
-data class AddFavoriteMovieCastDto(
-    val movieId: Long,
+data class AddFavoriteCastDto(
+    val id: Long,
     val castId: Long
 )
 
@@ -20,4 +20,9 @@ data class RateMovieDto(
     val comment: String?
 )
 
+data class RateEpisodeDto(
+    val episodeId: Long,
+    val rating: Int,
+    val comment: String?
+)
 

@@ -11,13 +11,13 @@ data class Episode(
 
     @ManyToOne
     @JoinColumn(name = "season_number")
-    val season: Season = Season(),
+    val season: Season,
 
     @ManyToOne
     @JoinColumn(name = "show_id")
-    val show: Show = Show(),
+    val show: Show,
 
-    val num: Int = 0,
+    val num: Int,
 
-    val title: String = ""
+    val title: String
 )

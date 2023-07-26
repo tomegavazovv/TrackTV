@@ -9,14 +9,16 @@ data class Show(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val title: String = "",
+    val title: String,
 
     @Column(name = "image_url")
-    val imageUrl: String = "",
+    val imageUrl: String,
 
     @Column(name = "num_of_seasons")
-    val numOfSeasons: Int = 0,
+    val numOfSeasons: Int,
 
     @Column(name = "num_of_episodes")
-    val numOfEpisodes: Int = 0
+    val numOfEpisodes: Int,
+
+    val popularity: Int
 )

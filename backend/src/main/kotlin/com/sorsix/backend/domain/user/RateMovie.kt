@@ -11,10 +11,10 @@ data class RateMovie(
 
     @ManyToOne
     @JoinColumn(name = "watched_movie_id")
-    val watchedMovie: WatchedMovie = WatchedMovie(),
+    val watchedMovie: WatchedMovie,
 
     @Column(name = "rating", nullable = false)
-    val rating: Int = 0,
+    val rating: Int,
 
     val comment: String? = ""
 )

@@ -12,9 +12,9 @@ data class ShowCast(
 
     @ManyToOne
     @JoinColumn(name = "show_id")
-    val show: Show = Show(),
+    val show: Show,
 
     @ManyToOne
     @JoinColumn(name = "cast_id")
-    val cast: Cast = Cast()
+    val cast: Cast,
 )

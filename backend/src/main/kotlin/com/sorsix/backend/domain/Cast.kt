@@ -8,14 +8,14 @@ import jakarta.persistence.*
 data class Cast(
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long = 0 ,
 
-    val role: String = "",
+    val role: String ,
 
-    val name: String = "",
+    val name: String ,
 
     @Column(name = "image_url")
-    val imageUrl: String = "",
+    val imageUrl: String ,
 
 //    ???
 //    @OneToMany(mappedBy = "cast")

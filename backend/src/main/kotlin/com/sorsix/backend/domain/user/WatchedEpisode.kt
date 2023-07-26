@@ -10,15 +10,15 @@ import java.time.LocalDate
 data class WatchedEpisode(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long = 0 ,
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: User = User(),
+    val user: User ,
 
     @ManyToOne
     @JoinColumn(name = "episode_id")
-    val episode: Episode = Episode(),
+    val episode: Episode ,
 
     @Column(name = "date")
     val date: LocalDate = LocalDate.now()

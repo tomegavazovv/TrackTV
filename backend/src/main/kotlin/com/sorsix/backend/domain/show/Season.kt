@@ -7,5 +7,5 @@ import jakarta.persistence.*
 data class Season(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val number: Long = 0
+    val number: Long = 0,
 )
