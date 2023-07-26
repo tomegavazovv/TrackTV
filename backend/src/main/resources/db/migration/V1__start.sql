@@ -1,6 +1,6 @@
 CREATE TABLE tracktv_user
 (
-    id       SERIAL PRIMARY KEY,
+    id       bigserial PRIMARY KEY,
     username VARCHAR(255),
     email    VARCHAR(255),
     password VARCHAR(255)
