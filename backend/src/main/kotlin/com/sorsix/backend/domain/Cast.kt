@@ -1,6 +1,5 @@
 package com.sorsix.backend.domain
 
-import com.sorsix.backend.domain.movie.MovieCast
 import jakarta.persistence.*
 
 @Entity

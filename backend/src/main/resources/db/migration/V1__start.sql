@@ -156,7 +156,7 @@ CREATE TABLE "friend_request"
 (
     id          SERIAL PRIMARY KEY,
     sender_id   INT,
-    reciever_id INT,
+    receiver_id INT,
     FOREIGN KEY (sender_id) REFERENCES tracktv_user (id),
-    FOREIGN KEY (reciever_id) REFERENCES tracktv_user (id)
+    FOREIGN KEY (receiver_id) REFERENCES tracktv_user (id)
 );

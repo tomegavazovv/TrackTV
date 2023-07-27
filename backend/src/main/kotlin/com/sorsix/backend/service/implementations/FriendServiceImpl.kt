@@ -1,8 +1,8 @@
 package com.sorsix.backend.service.implementations
 
 import com.sorsix.backend.domain.User
-import com.sorsix.backend.domain.friendship.Friend
 import com.sorsix.backend.domain.friendship.FriendRequest
+import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.friendship.FriendRepository
 import com.sorsix.backend.repository.friendship.FriendRequestRepository
@@ -17,20 +17,24 @@ class FriendServiceImpl(
     val userRepository: UserRepository
 ) : FriendService {
     override fun getFriends(userId: Long): List<User> {
-        return userRepository.findFriendsByProfileId(userId)
+        val result: List<User> = userRepository.findFriendsByProfileId(userId)
+        if (result.isEmpty()) {
+            throw FriendNotFoundException("No friends found.")
+        }
+        return result
     }
 
     override fun addFriend(fromId: Long, toId: Long): FriendRequest {
 
-        val sender = userRepository.findById(fromId).get()
-        val reciever = userRepository.findById(toId).get()
+        val sender: User = userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException("User with id $fromId not found.")
+        val receiver: User = userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException("User with id $toId not found.")
 
-        return if(friendRepository.checkFriendship(fromId, toId).isEmpty()) {
-            if(friendRequestRepository.findFriendRequestByReceiverAndSender(fromId, toId) == null) {
-                friendRequestRepository.save(FriendRequest(senderId = sender, recieverId = reciever))
-            } else throw NullPointerException()
+        return if (friendRepository.checkFriendship(fromId, toId).isEmpty()) {
+            if (friendRequestRepository.findFriendRequestByReceiverAndSender(fromId, toId) == null) {
+                friendRequestRepository.save(FriendRequest(senderId = sender, receiverId = receiver))
+            } else throw FriendRequestExistsException("There is an existing friend request between both users with id $fromId and id $toId.")
 
-        } else throw NullPointerException()
+        } else throw AlreadyFriendsException("Both users are already friends.")
 
     }
 
@@ -40,7 +44,7 @@ class FriendServiceImpl(
         if (friendship.isNotEmpty()) {
             friendRepository.deleteFriend(userId, friendId)
         } else {
-//            throw FriendshipNotFoundException("Friendship not found")
+            throw FriendshipNotFoundException("There is no friendship between the users with id $userId and id $friendId.")
         }
     }
 

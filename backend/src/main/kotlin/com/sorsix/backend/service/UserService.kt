@@ -16,4 +16,6 @@ interface UserService {
     fun existsByEmail(email: String): Boolean
 
     fun registerUser(username: String, password: String, email: String): User
+
+
 }

@@ -12,9 +12,9 @@ interface FriendRequestRepository : JpaRepository<FriendRequest, Long> {
 
     @Query(
         "SELECT * FROM friend_request fr WHERE fr.sender_id = :senderId " +
-                "AND fr.reciever_id = :receiverId " +
+                "AND fr.receiver_id = :receiverId " +
                 "UNION " +
-                "SELECT * FROM friend_request fr WHERE fr.reciever_id = :senderId " +
+                "SELECT * FROM friend_request fr WHERE fr.receiver_id = :senderId " +
                 "AND fr.sender_id = :receiverId ",
         nativeQuery = true
     )
@@ -23,5 +23,5 @@ interface FriendRequestRepository : JpaRepository<FriendRequest, Long> {
         @Param("senderId") senderId: Long
     ): FriendRequest?
 
-    fun findFriendRequestsByRecieverId(user: User): List<FriendRequest>
+    fun findFriendRequestsByReceiverId(user: User): List<FriendRequest>
 }

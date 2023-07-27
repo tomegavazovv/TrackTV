@@ -4,8 +4,6 @@ import com.sorsix.backend.authentication.service.HashService
 import com.sorsix.backend.domain.User
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.service.UserService
-import jakarta.persistence.EntityNotFoundException
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service

@@ -2,7 +2,6 @@ package com.sorsix.backend.config
 
 import com.sorsix.backend.authentication.authenticationProvider.CustomAuthenticationProvider
 import com.sorsix.backend.authentication.filters.JwtAuthenticationFilter
-import com.sorsix.backend.authentication.service.TokenService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
