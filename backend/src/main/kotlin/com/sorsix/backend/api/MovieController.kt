@@ -1,12 +1,10 @@
 package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.CustomPrincipal
+import com.sorsix.backend.domain.movie.Movie
 import com.sorsix.backend.dto.AddFavoriteCastDto
 import com.sorsix.backend.dto.RateMovieDto
-import com.sorsix.backend.service.FavoriteCastService
-import com.sorsix.backend.service.PopularityService
-import com.sorsix.backend.service.RatingService
-import com.sorsix.backend.service.WatchService
+import com.sorsix.backend.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -23,7 +22,8 @@ class MovieController(
     private val favoriteCastService: FavoriteCastService,
     private val ratingService: RatingService,
     private val watchService: WatchService,
-    private val popularityService: PopularityService
+    private val popularityService: PopularityService,
+    private val movieService: MovieService
 ) {
 
     @PostMapping("/favoriteCast")
@@ -79,6 +79,11 @@ class MovieController(
     @GetMapping("/mostPopular")
     fun getMostPopular(): ResponseEntity<*>{
         return ResponseEntity.ok(popularityService.getMostPopularMovies())
+    }
+
+    @GetMapping("/search")
+    fun searchByTitle(@RequestParam("title") title: String): ResponseEntity<List<Movie>>{
+        return ResponseEntity.ok(movieService.searchByTitle(title))
     }
 
     // getSuggestedMoviesByFriend - from, to, movieId
