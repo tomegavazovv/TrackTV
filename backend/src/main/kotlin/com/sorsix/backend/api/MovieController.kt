@@ -9,6 +9,7 @@ import com.sorsix.backend.service.RatingService
 import com.sorsix.backend.service.WatchService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -45,7 +46,7 @@ class MovieController(
     }
 
     @PostMapping("/rate")
-    fun rateMovie(@RequestBody body: RateMovieDto,
+    fun rateMovie(@Validated @RequestBody body: RateMovieDto,
                   @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<*>{
         return ResponseEntity.ok(ratingService.rateMovie(principal.userId, body.movieId, body.rating, body.comment))
     }
@@ -79,4 +80,6 @@ class MovieController(
     fun getMostPopular(): ResponseEntity<*>{
         return ResponseEntity.ok(popularityService.getMostPopularMovies())
     }
+
+    // getSuggestedMoviesByFriend - from, to, movieId
 }

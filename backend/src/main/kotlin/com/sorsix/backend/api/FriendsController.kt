@@ -1,7 +1,6 @@
 package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.CustomPrincipal
-import com.sorsix.backend.repository.friendship.FriendRequestRepository
 import com.sorsix.backend.service.FriendRequestService
 import com.sorsix.backend.service.FriendService
 import org.springframework.http.HttpStatus
@@ -30,7 +29,7 @@ class FriendsController(
     fun removeFriend(@RequestParam id: Long, principal: CustomPrincipal) = friendService.removeFriend(principal.userId, id)
 
     @GetMapping("/friendRequests")
-    fun friendRequests(principal: CustomPrincipal) = friendRequestService.findFriendRequestsByRecieverId(principal.userId)
+    fun friendRequests( principal: CustomPrincipal) = friendRequestService.findFriendRequestsByRecieverId(principal.userId)
 
     @PostMapping("/acceptRequest")
     fun acceptRequest(@RequestParam id: Long, principal: CustomPrincipal) = friendRequestService.acceptRequest(id, principal.userId)

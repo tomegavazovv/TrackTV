@@ -1,9 +1,10 @@
 package com.sorsix.backend.service.implementations
 
 import com.sorsix.backend.domain.Cast
-import com.sorsix.backend.domain.TopFiveCastProjection
 import com.sorsix.backend.domain.user.FavoriteMovieCast
 import com.sorsix.backend.domain.user.FavoriteShowCast
+import com.sorsix.backend.domain.views.TopFiveCastOfMovieViewEntity
+import com.sorsix.backend.domain.views.TopFiveCastOfShowViewEntity
 import com.sorsix.backend.exceptions.CastNotFoundException
 import com.sorsix.backend.exceptions.FavoriteCastNotFoundException
 import com.sorsix.backend.exceptions.WatchedMovieNotFoundException
@@ -13,6 +14,8 @@ import com.sorsix.backend.repository.user.FavoriteMovieCastRepository
 import com.sorsix.backend.repository.user.FavoriteShowCastRepository
 import com.sorsix.backend.repository.user.WatchMovieRepository
 import com.sorsix.backend.repository.user.WatchShowRepository
+import com.sorsix.backend.repository.view.TopFiveCastOfMovieViewRepository
+import com.sorsix.backend.repository.view.TopFiveCastOfShowViewRepository
 import com.sorsix.backend.service.FavoriteCastService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -23,7 +26,9 @@ class FavoriteCastServiceImpl(
     val favoriteMovieCastRepository: FavoriteMovieCastRepository,
     val castRepository: CastRepository,
     val favoriteShowCastRepository: FavoriteShowCastRepository,
-    val watchShowRepository: WatchShowRepository
+    val watchShowRepository: WatchShowRepository,
+    val topFiveCastOfMovieViewRepository: TopFiveCastOfMovieViewRepository,
+    val topFiveCastOfShowViewRepository: TopFiveCastOfShowViewRepository
 ) : FavoriteCastService {
     override fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): FavoriteMovieCast {
         val uwm = watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
@@ -40,8 +45,8 @@ class FavoriteCastServiceImpl(
         return favoriteMovieCastRepository.findByWatchedMovie(uwm) ?: throw FavoriteCastNotFoundException()
     }
 
-    override fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastProjection> =
-        topFiveCastProjections(favoriteMovieCastRepository.getTopFiveCastOfMovie(movieId))
+    override fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastOfMovieViewEntity> =
+        topFiveCastOfMovieViewRepository.getTopFiveCastForMovie(movieId)
 
 
     override fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): FavoriteShowCast {
@@ -60,18 +65,8 @@ class FavoriteCastServiceImpl(
         return favoriteShowCastRepository.findByUserWatchShow(watchedShow) ?: throw FavoriteCastNotFoundException()
     }
 
-    override fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastProjection> =
-        topFiveCastProjections(favoriteShowCastRepository.getTopFiveCastOfShow(showId))
-
-    private fun topFiveCastProjections(topFiveCastsData: List<TopFiveCastProjection>): List<TopFiveCastProjection> =
-        topFiveCastsData.map { castData ->
-            object : TopFiveCastProjection {
-                override val id: Long = castData.id
-                override val role: String = castData.role
-                override val name: String = castData.name
-                override val imageUrl: String = castData.imageUrl
-            }
-        }
+    override fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastOfShowViewEntity> =
+        topFiveCastOfShowViewRepository.getTopFiveCastForShow(showId)
 }
 
 

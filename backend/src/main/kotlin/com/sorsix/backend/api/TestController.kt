@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/test")
-class TestController(val favoriteCastService: FavoriteCastService) {
-
+class TestController() {
     @GetMapping
     fun testAuth(@AuthenticationPrincipal customPrincipal: CustomPrincipal): ResponseEntity<String>{
-        return ResponseEntity.ok("${customPrincipal.userId}");
+        return ResponseEntity.ok("${customPrincipal.userId}")
     }
-
-
-
 }

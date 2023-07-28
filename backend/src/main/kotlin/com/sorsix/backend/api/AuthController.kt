@@ -6,6 +6,7 @@ import com.sorsix.backend.dto.LoginDto
 import com.sorsix.backend.dto.LoginResponseDto
 import com.sorsix.backend.dto.RegisterDto
 import com.sorsix.backend.service.UserService
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,7 +21,7 @@ class AuthController(
     private val userService: UserService,
 ) {
     @PostMapping("/login")
-    fun login(@RequestBody payload: LoginDto): ResponseEntity<*> {
+    fun login(@Valid @RequestBody payload: LoginDto): ResponseEntity<*> {
         val user = userService.findByEmailOrNull(payload.email)?.takeIf {
             hashService.checkBcrypt(payload.password, it.password)
         }
@@ -30,7 +31,7 @@ class AuthController(
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody payload: RegisterDto): ResponseEntity<*> {
+    fun register(@Valid @RequestBody payload: RegisterDto): ResponseEntity<*> {
         if (userService.existsByUsername(payload.username)) {
             return ResponseEntity.badRequest().body("A user with this username already exists.")
         }

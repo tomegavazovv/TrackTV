@@ -25,12 +25,11 @@ class CustomAuthenticationProvider(private val tokenService: TokenService) : Aut
 
         val userId = tokenService.getUserIdFromToken(token) // Implement this method to extract userId from the token.
 
-        return CustomPrincipal(userDetails, userId)
-//        return UsernamePasswordAuthenticationToken(
-//            CustomPrincipal(userDetails, userId),
-//            "",
-//            listOf(SimpleGrantedAuthority("USER"))
-//        )
+        return UsernamePasswordAuthenticationToken(
+            CustomPrincipal(userDetails, userId),
+            "",
+            listOf(SimpleGrantedAuthority("USER"))
+        )
     }
 
     override fun supports(authentication: Class<*>): Boolean {

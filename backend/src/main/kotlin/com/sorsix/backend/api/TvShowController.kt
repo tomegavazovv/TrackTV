@@ -9,6 +9,7 @@ import com.sorsix.backend.service.RatingService
 import com.sorsix.backend.service.WatchService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -45,7 +46,7 @@ class TvShowController(
 
     @PostMapping("/rate")
     fun rateTvShow(
-        @RequestBody body: RateEpisodeDto, @AuthenticationPrincipal principal: CustomPrincipal
+        @Validated @RequestBody body: RateEpisodeDto, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<*> {
         return ResponseEntity.ok(
             ratingService.rateEpisodeOfTvShow(
