@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecentlyWatchedComponent } from './recently-watched/recently-watched.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { RecentlyWatchedComponent } from './recently-watched/recently-watched.co
     SearchBarComponent,
     HomePageComponent,
     RecentlyWatchedComponent,
+    NavigationBarComponent,
   ],
   imports: [BrowserModule, RouterModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

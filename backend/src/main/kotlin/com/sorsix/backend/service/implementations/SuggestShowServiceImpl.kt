@@ -23,7 +23,7 @@ class SuggestShowServiceImpl(
         val suggestedToUser: User =
             userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException("User with id $toId not found.")
         val show: Show =
-            showRepository.findByIdOrNull(showId) ?: throw ShowNotFoundException("Movie with id $showId not found.")
+            showRepository.findByIdOrNull(showId) ?: throw ShowNotFoundException(showId )
 
         if (suggestShowRepository.existsBySuggestedFromUserIdAndSuggestedToUserIdAndShowId(
                 suggestedFromUser, suggestedToUser, show

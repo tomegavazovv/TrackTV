@@ -25,71 +25,71 @@ class FriendsController(
     val suggestShowService: SuggestShowService
 ) {
     @GetMapping("/friends")
-    fun getFriends(principal: CustomPrincipal): ResponseEntity<Any> {
+    fun getFriends(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
         return try {
             val friends = friendService.getFriends(principal.userId)
             ResponseEntity.ok(friends)
         } catch (ex: FriendNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
     @PostMapping("/addFriend/{id}")
-    fun addFriend(@PathVariable id: Long, principal: CustomPrincipal): ResponseEntity<Any> {
+    fun addFriend(@PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
         return try {
             friendService.addFriend(principal.userId, id).let { ResponseEntity.status(HttpStatus.CREATED).build() }
         } catch (ex: FriendRequestExistsException) {
-            ResponseEntity.status(HttpStatus.CONFLICT).body(ex.message)
+            ResponseEntity.status(HttpStatus.CONFLICT).body(mapOf("error" to ex.message))
         } catch (ex: AlreadyFriendsException) {
-            ResponseEntity.status(HttpStatus.CONFLICT).body(ex.message)
+            ResponseEntity.status(HttpStatus.CONFLICT).body(mapOf("error" to ex.message))
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
     @DeleteMapping("/removeFriend/{id}")
-    fun removeFriend(@PathVariable id: Long, principal: CustomPrincipal): ResponseEntity<Any> {
+    fun removeFriend(@PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
         return try {
             friendService.removeFriend(principal.userId, id)
             ResponseEntity.noContent().build()
         } catch (ex: FriendshipNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
     @GetMapping("/friendRequests")
-    fun friendRequests(principal: CustomPrincipal): ResponseEntity<Any> {
+    fun friendRequests(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
         return try {
             val friendRequests = friendRequestService.findFriendRequestsByReceiverId(principal.userId)
             ResponseEntity.ok(friendRequests)
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
     @PostMapping("/acceptRequest/{id}")
-    fun acceptRequest(@PathVariable id: Long, principal: CustomPrincipal): ResponseEntity<Any> {
+    fun acceptRequest(@PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
         return try {
             friendRequestService.acceptRequest(id, principal.userId)
             ResponseEntity.noContent().build()
         } catch (ex: FriendRequestNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
     @PostMapping("/declineRequest/{id}")
-    fun declineRequest(@PathVariable id: Long, principal: CustomPrincipal): ResponseEntity<Any> {
+    fun declineRequest(@PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
         return try {
             friendRequestService.declineRequest(id, principal.userId)
             ResponseEntity.noContent().build()
         } catch (ex: FriendRequestNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
@@ -101,34 +101,34 @@ class FriendsController(
 
     @PostMapping("/suggestMovie/{movieId}/{friendId}")
     fun suggestMovie(
-        @PathVariable movieId: Long, @PathVariable friendId: Long, principal: CustomPrincipal
+        @PathVariable movieId: Long, @PathVariable friendId: Long, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Any> {
         return try {
             suggestMovieService.suggest(principal.userId, friendId, movieId)
             ResponseEntity.noContent().build()
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: MovieNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: MovieSuggestionExists) {
-            ResponseEntity.status(HttpStatus.CONFLICT).body(ex.message)
+            ResponseEntity.status(HttpStatus.CONFLICT).body(mapOf("error" to ex.message))
         }
     }
 
     @GetMapping("/suggestedMovies")
-    fun suggestedMovies(principal: CustomPrincipal) = suggestMovieService.getSuggestions(principal.userId)
+    fun suggestedMovies(@AuthenticationPrincipal principal: CustomPrincipal) = suggestMovieService.getSuggestions(principal.userId)
 
     @PostMapping("/suggestShow/{showId}/{friendId}")
     fun suggestShow(
-        @PathVariable showId: Long, @PathVariable friendId: Long, principal: CustomPrincipal
+        @PathVariable showId: Long, @PathVariable friendId: Long, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Any> {
         return try {
             suggestShowService.suggest(principal.userId, friendId, showId)
             ResponseEntity.noContent().build()
         } catch (ex: ShowNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: UserNotFoundException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
     }
 
@@ -136,15 +136,3 @@ class FriendsController(
     fun suggestedShows(@AuthenticationPrincipal principal: CustomPrincipal) =
         suggestShowService.getSuggestions(principal.userId)
 }
-
-
-
-
-
-
-
-
-
-// {
-//      "error": "No friends found."
-// }

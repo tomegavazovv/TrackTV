@@ -25,7 +25,7 @@ class SuggestMovieServiceImpl(
         val suggestedToUser: User =
             userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException("User with id $toId not found.")
         val movie: Movie =
-            movieRepository.findByIdOrNull(movieId) ?: throw MovieNotFoundException("Movie with id $movieId not found.")
+            movieRepository.findByIdOrNull(movieId) ?: throw MovieNotFoundException(movieId)
 
         if (suggestMovieRepository.existsBySuggestedFromUserIdAndSuggestedToUserIdAndMovieId(
                 suggestedFromUser, suggestedToUser, movie

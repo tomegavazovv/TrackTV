@@ -13,7 +13,7 @@ describe('NavigationBarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NavigationBarComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

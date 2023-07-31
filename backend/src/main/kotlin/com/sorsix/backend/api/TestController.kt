@@ -1,7 +1,6 @@
 package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.CustomPrincipal
-import com.sorsix.backend.service.FavoriteCastService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
