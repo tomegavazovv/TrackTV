@@ -26,6 +26,9 @@ class JwtAuthenticationFilter(private val authenticationManager: AuthenticationM
     }
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        return request.servletPath.equals("/api/login") || request.servletPath.equals("/api/register")
+        return request.servletPath.equals("/api/login") ||
+                request.servletPath.equals("/api/register") ||
+                request.servletPath.equals("/api/movies/mostPopular") ||
+                request.servletPath.equals("/api/tvshows/mostPopular")
     }
 }

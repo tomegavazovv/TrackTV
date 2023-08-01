@@ -1,0 +1,25 @@
+.movie-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.movie-item {
+    text-align: center;
+    max-width: 200px;
+    flex: 1;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.movie-item img {
+    height: 90px;
+}
+
+.movie-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+}

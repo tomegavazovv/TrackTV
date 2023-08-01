@@ -1,0 +1,9 @@
+<h2>Popular Tv Shows</h2>
+<ul class="tvshow-list">
+    <li *ngFor="let tvshow of popularTvShows.slice(0, 8)">
+        <div class="tvshow-item">
+            <p class="tvshow-title">{{ tvshow.title }}</p>
+            <img [src]="tvshow.imageUrl" alt="{{ tvshow.title }} Image"/>
+        </div>
+    </li>
+</ul>
