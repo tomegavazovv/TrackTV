@@ -12,9 +12,9 @@ data class MovieCast(
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    val movie: Movie = Movie(),
+    val movie: Movie,
 
     @ManyToOne
     @JoinColumn(name = "cast_id")
-    val cast: Cast = Cast()
+    val cast: Cast,
 )

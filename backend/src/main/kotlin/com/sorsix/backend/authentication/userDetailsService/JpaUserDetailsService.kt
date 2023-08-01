@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class JpaUserDetailsService(val userRepository: UserRepository) : UserDetailsService {
-    override fun loadUserByUsername(username: String): UserDetails? =
-        userRepository.findByEmail(username)?.let {
+    override fun loadUserByUsername(id: String): UserDetails? =
+        userRepository.findByIdOrNull(id.toLong())?.let {
             it.password = ""
             return UserSecurity(it)
         }
-
 }

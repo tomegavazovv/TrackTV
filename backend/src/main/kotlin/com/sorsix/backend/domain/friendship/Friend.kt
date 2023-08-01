@@ -12,9 +12,9 @@ data class Friend(
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: User = User(),
+    val user: User,
 
     @ManyToOne
     @JoinColumn(name = "friend_id")
-    val friend: User = User()
+    val friend: User
 )

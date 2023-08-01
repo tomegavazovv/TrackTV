@@ -7,10 +7,15 @@ interface UserService {
 
     fun findByUsername(username: String): User?
 
-    fun findByEmail(email: String): User?
+    fun findByEmailOrNull(email: String): User?
+
+    fun findByEmail(email: String): User
 
     fun existsByUsername(username: String): Boolean
 
     fun existsByEmail(email: String): Boolean
+
     fun registerUser(username: String, password: String, email: String): User
+
+
 }

@@ -9,13 +9,13 @@ import jakarta.persistence.*
 data class UserWatchShow(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long = 0 ,
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: User = User(),
+    val user: User,
 
     @ManyToOne
     @JoinColumn(name = "show_id")
-    val show: Show = Show()
+    val show: Show
 )

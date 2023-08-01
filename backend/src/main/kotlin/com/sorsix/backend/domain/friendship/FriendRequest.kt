@@ -12,9 +12,9 @@ data class FriendRequest(
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    val sender_id: User = User(),
+    val senderId: User,
 
     @ManyToOne
-    @JoinColumn(name = "reciever_id")
-    val reciever_id: User = User()
+    @JoinColumn(name = "receiver_id")
+    val receiverId: User
 )
