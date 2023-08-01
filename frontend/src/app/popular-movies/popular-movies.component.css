@@ -16,10 +16,15 @@
 }
 
 .movie-item img {
-    height: 90px;
+    width: 80%;
 }
 
 .movie-title {
     margin-bottom: 5px;
     font-weight: bold;
 }
+
+
+/*#movies {*/
+/*    background-color: #E9F1FA;*/
+/*}*/

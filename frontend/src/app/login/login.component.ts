@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import {MatDialogRef} from '@angular/material/dialog';
 import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
+
 
 @Component({
     selector: 'app-login',
@@ -8,12 +11,14 @@ import {HttpClient} from "@angular/common/http";
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-    email: string | undefined;
-    password: string | undefined;
+    email: String = "";
+    password: String = "";
 
     constructor(
+        private authService: AuthService,
         private dialogRef: MatDialogRef<LoginComponent>,
-        private http: HttpClient
+        private http: HttpClient,
+        private router: Router
     ) {}
 
 
@@ -21,21 +26,23 @@ export class LoginComponent {
         this.dialogRef.close();
     }
 
-    login(): void {
-        const requestBody = {
-            email: this.email,
-            password: this.password
-        };
 
-        this.http.post('http://localhost:8080/api/login', requestBody).subscribe(
-            (response) => {
-                // Handle the response from the server after successful login.
-                console.log('Login successful!', response);
+
+    login(): void {
+        this.authService.login(this.email, this.password).subscribe({
+            next: (response: any) => {
+                const token = response.token;
+                if (token) {
+                    localStorage.setItem('jwtToken', token);
+                    this.authService.updateLoginStatus(true)
+                    this.closeDialog();
+                    this.router.navigate(['/home']);
+                }
             },
-            (error) => {
-                // Handle the error if login fails.
-                console.error('Login failed!', error);
-            }
+            error: (error) => {
+                console.error('Login failed:', error);
+            }}
         );
     }
+
 }

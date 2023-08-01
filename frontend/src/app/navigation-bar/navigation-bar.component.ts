@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
+import {MatDialog} from "@angular/material/dialog";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
     selector: 'app-navigation-bar',
@@ -9,17 +11,30 @@ import {AuthService} from "../auth.service";
 export class NavigationBarComponent implements OnInit {
     loggedIn = false;
 
-    constructor(private authService: AuthService) {
+    constructor(
+        private dialog: MatDialog,
+        private authService: AuthService) {
     }
 
     ngOnInit() {
         this.loggedIn = this.authService.isLoggedIn()
+
+        this.authService.getLoginStatus().subscribe((isLoggedIn: boolean) => {
+            this.loggedIn = isLoggedIn;
+        })
     }
 
     logout() {
-        localStorage.removeItem('token')
-        this.loggedIn = false;
+        localStorage.removeItem('jwtToken')
+        this.authService.updateLoginStatus(false);
 
+    }
+
+    openLoginPopup(): void {
+        this.dialog.open(LoginComponent, {
+            width: '400px',
+            panelClass: 'custom-dialog'
+        });
     }
 
 }

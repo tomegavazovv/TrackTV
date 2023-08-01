@@ -9,14 +9,9 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AppComponent {
 
-    constructor(private dialog: MatDialog) {
+    constructor() {
     }
 
     title = 'TrackTV';
 
-    openLoginPopup(): void {
-        this.dialog.open(LoginComponent, {
-            width: '300px', // Adjust the width as needed
-        });
-    }
 }

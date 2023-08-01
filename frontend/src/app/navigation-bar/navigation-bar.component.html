@@ -1,15 +1,18 @@
 <nav>
-    <ul>
-        <li><button routerLink="/">Home</button></li>
+    <ul class="navbar">
+        <li><button mat-raised-button routerLink="/">Home</button></li>
         <ng-container *ngIf="!loggedIn; else loggedInLinks">
-            <li><button routerLink="/register">Register</button></li>
+            <div class="login-register-container">
+                <button mat-raised-button (click)="openLoginPopup()">Login</button>
+                <li><button mat-raised-button routerLink="/register">Register</button></li>
+            </div>
         </ng-container>
 
         <ng-template #loggedInLinks>
-            <li><button routerLink="/your-movies">Your Movies</button></li>
-            <li><button routerLink="/your-shows">Your Shows</button></li>
-            <li><button routerLink="/friends">Friends</button></li>
-            <li><button (click)="logout()">Logout</button></li>
+            <li><button mat-raised-button routerLink="/your-movies">Your Movies</button></li>
+            <li><button mat-raised-button routerLink="/your-shows">Your Shows</button></li>
+            <li><button mat-raised-button routerLink="/friends">Friends</button></li>
+            <li><button mat-raised-button (click)="logout()">Logout</button></li>
         </ng-template>
     </ul>
 </nav>

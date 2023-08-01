@@ -1,3 +1,10 @@
+html, body {
+    height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    background-color: #E9F1FA;
+    margin: 0 300px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+

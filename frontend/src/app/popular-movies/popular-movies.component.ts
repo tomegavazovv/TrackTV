@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Movie} from "../models/movie";
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-popular-movies',

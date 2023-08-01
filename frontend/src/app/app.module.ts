@@ -16,6 +16,9 @@ import {LoginComponent} from "./login/login.component";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatCardModule} from "@angular/material/card";
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
     declarations: [
@@ -26,9 +29,10 @@ import {MatInputModule} from "@angular/material/input";
         NavigationBarComponent,
         PopularMoviesComponent,
         PopularTvshowsComponent,
-        LoginComponent
+        LoginComponent,
+        RegisterComponent,
     ],
-    imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, CommonModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule],
+    imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, CommonModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule, BrowserAnimationsModule, MatCardModule],
     providers: [],
     bootstrap: [AppComponent],
 })
