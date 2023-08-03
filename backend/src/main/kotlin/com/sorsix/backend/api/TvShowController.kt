@@ -3,10 +3,7 @@ package com.sorsix.backend.api
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.dto.AddFavoriteCastDto
 import com.sorsix.backend.dto.RateEpisodeDto
-import com.sorsix.backend.service.FavoriteCastService
-import com.sorsix.backend.service.PopularityService
-import com.sorsix.backend.service.RatingService
-import com.sorsix.backend.service.WatchService
+import com.sorsix.backend.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
@@ -18,8 +15,14 @@ class TvShowController(
     private val favoriteCastService: FavoriteCastService,
     private val ratingService: RatingService,
     private val watchService: WatchService,
-    private val popularityService: PopularityService
+    private val popularityService: PopularityService,
+    private val tvshowService: TvShowService
 ) {
+
+    @GetMapping("/{showId}")
+    fun getShow(@PathVariable showId: Long): ResponseEntity<*>{
+        return ResponseEntity.ok(tvshowService.getById(showId))
+    }
 
     @PostMapping("/favoriteCast")
     fun addFavoriteCastOfTvShow(
