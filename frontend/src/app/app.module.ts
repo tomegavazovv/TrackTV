@@ -19,6 +19,8 @@ import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatCardModule} from "@angular/material/card";
 import { RegisterComponent } from './register/register.component';
+import { TvshowComponent } from './pages/tvshow/tvshow.component';
+
 
 @NgModule({
     declarations: [
@@ -31,8 +33,10 @@ import { RegisterComponent } from './register/register.component';
         PopularTvshowsComponent,
         LoginComponent,
         RegisterComponent,
+        TvshowComponent
     ],
     imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, CommonModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule, BrowserAnimationsModule, MatCardModule],
+
     providers: [],
     bootstrap: [AppComponent],
 })
