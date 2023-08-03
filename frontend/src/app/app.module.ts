@@ -8,16 +8,23 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecentlyWatchedComponent } from './recently-watched/recently-watched.component';
+import { TvshowComponent } from './pages/tvshow/tvshow.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SearchBarComponent,
-    HomePageComponent,
-    RecentlyWatchedComponent,
-  ],
-  imports: [BrowserModule, RouterModule, HttpClientModule, ReactiveFormsModule],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        SearchBarComponent,
+        HomePageComponent,
+        RecentlyWatchedComponent,
+        TvshowComponent,
+    ],
+    imports: [
+        BrowserModule,
+        RouterModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
