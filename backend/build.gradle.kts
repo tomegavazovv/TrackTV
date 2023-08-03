@@ -36,7 +36,6 @@ dependencies {
 	testImplementation ("org.junit.jupiter:junit-jupiter-api:5.7.0")
 	testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 	testImplementation ("org.mockito:mockito-core:3.12.4")
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.withType<KotlinCompile> {
@@ -57,12 +56,4 @@ flyway {
 	locations = arrayOf("classpath:db/migration") // Location of your migration scripts
 	baselineOnMigrate = true // Automatically create and execute the baseline migration on an empty schema
 	validateOnMigrate = false // Set to true to validate applied migrations against resolved ones
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
 }

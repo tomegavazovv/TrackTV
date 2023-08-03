@@ -43,11 +43,16 @@ export class RegisterComponent implements OnInit {
 
         this.service.signup(registerData).subscribe({
             next: (response: any) => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/home']).then(() => {
+                    console.log('Navigation to home successful!');
+                }).catch((error) => {
+                    console.error('Error during navigation:', error);
+                });
             },
             error: (error) => {
                 console.error('Registration failed:', error);
             }
         });
+
     }
 }

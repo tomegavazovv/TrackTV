@@ -19,6 +19,12 @@ import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatCardModule} from "@angular/material/card";
 import { RegisterComponent } from './register/register.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import { FooterComponent } from './footer/footer.component';
+import {MatIconModule} from "@angular/material/icon";
+import { HomeLoggedInComponent } from './pages/home-logged-in/home-logged-in.component';
+import { HomeLoggedOutComponent } from './pages/home-logged-out/home-logged-out.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
     declarations: [
@@ -31,8 +37,11 @@ import { RegisterComponent } from './register/register.component';
         PopularTvshowsComponent,
         LoginComponent,
         RegisterComponent,
+        FooterComponent,
+        HomeLoggedInComponent,
+        HomeLoggedOutComponent,
     ],
-    imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, CommonModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule, BrowserAnimationsModule, MatCardModule],
+    imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, CommonModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule, BrowserAnimationsModule, MatCardModule, MatToolbarModule, MatIconModule, MatListModule],
     providers: [],
     bootstrap: [AppComponent],
 })

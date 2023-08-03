@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="search-movie-container">
+        <mat-form-field class="search-input">
+            <input matInput type="text" [(ngModel)]="searchTerm" (keyup)="searchMovies()" placeholder="Log a movie!">
+        </mat-form-field>
+        <mat-nav-list *ngIf="searchResults.length > 0">
+            <mat-list-item *ngFor="let movie of searchResults" (click)="showMovieDetails(movie)">
+                {{ movie.title }}
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+
+    <div class="search-tvshow-container">
+        <h1>Watched shows:</h1>
+        <ul class="show-list">
+            <li *ngFor="let show of watchedShows.slice(0, 5)">
+                <div class="movie-item">
+                    <p class="movie-title">{{ show.title }}</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

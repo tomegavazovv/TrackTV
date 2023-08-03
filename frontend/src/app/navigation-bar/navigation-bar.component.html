@@ -1,18 +1,23 @@
-<nav>
-    <ul class="navbar">
-        <li><button mat-raised-button routerLink="/">Home</button></li>
-        <ng-container *ngIf="!loggedIn; else loggedInLinks">
-            <div class="login-register-container">
-                <button mat-raised-button (click)="openLoginPopup()">Login</button>
-                <li><button mat-raised-button routerLink="/register">Register</button></li>
-            </div>
-        </ng-container>
-
-        <ng-template #loggedInLinks>
-            <li><button mat-raised-button routerLink="/your-movies">Your Movies</button></li>
-            <li><button mat-raised-button routerLink="/your-shows">Your Shows</button></li>
-            <li><button mat-raised-button routerLink="/friends">Friends</button></li>
-            <li><button mat-raised-button (click)="logout()">Logout</button></li>
-        </ng-template>
-    </ul>
-</nav>
+<mat-toolbar>
+    <div class="left-buttons">
+        <button mat-raised-button routerLink="/">Home</button>
+    </div>
+    <span class="spacer"></span>
+    <ng-container *ngIf="!loggedIn; else loggedInLinks">
+        <div class="login-register-container">
+            <button mat-raised-button (click)="openLoginPopup()">Login</button>
+            <button mat-raised-button routerLink="/register">Register</button>
+        </div>
+    </ng-container>
+    <ng-template #loggedInLinks>
+        <div class="middle-buttons">
+            <button mat-raised-button routerLink="/your-movies">Your Movies</button>
+            <button mat-raised-button routerLink="/your-shows">Your Shows</button>
+            <button mat-raised-button routerLink="/friends">Friends</button>
+        </div>
+        <span class="spacer"></span>
+        <div class="login-register-container">
+            <button mat-raised-button (click)="logout()">Logout</button>
+        </div>
+    </ng-template>
+</mat-toolbar>

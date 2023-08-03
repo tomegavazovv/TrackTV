@@ -3,19 +3,12 @@
     margin-top: 5px;
 }
 
-.row {
-    margin-top: 20px;
-}
-
-.login-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.register {
     background-color: #fff;
     padding: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     width: 300px;
+    margin: 6% auto;
 }
 
 .input-group {
@@ -40,8 +33,4 @@
 .text-danger {
     color: red;
     margin-top: 5px;
-}
-
-.mat-dialog-container {
-    background-color: rgba(0, 0, 0, 0.6);
 }

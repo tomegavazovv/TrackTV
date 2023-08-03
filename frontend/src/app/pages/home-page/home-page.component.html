@@ -1,3 +1,11 @@
-Home: <app-search-bar />
+<div *ngIf="loggedIn; else loggedOutView">
+    <app-home-logged-in></app-home-logged-in>
+</div>
+
+<ng-template #loggedOutView>
+    <app-home-logged-out></app-home-logged-out>
+</ng-template>
+
 <app-popular-movies></app-popular-movies>
+
 <app-popular-tvshows></app-popular-tvshows>

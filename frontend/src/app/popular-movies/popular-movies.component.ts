@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Movie} from "../models/movie";
-import {MatCardModule} from '@angular/material/card';
+import {Movie} from "../interfaces/movie";
 
 @Component({
-  selector: 'app-popular-movies',
-  templateUrl: './popular-movies.component.html',
-  styleUrls: ['./popular-movies.component.css']
+    selector: 'app-popular-movies',
+    templateUrl: './popular-movies.component.html',
+    styleUrls: ['./popular-movies.component.css']
 })
 export class PopularMoviesComponent implements OnInit {
     popularMovies: Movie[] = [];
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     ngOnInit(): void {
         this.fetchPopularMovies();
@@ -19,13 +19,16 @@ export class PopularMoviesComponent implements OnInit {
 
     fetchPopularMovies(): void {
         const apiUrl = '/api/movies/mostPopular';
-        this.http.get<any[]>(apiUrl).subscribe(
-            (data) => {
-                this.popularMovies = data;
-            },
-            (error) => {
-                console.error('Error fetching popular movies:', error);
+        this.http.get<any[]>(apiUrl).subscribe({
+                next: data => {
+                    this.popularMovies = data;
+                },
+                error: error => {
+                    console.error('Error fetching popular movies:', error);
+                }
             }
         );
+
+
     }
 }

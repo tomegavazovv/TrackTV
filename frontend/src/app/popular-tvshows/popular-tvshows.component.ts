@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TvShow} from "../models/tvshow";
+import {TvShow} from "../interfaces/tvshow";
 import {HttpClient} from "@angular/common/http";
 
 @Component({

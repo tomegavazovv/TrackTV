@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 
@@ -17,7 +16,6 @@ export class LoginComponent {
     constructor(
         private authService: AuthService,
         private dialogRef: MatDialogRef<LoginComponent>,
-        private http: HttpClient,
         private router: Router
     ) {}
 
@@ -34,15 +32,21 @@ export class LoginComponent {
                 const token = response.token;
                 if (token) {
                     localStorage.setItem('jwtToken', token);
-                    this.authService.updateLoginStatus(true)
+                    this.authService.updateLoginStatus(true);
                     this.closeDialog();
-                    this.router.navigate(['/home']);
+                    // Handling the navigation promise
+                    this.router.navigate(['/home']).then(() => {
+                        console.log('Navigation to home successful!');
+                    }).catch((error) => {
+                        console.error('Error during navigation:', error);
+                    });
                 }
             },
             error: (error) => {
                 console.error('Login failed:', error);
-            }}
-        );
+            }
+        });
+
     }
 
 }

@@ -4,7 +4,8 @@ html, body {
 
 body {
     background-color: #E9F1FA;
-    margin: 0 300px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+
+    font-family: Menlo, Monaco, Consolas, quot, sans-serif;
 }
 
