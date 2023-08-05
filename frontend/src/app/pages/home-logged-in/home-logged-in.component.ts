@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Movie} from "../../interfaces/movie";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {TvShow} from "../../interfaces/tvshow";
+import {MovieTvService} from "../../services/movie-tv.service";
+import {debounceTime, distinctUntilChanged, switchMap} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {LogMovieComponent} from "../../log-movie/log-movie.component";
 
 @Component({
     selector: 'app-home-logged-in',
@@ -12,46 +16,49 @@ export class HomeLoggedInComponent implements OnInit {
     searchTerm: string = '';
     searchResults: Movie[] = [];
     watchedShows: TvShow[] = [];
+    searchForm: FormControl = new FormControl('');
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private movieTvService: MovieTvService,
+        private dialog: MatDialog) {
     }
+
 
     ngOnInit(): void {
-        this.fetchWatchedShows()
-    }
+        this.fetchWatchedShows();
 
-    searchMovies() {
-        const headers = new HttpHeaders({
-            'Authorization': `${localStorage.getItem('jwtToken')}`
-        });
-
-        this.http.get<Movie[]>(`/api/movies/search?title=${this.searchTerm}`, {headers}).subscribe({
-                next: data => {
-                    this.searchResults = data;
-                },
-                error: error => {
-                    console.error('Error fetching movies:', error);
-                }
+        this.searchForm.valueChanges.pipe(
+            distinctUntilChanged(),
+            debounceTime(400),
+            switchMap(word => this.movieTvService.searchMovies(word)),
+        ).subscribe({
+            next: (data: Movie[]) => {
+                this.searchResults = data;
+            }, error: error => {
+                console.error('Error fetching movies:', error);
             }
-        );
+        });
     }
 
-    showMovieDetails(movie: Movie) {
+
+    showMovieDetails(movie: Movie): void {
+        this.dialog.open(LogMovieComponent, {
+            width: '400px',
+            panelClass: 'custom-dialog',
+            data: movie
+        })
     }
+
 
     fetchWatchedShows(): void {
-        const headers = new HttpHeaders({
-            'Authorization': `${localStorage.getItem('jwtToken')}`
-        });
-        this.http.get<any[]>('/api/tvshows/watched', {headers}).subscribe({
-                next: data => {
-                    this.watchedShows = data.map((item) => item.show);
-                },
-                error: error => {
-                    console.error('Error fetching popular movies:', error);
-                }
+        this.movieTvService.getWatchedShows().subscribe({
+            next: (data: TvShow[]) => {
+                this.watchedShows = data;
+            },
+            error: (error) => {
+                console.error('Error fetching watched shows:', error);
             }
-        );
+        });
     }
 }
 

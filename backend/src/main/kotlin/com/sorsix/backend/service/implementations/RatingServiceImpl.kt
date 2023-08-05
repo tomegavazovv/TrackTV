@@ -23,15 +23,23 @@ class RatingServiceImpl(
         val watchedMovie = watchMovieRepository.findByUserIdAndMovieId(userId, movieId)
             ?: throw WatchedMovieNotFoundException()
 
-        val rateMovie = RateMovie(watchedMovie = watchedMovie, rating = rating, comment = comment)
-        return rateMovieRepository.save(rateMovie)
+        val existingRateMovie = rateMovieRepository.findByWatchedMovie(watchedMovie[0])
+
+        return if (existingRateMovie != null) {
+            existingRateMovie.rating = rating
+            existingRateMovie.comment = comment
+            rateMovieRepository.save(existingRateMovie)
+        } else {
+            val rateMovie = RateMovie(watchedMovie = watchedMovie[0], rating = rating, comment = comment)
+            rateMovieRepository.save(rateMovie)
+        }
     }
 
     override fun getMovieRatingByUser(userId: Long, movieId: Long): RateMovie? {
         val watchedMovie = watchMovieRepository.findByUserIdAndMovieId(userId, movieId)
             ?: throw WatchedMovieNotFoundException()
 
-        return rateMovieRepository.findByWatchedMovie(watchedMovie)
+        return rateMovieRepository.findByWatchedMovie(watchedMovie[0])
             ?: throw RatingNotFoundException()
     }
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Movie} from "../interfaces/movie";
+import {Movie} from "../../interfaces/movie";
 
 @Component({
     selector: 'app-popular-movies',

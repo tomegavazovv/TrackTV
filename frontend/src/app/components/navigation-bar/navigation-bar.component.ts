@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../../services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
-import {LoginComponent} from "../login/login.component";
+import {LoginComponent} from "../../pages/login/login.component";
 
 @Component({
     selector: 'app-navigation-bar',

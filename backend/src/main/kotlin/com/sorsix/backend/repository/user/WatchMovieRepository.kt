@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface WatchMovieRepository : JpaRepository<WatchedMovie, Long>{
-    fun findByUserIdAndMovieId(userId: Long, movieId: Long): WatchedMovie?
+
+    fun findByUserIdAndMovieId(userId: Long, movieId: Long): List<WatchedMovie>?
 
     fun findAllByUserId(userId: Long): List<WatchedMovie>
 

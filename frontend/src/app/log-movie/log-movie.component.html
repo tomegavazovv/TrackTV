@@ -1,0 +1,25 @@
+<div class="movie-details">
+    <h2>{{ movie.title }}</h2>
+
+    <div class="input-group">
+        <mat-form-field>
+            <textarea matInput placeholder="Write your review" name="review" [(ngModel)]="review"></textarea>
+        </mat-form-field>
+    </div>
+
+    <app-star-rating (ratingChanged)="onRatingChanged($event)"></app-star-rating>
+    <div class="favorite-cast">
+        <button mat-button [matMenuTriggerFor]="favoriteCastMenu">Favorite Cast</button>
+        <mat-menu #favoriteCastMenu="matMenu">
+            <ng-container *ngFor="let castMember of cast">
+                <button mat-menu-item>{{ castMember }}</button>
+            </ng-container>
+        </mat-menu>
+    </div>
+
+    <div class="button-group">
+        <button mat-raised-button color="primary" (click)="logMovie()" >Submit</button>
+        <button mat-button (click)="closeDialog()">Close</button>
+    </div>
+
+</div>

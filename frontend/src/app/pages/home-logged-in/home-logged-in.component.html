@@ -1,9 +1,9 @@
 <div class="container">
     <div class="search-movie-container">
-        <mat-form-field class="search-input">
-            <input matInput type="text" [(ngModel)]="searchTerm" (keyup)="searchMovies()" placeholder="Log a movie!">
+        <mat-form-field class="search-input custom-width">
+            <input matInput type="text" [formControl]="searchForm" placeholder="Log a movie!">
         </mat-form-field>
-        <mat-nav-list *ngIf="searchResults.length > 0">
+        <mat-nav-list *ngIf="searchResults.length > 0 && searchForm.value.trim() !== ''" class="custom-width">
             <mat-list-item *ngFor="let movie of searchResults" (click)="showMovieDetails(movie)">
                 {{ movie.title }}
             </mat-list-item>

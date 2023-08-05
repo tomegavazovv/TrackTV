@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 
 
@@ -17,14 +17,12 @@ export class LoginComponent {
         private authService: AuthService,
         private dialogRef: MatDialogRef<LoginComponent>,
         private router: Router
-    ) {}
-
+    ) {
+    }
 
     closeDialog(): void {
         this.dialogRef.close();
     }
-
-
 
     login(): void {
         this.authService.login(this.email, this.password).subscribe({
@@ -34,7 +32,6 @@ export class LoginComponent {
                     localStorage.setItem('jwtToken', token);
                     this.authService.updateLoginStatus(true);
                     this.closeDialog();
-                    // Handling the navigation promise
                     this.router.navigate(['/home']).then(() => {
                         console.log('Navigation to home successful!');
                     }).catch((error) => {
@@ -46,7 +43,5 @@ export class LoginComponent {
                 console.error('Login failed:', error);
             }
         });
-
     }
-
 }
