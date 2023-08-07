@@ -1,4 +1,8 @@
-package com.sorsix.backend.service.implementations
+package com.sorsix.backend.service
 
-class TvShowService {
+import com.sorsix.backend.domain.show.Show
+
+interface TvShowService {
+
+    fun getById(id: Long): Show
 }
