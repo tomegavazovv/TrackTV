@@ -13,6 +13,9 @@ class TopFiveCastOfMovieViewEntity(
     @Id
     val id: Long,
 
+    @Column(name = "movie_id")
+    val movieId: Long,
+
     @Column
     val role: String,
 

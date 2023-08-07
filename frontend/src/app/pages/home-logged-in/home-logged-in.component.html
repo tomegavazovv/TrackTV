@@ -11,13 +11,14 @@
     </div>
 
     <div class="search-tvshow-container">
-        <h1>Watched shows:</h1>
-        <ul class="show-list">
-            <li *ngFor="let show of watchedShows.slice(0, 5)">
-                <div class="movie-item">
-                    <p class="movie-title">{{ show.title }}</p>
+        <h1>Recently watched shows:</h1>
+        <mat-nav-list class="show-list custom-width">
+            <mat-list-item *ngFor="let show of watchedShows.slice(0, 5)" [routerLink]="['/show', show.id]">
+                <div class="tvshow-item">
+                    <p class="tvshow-title">{{ show.title }}</p>
                 </div>
-            </li>
-        </ul>
+            </mat-list-item>
+        </mat-nav-list>
+        <p *ngIf="watchedShows.length === 0" class="no-friends-message">You havent't watched anything recently.</p>
     </div>
 </div>

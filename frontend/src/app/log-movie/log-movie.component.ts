@@ -56,6 +56,7 @@ export class LogMovieComponent implements OnInit {
         this.castService.getMovieCast(this.movie.id).subscribe({
                 next: (data: Cast[]) => {
                     this.cast = data;
+                    console.log(data)
                 },
                 error: error => {
                     console.error('Error fetching cast:', error);

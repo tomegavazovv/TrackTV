@@ -21,4 +21,3 @@ export class CastService {
         return this.http.get<Cast[]>(`/api/movies/topCast/${movieId}`, {headers: this.getAuthorizationHeader()});
     }
 }
-//@GetMapping("/topCast/{movieId}")

@@ -29,6 +29,11 @@ import {LogMovieComponent} from './log-movie/log-movie.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {StarRatingComponent} from "./pages/star-rating/star-rating.component";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TvShowDetailsComponent } from './tvshow-details/tv-show-details.component';
+import { FriendsComponent } from './friends/friends.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
+import { FriendRequestsComponent } from './friend-requests/friend-requests.component';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +51,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         HomeLoggedOutComponent,
         LogMovieComponent,
         StarRatingComponent,
+        TvShowDetailsComponent,
+        FriendsComponent,
+        SearchUsersComponent,
+        FriendRequestsComponent,
+        ErrorDialogComponent,
     ],
     imports: [MatTooltipModule, BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, CommonModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule, BrowserAnimationsModule, MatCardModule, MatToolbarModule, MatIconModule, MatListModule, MatMenuModule],
     providers: [],

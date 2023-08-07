@@ -94,8 +94,9 @@ class FriendsController(
     }
 
     @GetMapping("/searchUsers")
-    fun searchUsers(@RequestParam username: String): ResponseEntity<Any> {
-        val users = userRepository.findByName(username)
+    fun searchUsers(@RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+        val users = userRepository.findAllByNameContainingAndEmailNot(username, principal.name)
+        println(username + " and " + principal.name)
         return ResponseEntity.ok(users)
     }
 

@@ -46,7 +46,7 @@ class FavoriteCastServiceImpl(
     }
 
     override fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastOfMovieViewEntity> =
-        topFiveCastOfMovieViewRepository.getTopFiveCastForMovie(movieId)
+        topFiveCastOfMovieViewRepository.getTopFiveCastOfMovieViewEntitiesByMovieId(movieId)
 
 
     override fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): FavoriteShowCast {

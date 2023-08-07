@@ -42,6 +42,7 @@ class MovieController(
 
     @GetMapping("/topCast/{movieId}")
     fun getTopCast(@PathVariable movieId: Long): ResponseEntity<*>{
+        println(favoriteCastService.getTopFiveCastsOfMovie(movieId))
         return ResponseEntity.ok(favoriteCastService.getTopFiveCastsOfMovie(movieId))
     }
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {LoginComponent} from "../../pages/login/login.component";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-navigation-bar',
@@ -13,7 +14,8 @@ export class NavigationBarComponent implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private authService: AuthService) {
+        private authService: AuthService,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -27,7 +29,7 @@ export class NavigationBarComponent implements OnInit {
     logout() {
         localStorage.removeItem('jwtToken')
         this.authService.updateLoginStatus(false);
-
+        this.router.navigate(['/home']);
     }
 
     openLoginPopup(): void {

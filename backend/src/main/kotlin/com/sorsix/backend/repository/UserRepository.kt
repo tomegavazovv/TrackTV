@@ -1,8 +1,10 @@
 package com.sorsix.backend.repository
 
 import com.sorsix.backend.domain.User
+import com.sorsix.backend.domain.movie.Movie
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -11,6 +13,9 @@ interface UserRepository : CrudRepository<User, Long> {
 
     @Query("SELECT u from User u where u.name = :name")
     fun findByNameOrNull(name: String): User?
+
+    fun findAllByNameContainingAndEmailNot(searchingFor: String, ownEmail: String): List<User>
+    fun searchByNameContainingIgnoreCase(name: String): List<User>
 
     fun existsByName(name: String): Boolean
 

@@ -9,10 +9,13 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TopFiveCastOfMovieViewRepository : JpaRepository<TopFiveCastOfMovieViewEntity, Long> {
     @Query(
-        "SELECT c FROM TopFiveCastViewEntity c " +
-                "JOIN user_watched_movie AS uwm ON c.id = uwm.cast_id " +
+        "SELECT c.id, c.role, c.name, c.image_url, c.movie_count " +
+                "FROM top_five_cast_of_movie_view c " +
+                "JOIN user_watched_movie AS uwm ON c.id = uwm.movie_id " +
                 "WHERE uwm.movie_id = :movieId " +
-                "ORDER BY c.movieCount DESC"
-    , nativeQuery = true)
+                "ORDER BY c.movie_count DESC"
+        , nativeQuery = true)
     fun getTopFiveCastForMovie(@Param("movieId") movieId: Long): List<TopFiveCastOfMovieViewEntity>
+
+    fun getTopFiveCastOfMovieViewEntitiesByMovieId(movieId: Long): List<TopFiveCastOfMovieViewEntity>
 }
