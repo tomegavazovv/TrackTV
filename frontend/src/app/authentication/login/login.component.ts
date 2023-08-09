@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {ErrorDialogComponent} from "../../core/error-dialog/error-dialog.component";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent {
     constructor(
         private authService: AuthService,
         private dialogRef: MatDialogRef<LoginComponent>,
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog
     ) {
     }
 
@@ -39,8 +41,11 @@ export class LoginComponent {
                     });
                 }
             },
-            error: (error) => {
-                console.error('Login failed:', error);
+            error: error => {
+                this.dialog.open(ErrorDialogComponent, {
+                    width: '400px',
+                    data: { errorMessage: error.error }
+                })
             }
         });
     }

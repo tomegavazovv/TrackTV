@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
-import {HomePageComponent} from "./pages/home-page/home-page.component";
-import {RegisterComponent} from "./pages/register/register.component";
-import {TvShowDetailsComponent} from "./tvshow-details/tv-show-details.component";
-import {FriendsComponent} from "./friends/friends.component";
+import {HomePageComponent} from "./home/home-page/home-page.component";
+import {RegisterComponent} from "./authentication/register/register.component";
+import {TvShowDetailsComponent} from "./tv-shows/tvshow-details/tv-show-details.component";
+import {FriendsComponent} from "./friends/friends/friends.component";
+import {MovieDetailsComponent} from "./movies/movie-details/movie-details.component";
 
 const routes: Routes = [
     {
@@ -22,6 +23,10 @@ const routes: Routes = [
     {
         path: 'show/:id',
         component: TvShowDetailsComponent
+    },
+    {
+        path: 'movie/:id',
+        component: MovieDetailsComponent
     },
     {
         path: 'friends',

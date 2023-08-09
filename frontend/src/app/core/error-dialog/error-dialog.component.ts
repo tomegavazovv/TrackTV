@@ -10,7 +10,11 @@ export class ErrorDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ErrorDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { errorMessage: string }
-    ) {}
+    ) {
+        setTimeout(() => {
+            this.closeDialog();
+        }, 2000);
+    }
 
     closeDialog(): void {
         this.dialogRef.close();

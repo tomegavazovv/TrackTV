@@ -4,7 +4,7 @@
             <input matInput type="text" [formControl]="searchForm" placeholder="Log a movie!">
         </mat-form-field>
         <mat-nav-list *ngIf="searchResults.length > 0 && searchForm.value.trim() !== ''" class="custom-width">
-            <mat-list-item *ngFor="let movie of searchResults" (click)="showMovieDetails(movie)">
+            <mat-list-item *ngFor="let movie of searchResults" [routerLink]="['/movie', movie.id]">
                 {{ movie.title }}
             </mat-list-item>
         </mat-nav-list>
@@ -19,6 +19,6 @@
                 </div>
             </mat-list-item>
         </mat-nav-list>
-        <p *ngIf="watchedShows.length === 0" class="no-friends-message">You havent't watched anything recently.</p>
+        <p *ngIf="watchedShows.length === 0" class="no-friends-message">You haven't watched anything recently.</p>
     </div>
 </div>

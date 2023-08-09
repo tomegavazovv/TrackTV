@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {LoginComponent} from "../pages/login/login.component";
-import {Movie} from "../interfaces/movie";
-import {Cast} from "../interfaces/cast";
-import {CastService} from "../services/cast.service";
-import {MovieTvService} from "../services/movie-tv.service";
+import {LoginComponent} from "../../authentication/login/login.component";
+import {Movie} from "../../interfaces/movie";
+import {Cast} from "../../interfaces/cast";
+import {CastService} from "../../services/cast.service";
+import {MovieTvService} from "../../services/movie-tv.service";
 
 @Component({
     selector: 'app-log-movie',
@@ -39,8 +39,7 @@ export class LogMovieComponent implements OnInit {
 
     logMovie(): void {
         this.movieTvService.logMovie(this.movie, this.rating, this.review, this.favoriteCast).subscribe({
-            next: () => {
-            },
+            next: () => {},
             error: (error) => {
                 console.error('Error logging the movie:', error);
             }

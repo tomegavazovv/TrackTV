@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {FriendsService} from "../services/friends.service";
+import {FriendsService} from "../../services/friends.service";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs";
-import {User} from "../interfaces/user";
+import {User} from "../../interfaces/user";
 import {MatDialog} from "@angular/material/dialog";
-import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
+import {ErrorDialogComponent} from "../../core/error-dialog/error-dialog.component";
 
 @Component({
   selector: 'app-search-users',

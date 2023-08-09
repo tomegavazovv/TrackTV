@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {User} from "../interfaces/user";
-import {FriendsService} from "../services/friends.service";
+import {User} from "../../interfaces/user";
+import {FriendsService} from "../../services/friends.service";
 import {map, tap} from "rxjs";
 
 @Component({

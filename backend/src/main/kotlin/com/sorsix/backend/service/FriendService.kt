@@ -10,4 +10,6 @@ interface FriendService {
     fun addFriend(fromId: Long, toId: Long) : FriendRequest
 
     fun removeFriend(userId: Long, friendId: Long)
+
+    fun getCleanUsers(searchingFor: String, userSearchingId: Long): List<User>
 }

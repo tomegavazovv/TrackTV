@@ -48,5 +48,28 @@ class FriendServiceImpl(
         }
     }
 
+    override fun getCleanUsers(searchingFor: String, userSearchingId: Long): List<User> {
+        val user = userRepository.findById(userSearchingId).get()
+        val users = userRepository.findAllByNameContainingAndEmailNot(searchingFor, user.email)
+        val requests = friendRequestRepository.findFriendRequestsBySenderIdOrReceiverId(user, user).map { friendRequest ->
+            if (friendRequest.senderId.id == user.id) {
+                friendRequest.receiverId
+            } else {
+                friendRequest.senderId
+            }
+        }
+        val friends = friendRepository.findAllById(user.id!!).map { friend ->
+            if (friend.user.id == user.id!!) {
+                friend.friend
+            } else {
+                friend.user
+            }
+        }
+        val filteredUsers = users.filter {
+            !friends.contains(it) && !requests.contains(it)
+        }
+        return filteredUsers
+    }
+
 
 }

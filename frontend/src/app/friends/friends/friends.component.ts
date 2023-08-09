@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {User} from "../interfaces/user";
-import {FriendsService} from "../services/friends.service";
+import {User} from "../../interfaces/user";
+import {FriendsService} from "../../services/friends.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SearchUsersComponent} from "../search-users/search-users.component";
 import {FriendRequestsComponent} from "../friend-requests/friend-requests.component";

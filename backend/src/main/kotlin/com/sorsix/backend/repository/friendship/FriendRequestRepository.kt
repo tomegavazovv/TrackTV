@@ -24,4 +24,10 @@ interface FriendRequestRepository : JpaRepository<FriendRequest, Long> {
     ): FriendRequest?
 
     fun findFriendRequestsByReceiverId(user: User): List<FriendRequest>
+
+    @Query(
+        "SELECT fr FROM FriendRequest fr WHERE fr.senderId = :senderId " +
+                "OR fr.receiverId = :receiverId "
+    )
+    fun findFriendRequestsBySenderIdOrReceiverId(@Param("senderId") senderId: User, @Param("receiverId") receiverId: User): List<FriendRequest>
 }

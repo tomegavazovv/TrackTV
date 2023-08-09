@@ -25,6 +25,6 @@ class TopFiveCastOfMovieViewEntity(
     @Column(name = "image_url")
     val imageUrl: String,
 
-    @Column(name = "movie_count")
+    @Column(name = "favorite_count")
     val movieCount: Long
 )

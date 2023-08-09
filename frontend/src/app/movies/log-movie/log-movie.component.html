@@ -12,7 +12,7 @@
         <button mat-button [matMenuTriggerFor]="favoriteCastMenu">Favorite Cast</button>
         <mat-menu #favoriteCastMenu="matMenu">
             <ng-container *ngFor="let castMember of cast">
-                <button mat-menu-item>{{ castMember }}</button>
+                <button mat-menu-item>{{ castMember.name }}</button>
             </ng-container>
         </mat-menu>
     </div>

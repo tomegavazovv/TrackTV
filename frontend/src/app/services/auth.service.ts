@@ -16,6 +16,10 @@ export class AuthService {
         return !!jwtToken;
     }
 
+    getAuthToken(): string {
+        return localStorage.getItem('jwtToken') || '';
+    }
+
     login(email: String, password: String): Observable<any> {
         const loginData = {
             email: email,

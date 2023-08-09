@@ -12,38 +12,33 @@ export class FriendsService {
     constructor(private http: HttpClient) {
     }
 
-    private getAuthorizationHeader(): HttpHeaders {
-        return new HttpHeaders({
-            'Authorization': `${localStorage.getItem('jwtToken')}`
-        });
-    }
 
     getFriends(): Observable<User[]> {
-        return this.http.get<User[]>('/api/friends', {headers: this.getAuthorizationHeader()});
+        return this.http.get<User[]>('/api/friends');
     }
 
     getRequests(): Observable<FriendRequest[]> {
-        return this.http.get<FriendRequest[]>(`/api/friendRequests`, {headers: this.getAuthorizationHeader()});
+        return this.http.get<FriendRequest[]>(`/api/friendRequests`);
     }
 
     removeFriend(friendId: number): Observable<any> {
-        return this.http.delete<any>(`/api/removeFriend/${friendId}`, {headers: this.getAuthorizationHeader()});
+        return this.http.delete<any>(`/api/removeFriend/${friendId}`);
     }
 
     searchUsers(searchTerm: string): Observable<User[]> {
-        return this.http.get<User[]>(`/api/searchUsers?username=${searchTerm}`, {headers: this.getAuthorizationHeader()});
+        return this.http.get<User[]>(`/api/searchUsersClean?username=${searchTerm}`);
     }
 
     sendFriendRequest(friendId: number): Observable<any> {
-        return this.http.post<any>(`/api/addFriend/${friendId}`, {}, {headers: this.getAuthorizationHeader()});
+        return this.http.post<any>(`/api/addFriend/${friendId}`, {});
     }
 
     acceptRequest(requestId: number): Observable<any> {
-        return this.http.post<any>(`/api/acceptRequest/${requestId}`, {}, {headers: this.getAuthorizationHeader()});
+        return this.http.post<any>(`/api/acceptRequest/${requestId}`, {});
     }
 
     declineRequest(requestId: number): Observable<any> {
-        return this.http.post<any>(`/api/declineRequest/${requestId}`, {}, {headers: this.getAuthorizationHeader()}).pipe(
+        return this.http.post<any>(`/api/declineRequest/${requestId}`, {},).pipe(
             catchError((error: HttpErrorResponse) => {
                 return throwError(error.error.error);
             }));

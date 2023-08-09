@@ -24,4 +24,6 @@ interface FriendRepository : JpaRepository<Friend, Long> {
                 "OR (f.user.id = :friendId AND f.friend.id = :userId)"
     )
     fun deleteFriend(@Param("userId") userId: Long, @Param("friendId") friendId: Long): Int
+
+    fun findAllById(id: Long): List<Friend>
 }

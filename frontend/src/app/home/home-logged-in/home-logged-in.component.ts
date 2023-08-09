@@ -5,7 +5,7 @@ import {MovieTvService} from "../../services/movie-tv.service";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
-import {LogMovieComponent} from "../../log-movie/log-movie.component";
+import {LogMovieComponent} from "../../movies/log-movie/log-movie.component";
 
 @Component({
     selector: 'app-home-logged-in',
@@ -20,7 +20,8 @@ export class HomeLoggedInComponent implements OnInit {
 
     constructor(
         private movieTvService: MovieTvService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog
+    ) {
     }
 
 
