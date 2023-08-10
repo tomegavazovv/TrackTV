@@ -1,0 +1,61 @@
+#coverImg {
+    width: 220px;
+    height: 300px;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+.container {
+    background-color: rgb(245, 242, 242);
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.title {
+    text-align: center;
+}
+
+.favCast {
+    background-color: gainsboro;
+    text-align: center;
+    margin-left: -1px;
+}
+
+img {
+    width: 80px;
+    height: 80px;
+}
+
+.favCast img {
+    width: 150px;
+    height: 180px;
+}
+
+.favCast p {
+    font-size: 12px;
+}
+
+.favCast h2 {
+    margin-top: 5px;
+    text-align: left;
+}
+
+.image-and-table {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Add this line to align items to the start */
+    padding-left: 0px;
+}
+table {
+    margin: 10px 20px 0px 20px;
+    border-collapse: collapse;
+}
+
+.table {
+    font-size: 0.9em;
+}
+
+table td,
+table th {
+    padding: 4px;
+}

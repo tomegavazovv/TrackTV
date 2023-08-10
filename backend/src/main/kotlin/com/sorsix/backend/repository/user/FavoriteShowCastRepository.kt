@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository
 interface FavoriteShowCastRepository : JpaRepository<FavoriteShowCast, Long>{
     fun findByUserWatchShow(userWatchedShow: UserWatchShow): FavoriteShowCast?
 
+    fun findByUserWatchShow_UserIdAndUserWatchShow_ShowId(userId: Long, showId: Long): FavoriteShowCast?
+
     @Query(
         "SELECT c.id, c.role, c.name, c.image_url, count(uws.show_id) as show_count" +
                 "FROM user_favorite_show_cast AS fs " +

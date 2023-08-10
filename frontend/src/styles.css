@@ -1,10 +1,11 @@
-html, body {
+html,
+body {
     height: 100%;
 }
 
 body {
-    background-color: #E9F1FA;
-    margin: 0 300px;
+    background-color: #e9f1fa;
+    width: 70%;
+    margin: auto;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-

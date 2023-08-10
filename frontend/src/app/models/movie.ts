@@ -1,6 +1,9 @@
 export interface Movie {
-    id: number,
-    title: string,
-    imageUrl: string,
-    popularity: number,
+    data: {
+        id: number;
+        title: string;
+        imageUrl: string;
+        popularity: number;
+    };
+    watched: boolean;
 }
