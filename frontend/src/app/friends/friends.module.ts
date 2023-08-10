@@ -8,6 +8,7 @@ import {SearchUsersComponent} from "./search-users/search-users.component";
 import {MatListModule} from "@angular/material/list";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
         MatButtonModule,
         MatIconModule,
         MatListModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatInputModule
     ]
 })
 export class FriendsModule { }
