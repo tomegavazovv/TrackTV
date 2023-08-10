@@ -9,12 +9,12 @@ data class Movie(
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     val id: Int = 0,
 
-    val title: String,
+    val title: String = "",
 
     @Column(name = "image_url")
-    val imageUrl: String,
+    val imageUrl: String = "",
 
-    val popularity: Int
+    val popularity: Int = 0
 
 //    ???
 //    @OneToMany(mappedBy = "movie")

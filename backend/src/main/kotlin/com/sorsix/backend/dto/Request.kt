@@ -45,8 +45,10 @@ data class RateEpisodeDto(
     @get: Max(10, message = "Rating value must be between 1 and 10.")
     @get: Min(1, message = "Rating value must be between 1 and 10.")
     val rating: Int,
+)
 
-    @get: Size(max=400, message = "Comment length must be less than 400 characters.")
-    val comment: String?
+data class CommentShowDto(
+    val showId: Long,
+    val comment: String
 )
 

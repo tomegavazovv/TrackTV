@@ -10,6 +10,8 @@ interface WatchMovieRepository : JpaRepository<WatchedMovie, Long>{
 
     fun findByUserIdAndMovieId(userId: Long, movieId: Long): List<WatchedMovie>?
 
+    fun deleteByUserIdAndMovieId(userId: Long, movieId: Long): Number
+
     fun findAllByUserId(userId: Long): List<WatchedMovie>
 
     @Query("select * from user_watched_movie where user_id=:userId order by date desc limit 5", nativeQuery = true)

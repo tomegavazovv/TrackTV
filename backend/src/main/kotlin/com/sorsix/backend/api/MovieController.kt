@@ -3,6 +3,7 @@ package com.sorsix.backend.api
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.domain.movie.Movie
 import com.sorsix.backend.dto.AddFavoriteCastDto
+import com.sorsix.backend.dto.MovieDto
 import com.sorsix.backend.dto.RateMovieDto
 import com.sorsix.backend.service.*
 import org.springframework.http.ResponseEntity
@@ -45,6 +46,12 @@ class MovieController(
         return ResponseEntity.ok(favoriteCastService.getTopFiveCastsOfMovie(movieId))
     }
 
+    @PostMapping("/unwatch/{movieId}")
+    fun unwatchMovie(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable movieId: Long): ResponseEntity<*>{
+        watchService.unwatchMovie(principal.userId, movieId)
+        return ResponseEntity.ok("Movie with $movieId was successfully marked as unwatched")
+    }
+
     @PostMapping("/rate")
     fun rateMovie(@Validated @RequestBody body: RateMovieDto,
                   @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<*>{
@@ -84,6 +91,16 @@ class MovieController(
     @GetMapping("/search")
     fun searchByTitle(@RequestParam("title") title: String): ResponseEntity<List<Movie>>{
         return ResponseEntity.ok(movieService.searchByTitle(title))
+    }
+
+    @GetMapping("/{movieId}")
+    fun getMovie(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable movieId: Long): ResponseEntity<MovieDto>{
+        return ResponseEntity.ok(movieService.findById(principal.userId, movieId))
+    }
+
+    @GetMapping("/cast/{movieId}")
+    fun getCastOfMovie(@PathVariable movieId: Long): ResponseEntity<*> {
+        return ResponseEntity.ok(movieService.getCast(movieId))
     }
 
     // getSuggestedMoviesByFriend - from, to, movieId

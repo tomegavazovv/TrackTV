@@ -1,9 +1,29 @@
 package com.sorsix.backend.dto
 
-import org.springframework.web.server.ResponseStatusException
-
-class ApiException(code: Int, message: String) : ResponseStatusException(code, message, null)
+import com.sorsix.backend.domain.movie.Movie
+import com.sorsix.backend.domain.show.Episode
 
 data class LoginResponseDto(
     val token: String,
 )
+
+data class ShowCommentDto(
+    val user: String,
+    val comment: String,
+)
+
+data class EpisodeDto(
+    val episode: Episode,
+    var watched: Boolean
+)
+
+data class MovieRatingDto(
+    val rating: Number,
+    val comment: String?,
+    val user: String
+)
+
+data class MovieDto(
+    val data: Movie,
+    val watched: Boolean
+    )
