@@ -1,3 +1,13 @@
+/*@import '@fortawesome/fontawesome-free';*/
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #E9F1FA;
+    margin: 0;
+
+    font-family: Menlo, Monaco, Consolas, quot, sans-serif;
+}

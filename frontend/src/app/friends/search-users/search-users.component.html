@@ -1,0 +1,10 @@
+<div class="container">
+    <mat-form-field class="search-input custom-width">
+        <input matInput type="text" [formControl]="searchForm" placeholder="Search a user!">
+    </mat-form-field>
+    <mat-nav-list *ngIf="users.length > 0 && searchForm.value.trim() !== ''" class="custom-width">
+        <mat-list-item *ngFor="let user of users" (click)="sendFriendRequest(user)">
+            {{ user.name }}
+        </mat-list-item>
+    </mat-nav-list>
+</div>

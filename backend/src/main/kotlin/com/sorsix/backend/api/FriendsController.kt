@@ -3,6 +3,8 @@ package com.sorsix.backend.api
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
+import com.sorsix.backend.repository.friendship.FriendRepository
+import com.sorsix.backend.repository.friendship.FriendRequestRepository
 import com.sorsix.backend.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,7 +24,9 @@ class FriendsController(
     val friendRequestService: FriendRequestService,
     val userRepository: UserRepository,
     val suggestMovieService: SuggestMovieService,
-    val suggestShowService: SuggestShowService
+    val suggestShowService: SuggestShowService,
+    val friendRequestRepository: FriendRequestRepository,
+    val friendRepository: FriendRepository
 ) {
     @GetMapping("/friends")
     fun getFriends(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
@@ -94,8 +98,14 @@ class FriendsController(
     }
 
     @GetMapping("/searchUsers")
-    fun searchUsers(@RequestParam username: String): ResponseEntity<Any> {
-        val users = userRepository.findByName(username)
+    fun searchUsers(@RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+        val users = userRepository.findAllByNameContainingAndEmailNot(username, principal.name)
+        return ResponseEntity.ok(users)
+    }
+
+    @GetMapping("/searchUsersClean")
+    fun searchUsersClean(@RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+        val users = friendService.getCleanUsers(username, principal.userId)
         return ResponseEntity.ok(users)
     }
 

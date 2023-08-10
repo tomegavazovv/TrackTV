@@ -1,0 +1,40 @@
+.friend-list-container {
+    padding: 0 20%;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 10%;
+}
+
+.title-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.friend-list {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+}
+
+.no-friends-message {
+    text-align: center;
+    color: gray;
+}

@@ -14,7 +14,7 @@ data class RateMovie(
     val watchedMovie: WatchedMovie,
 
     @Column(name = "rating", nullable = false)
-    val rating: Int,
+    var rating: Int,
 
-    val comment: String? = ""
+    var comment: String? = ""
 )

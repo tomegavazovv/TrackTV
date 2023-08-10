@@ -1,0 +1,34 @@
+#tvshows {
+    background-color: #E9F1FA;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tvshow-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.tvshow-item {
+    text-align: center;
+    max-width: 220px;
+    flex: 1;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.tvshow-item img {
+    width: 80%;
+}
+
+.tvshow-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+}

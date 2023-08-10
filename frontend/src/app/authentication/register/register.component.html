@@ -1,0 +1,33 @@
+<div class="register">
+    <form (submit)="signUp()" [formGroup]="signUpForm">
+        <div class="input-group">
+            <mat-form-field>
+                <input matInput placeholder="Username" type="text" formControlName="username" required>
+            </mat-form-field>
+        </div>
+
+        <div class="input-group">
+            <mat-form-field>
+                <input matInput placeholder="Email" type="text" formControlName="email" required>
+            </mat-form-field>
+        </div>
+
+        <div class="input-group">
+            <mat-form-field>
+                <input matInput placeholder="Password" type="password" formControlName="password" required>
+            </mat-form-field>
+        </div>
+
+        <div class="input-group">
+            <mat-form-field>
+                <input matInput placeholder="Confirm Password" type="password" formControlName="c_password" required>
+            </mat-form-field>
+            <div *ngIf="showPasswordMismatchError" class="text-danger">Passwords do not match.</div>
+        </div>
+
+        <div class="button-group">
+            <button mat-raised-button type="submit" [disabled]="!signUpForm.valid">Register</button>
+            <button mat-button routerLink="/home">Home</button>
+        </div>
+    </form>
+</div>

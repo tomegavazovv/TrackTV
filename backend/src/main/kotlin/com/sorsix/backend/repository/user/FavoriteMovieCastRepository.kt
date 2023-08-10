@@ -2,6 +2,7 @@ package com.sorsix.backend.repository.user
 
 import com.sorsix.backend.domain.TopFiveCastProjection
 import com.sorsix.backend.domain.user.FavoriteMovieCast
+import com.sorsix.backend.domain.user.FavoriteShowCast
 import com.sorsix.backend.domain.user.WatchedMovie
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository
 @Repository
 interface FavoriteMovieCastRepository : JpaRepository<FavoriteMovieCast, Long> {
     fun findByWatchedMovie(watchedMovie: WatchedMovie): FavoriteMovieCast?
+
+    fun findByWatchedMovieUserIdAndWatchedMovieMovieId(userId: Long, movieId: Long): FavoriteMovieCast?
 
     @Query(
         "SELECT c.id, c.role, c.name, c.image_url, COUNT(uwm.movie_id) AS movie_count " +

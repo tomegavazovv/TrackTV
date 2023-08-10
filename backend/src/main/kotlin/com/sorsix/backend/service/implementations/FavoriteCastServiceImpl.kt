@@ -30,39 +30,43 @@ class FavoriteCastServiceImpl(
     val topFiveCastOfMovieViewRepository: TopFiveCastOfMovieViewRepository,
     val topFiveCastOfShowViewRepository: TopFiveCastOfShowViewRepository
 ) : FavoriteCastService {
-    override fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): FavoriteMovieCast {
+    override fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): Cast? {
         val uwm = watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
-
         val cast: Cast = castRepository.findByIdOrNull(castId) ?: throw CastNotFoundException(castId)
 
-        val favoriteMovieCast = FavoriteMovieCast(watchedMovie = uwm, cast = cast)
-        return favoriteMovieCastRepository.save(favoriteMovieCast)
+        val favMovieCast = favoriteMovieCastRepository.findByWatchedMovieUserIdAndWatchedMovieMovieId(userId, movieId)?.let {
+            FavoriteMovieCast(it.id, uwm, cast)
+        } ?: FavoriteMovieCast(watchedMovie = uwm, cast = cast)
+
+        return favoriteMovieCastRepository.save(favMovieCast).cast
     }
 
-    override fun getFavoriteCastOfMovieByUser(userId: Long, movieId: Long): FavoriteMovieCast {
+    override fun getFavoriteCastOfMovieByUser(userId: Long, movieId: Long): Cast? {
         val uwm = watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
-
-        return favoriteMovieCastRepository.findByWatchedMovie(uwm) ?: throw FavoriteCastNotFoundException()
+        return favoriteMovieCastRepository.findByWatchedMovie(uwm)?.cast ?: throw FavoriteCastNotFoundException()
     }
 
     override fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastOfMovieViewEntity> =
-        topFiveCastOfMovieViewRepository.getTopFiveCastForMovie(movieId)
+        topFiveCastOfMovieViewRepository.getTopFiveCastOfMovieViewEntitiesByMovieId(movieId)
 
-
-    override fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): FavoriteShowCast {
+    override fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): Cast {
         val watchedShow =
             watchShowRepository.findByUserIdAndShowId(userId, showId) ?: throw WatchedShowNotFoundException()
-
         val cast = castRepository.findByIdOrNull(castId) ?: throw CastNotFoundException(castId)
 
-        return favoriteShowCastRepository.save(FavoriteShowCast(userWatchShow = watchedShow, cast = cast))
+        val favShowCast = favoriteShowCastRepository.findByUserWatchShow_UserIdAndUserWatchShow_ShowId(userId, showId)?.let {
+            FavoriteShowCast(it.id, watchedShow, cast)
+        } ?: FavoriteShowCast(userWatchShow = watchedShow, cast = cast)
+
+        return favoriteShowCastRepository.save(favShowCast).cast
+
     }
 
-    override fun getFavoriteCastOfTvShowByUser(userId: Long, showId: Long): FavoriteShowCast {
+    override fun getFavoriteCastOfTvShowByUser(userId: Long, showId: Long): Cast? {
         val watchedShow =
             watchShowRepository.findByUserIdAndShowId(userId, showId) ?: throw WatchedShowNotFoundException()
 
-        return favoriteShowCastRepository.findByUserWatchShow(watchedShow) ?: throw FavoriteCastNotFoundException()
+        return favoriteShowCastRepository.findByUserWatchShow(watchedShow)?.cast ?: throw FavoriteCastNotFoundException()
     }
 
     override fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastOfShowViewEntity> =

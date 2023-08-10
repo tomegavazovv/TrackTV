@@ -1,0 +1,43 @@
+<div *ngIf="movie">
+    <div class="title">
+        <h2>{{ movie.data.title }}</h2>
+        <button
+            (click)="onWatchButtonClick()"
+            [class]="movie.watched ? 'btn btn-secondary' : 'btn btn-primary'"
+        >
+            <p *ngIf="movie.watched">Mark as Unwatched</p>
+            <p *ngIf="!movie.watched">Mark as Watched</p>
+        </button>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="card col-10">
+                <img id="coverImg" src="{{ movie.data.imageUrl }}" />
+
+                <h3>Cast:</h3>
+                <app-cast-list />
+                <hr />
+
+                <h3>Comments</h3>
+                <app-comments />
+            </div>
+
+            <div class="favCast col-2">
+                <div *ngIf="favoriteCast">
+                    Your vote for favorite cast:
+                    <img src="{{ favoriteCast.imageUrl }}" />
+                    <p>Name: {{ favoriteCast.name }}</p>
+                    <p>Role: {{ favoriteCast.role }}</p>
+                </div>
+                <p>Favorite Characters:</p>
+
+                <img src="{{ movie.data.imageUrl }}" />
+                <p>Ricky The Man</p>
+                <img src="{{ movie.data.imageUrl }}" />
+                <p>Ricky The Man</p>
+                <img src="{{ movie.data.imageUrl }}" />
+                <p>Ricky The Man</p>
+            </div>
+        </div>
+    </div>
+</div>

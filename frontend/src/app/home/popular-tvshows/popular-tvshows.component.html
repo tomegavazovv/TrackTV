@@ -1,0 +1,13 @@
+<mat-card id="tvshows">
+    <mat-card-title>Popular Tv Shows</mat-card-title>
+    <mat-card-content>
+        <ul class="tvshow-list">
+            <li *ngFor="let tvshow of popularTvShows.slice(0, 5)">
+                <div class="tvshow-item">
+                    <img [src]="tvshow.image_url" alt="{{ tvshow.title }} Image"/>
+                    <p class="tvshow-title">{{ tvshow.title }}</p>
+                </div>
+            </li>
+        </ul>
+    </mat-card-content>
+</mat-card>

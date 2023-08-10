@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="search-movie-container">
+        <mat-form-field class="search-input custom-width">
+            <input matInput type="text" [formControl]="searchForm" placeholder="Log a movie!">
+        </mat-form-field>
+        <mat-nav-list *ngIf="searchResults.length > 0 && searchForm.value.trim() !== ''" class="custom-width">
+            <mat-list-item *ngFor="let movie of searchResults" [routerLink]="['/movie', movie.data.id]">
+                {{ movie.data.title }}
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+
+    <div class="search-tvshow-container">
+        <h1>Recently watched shows:</h1>
+        <mat-nav-list class="show-list custom-width">
+            <mat-list-item *ngFor="let show of watchedShows.slice(0, 5)" [routerLink]="['/show', show.imdb_id]">
+                <div class="tvshow-item">
+                    <p class="tvshow-title">{{ show.title }}</p>
+                </div>
+            </mat-list-item>
+        </mat-nav-list>
+        <p *ngIf="watchedShows.length === 0" class="no-friends-message">You haven't watched anything recently.</p>
+    </div>
+</div>

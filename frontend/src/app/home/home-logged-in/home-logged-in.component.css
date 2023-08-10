@@ -1,0 +1,22 @@
+.container {
+    padding: 0 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.search-movie-container,
+.search-tvshow-container {
+    padding-top: 20px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-width {
+    width: 75%;
+}
+
+ul li {
+    list-style: none;
+}

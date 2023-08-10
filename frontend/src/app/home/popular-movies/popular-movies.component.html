@@ -1,0 +1,16 @@
+<mat-card id="movies">
+    <mat-card-title>Popular Movies</mat-card-title>
+    <mat-card-content>
+        <ul class="movie-list">
+            <li *ngFor="let movie of popularMovies.slice(0, 5)">
+                <div class="movie-item">
+                    <p class="movie-title">{{ movie.data.title }}</p>
+                    <img
+                        [src]="movie.data.imageUrl"
+                        alt="{{ movie.data.title }} Image"
+                    />
+                </div>
+            </li>
+        </ul>
+    </mat-card-content>
+</mat-card>

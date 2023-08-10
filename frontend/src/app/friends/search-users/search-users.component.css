@@ -1,0 +1,17 @@
+.container {
+    padding: 5% 5%;
+}
+
+.search-movie-container,
+.search-tvshow-container {
+    padding-top: 20px;
+    width: 50%;
+}
+
+.custom-width {
+    width: 100%;
+}
+
+ul li {
+    list-style: none;
+}

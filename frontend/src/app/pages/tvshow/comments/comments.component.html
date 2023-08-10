@@ -1,0 +1,12 @@
+<textarea
+    placeholder="Enter your comment here"
+    [(ngModel)]="comment"
+></textarea>
+<button class="btn btn-warning" (click)="onPostComment()">POST</button>
+
+<div *ngFor="let comment of comments">
+    User: {{ comment.user }}
+    <br />
+    Comment: {{ comment.comment }}
+    <hr />
+</div>

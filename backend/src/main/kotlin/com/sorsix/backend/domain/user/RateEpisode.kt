@@ -16,5 +16,4 @@ data class RateEpisode(
     @Column(name = "rating", nullable = false)
     val rating: Int ,
 
-    val comment: String? = ""
 )

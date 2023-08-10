@@ -13,6 +13,9 @@ class TopFiveCastOfShowViewEntity(
     @Id
     val id: Long,
 
+    @Column(name = "show_id")
+    val showId: Long,
+
     @Column
     val role: String,
 

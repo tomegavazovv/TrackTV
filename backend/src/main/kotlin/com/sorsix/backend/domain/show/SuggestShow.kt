@@ -8,7 +8,7 @@ import jakarta.persistence.*
 data class SuggestShow (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val Id: Long = 0L,
+    val id: Long = 0L,
 
     @ManyToOne
     @JoinColumn(name = "suggested_from_user_id")
