@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Movie} from "../../interfaces/movie";
-import {TvShow} from "../../interfaces/tvshow";
+import {TvShow} from "../../interfaces/TvShow";
 import {MovieTvService} from "../../services/movie-tv.service";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs";
 import {FormControl} from "@angular/forms";

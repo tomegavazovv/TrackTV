@@ -4,7 +4,7 @@
         <ul class="tvshow-list">
             <li *ngFor="let tvshow of popularTvShows.slice(0, 5)">
                 <div class="tvshow-item">
-                    <img [src]="tvshow.imageUrl" alt="{{ tvshow.title }} Image"/>
+                    <img [src]="tvshow.image_url" alt="{{ tvshow.title }} Image"/>
                     <p class="tvshow-title">{{ tvshow.title }}</p>
                 </div>
             </li>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TvShow } from 'src/app/interfaces/TvShow';
 import { TvshowServiceService } from './tvshow-service.service';
 
-import { Cast } from 'src/app/interfaces/Cast';
+import { Cast } from 'src/app/interfaces/cast';
 import { CastService } from '../cast.service';
 import { CommentsService } from '../comments.service';
 

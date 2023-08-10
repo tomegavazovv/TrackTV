@@ -1,14 +1,8 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
 import {HomePageComponent} from "./home/home-page/home-page.component";
-import {RegisterComponent} from "./authentication/register/register.component";
-import {TvShowDetailsComponent} from "./tv-shows/tvshow-details/tv-show-details.component";
 import {FriendsComponent} from "./friends/friends/friends.component";
-import {MovieDetailsComponent} from "./movies/movie-details/movie-details.component";
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent} from "./authentication/register/register.component";
 import { TvshowComponent } from './pages/tvshow/tvshow.component';
 import { MovieComponent } from './pages/movie/movie.component';
 
@@ -42,7 +36,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [],
-    imports: [RouterModule.forChild(routes), RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

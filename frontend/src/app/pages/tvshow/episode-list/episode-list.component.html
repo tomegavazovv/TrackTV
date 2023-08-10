@@ -1,0 +1,29 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Episode No.</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let episode of episodes">
+            <td>{{ episode.episode.num }}</td>
+            <td>{{ episode.episode.title }}</td>
+            <td>
+                <button
+                    (click)="
+                        onClickEpisode(episode.episode.id, episode.watched)
+                    "
+                    [ngClass]="
+                        episode.watched
+                            ? 'btn btn-secondary'
+                            : 'btn btn-primary'
+                    "
+                >
+                    <span *ngIf="episode.watched"> Mark as not watched </span>
+                    <span *ngIf="!episode.watched"> Mark as watched </span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

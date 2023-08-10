@@ -52,7 +52,7 @@ export class LogMovieComponent implements OnInit {
     }
 
     getMovieCast(): void {
-        this.castService.getMovieCast(this.movie.id).subscribe({
+        this.castService.getMovieCast(this.movie.data.id).subscribe({
                 next: (data: Cast[]) => {
                     this.cast = data;
                     console.log(data)

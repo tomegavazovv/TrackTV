@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Movie} from "../interfaces/movie";
-import {TvShow} from "../interfaces/tvshow";
+import {TvShow} from "../interfaces/TvShow";
 import {map, Observable, of, switchMap} from "rxjs";
 import {Cast} from "../interfaces/cast";
 
@@ -32,12 +32,12 @@ export class MovieTvService {
     logMovie(movie: Movie, rating: Number, review: String, favoriteCast: Cast): Observable<any[]> {
         const headers = this.getAuthorizationHeader();
 
-        const watchedRequest = this.http.post<any[]>(`/api/movies/addWatched/${movie.id}`, {}, {headers});
+        const watchedRequest = this.http.post<any[]>(`/api/movies/addWatched/${movie.data.id}`, {}, {headers});
 
         return watchedRequest.pipe(
             switchMap((watchedResponse: any) => {
                 const rateBody = {
-                    movieId: movie.id,
+                    movieId: movie.data.id,
                     rating: rating,
                     comment: review,
                 };
@@ -47,7 +47,7 @@ export class MovieTvService {
                 return rateRequest.pipe(
                     switchMap((rateResponse: any) => {
                         const castBody = {
-                            id: movie.id,
+                            id: movie.data.id,
                             castId: favoriteCast.id,
                         };
 

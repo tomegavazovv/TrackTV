@@ -1,24 +1,18 @@
-<div *ngIf="tvShow">
+<div *ngIf="movie">
     <div class="title">
-        <h2>{{ tvShow.title }}</h2>
-        <!-- <button
-            [class]="
-                watchedEpisodesNumber > 0
-                    ? 'btn btn-secondary'
-                    : 'btn btn-primary'
-            "
+        <h2>{{ movie.data.title }}</h2>
+        <button
+            (click)="onWatchButtonClick()"
+            [class]="movie.watched ? 'btn btn-secondary' : 'btn btn-primary'"
         >
-            <p *ngIf="watchedEpisodesNumber > 0">Added to my shows</p>
-            <p *ngIf="watchedEpisodesNumber == 0">Add to my shows</p>
-        </button> -->
+            <p *ngIf="movie.watched">Mark as Unwatched</p>
+            <p *ngIf="!movie.watched">Mark as Watched</p>
+        </button>
     </div>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="card col-10">
-                <div class="image-and-table">
-                    <img id="coverImg" src="{{ tvShow.image_url }}" />
-                    <app-episode-list [showId]="tvShow.imdb_id" />
-                </div>
+                <img id="coverImg" src="{{ movie.data.imageUrl }}" />
 
                 <h3>Cast:</h3>
                 <app-cast-list />
@@ -37,11 +31,11 @@
                 </div>
                 <p>Favorite Characters:</p>
 
-                <img src="{{ tvShow.image_url }}" />
+                <img src="{{ movie.data.imageUrl }}" />
                 <p>Ricky The Man</p>
-                <img src="{{ tvShow.image_url }}" />
+                <img src="{{ movie.data.imageUrl }}" />
                 <p>Ricky The Man</p>
-                <img src="{{ tvShow.image_url }}" />
+                <img src="{{ movie.data.imageUrl }}" />
                 <p>Ricky The Man</p>
             </div>
         </div>
