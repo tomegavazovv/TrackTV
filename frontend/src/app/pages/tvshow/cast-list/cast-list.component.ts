@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Cast } from 'src/app/interfaces/cast';
-import { TvshowServiceService } from '../tvshow-service.service';
-import { MovieService } from '../../movie/movie.service';
+import { Cast } from 'src/app/interfaces/Cast';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CastService } from '../../cast.service';
 

@@ -27,7 +27,7 @@ class WatchServiceImpl(
     private val showRepository: ShowRepository,
     private val episodeRepository: EpisodeRepository
 ) : WatchService {
-    override fun addWatchedMovie(userId: Long, movieId: Long): WatchedMovie? {
+    override fun addWatchedMovie(userId: Long, movieId: Long): WatchedMovie {
         val user = userRepository.findById(userId).orElse(null)
         val movie = movieRepository.findByIdOrNull(movieId)
             ?: throw MovieNotFoundException(movieId)
@@ -45,7 +45,7 @@ class WatchServiceImpl(
         return watchMovieRepository.findAllByUserId(userId)
     }
 
-    override fun addWatchedTvShow(userId: Long, showId: Long): UserWatchShow? {
+    override fun addWatchedTvShow(userId: Long, showId: Long): UserWatchShow {
         val user = userRepository.findById(userId).orElse(null)
         val show = showRepository.findByIdOrNull(showId)
             ?: throw ShowNotFoundException(showId)
@@ -67,7 +67,7 @@ class WatchServiceImpl(
 
     override fun getWatchedTvShows(userId: Long): List<UserWatchShow> = watchShowRepository.findByUserId(userId)
 
-    override fun addWatchedEpisode(userId: Long, episodeId: Long): WatchedEpisode? {
+    override fun addWatchedEpisode(userId: Long, episodeId: Long): WatchedEpisode {
         val user = userRepository.findById(userId).orElse(null)
         val episode = episodeRepository.findByIdOrNull(episodeId)
             ?: throw EpisodeNotFoundException(episodeId)

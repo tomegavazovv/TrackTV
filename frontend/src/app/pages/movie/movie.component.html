@@ -2,10 +2,11 @@
     <div class="title">
         <h2>{{ movie.data.title }}</h2>
         <button
-            (click)="onWatchButtonClick()"
+            (click)="onAddToWatchedMovies()"
             [class]="movie.watched ? 'btn btn-secondary' : 'btn btn-primary'"
+            [disabled]="movie.watched"
         >
-            <p *ngIf="movie.watched">Mark as Unwatched</p>
+            <p *ngIf="movie.watched">Watched</p>
             <p *ngIf="!movie.watched">Mark as Watched</p>
         </button>
     </div>
@@ -29,14 +30,11 @@
                     <p>Name: {{ favoriteCast.name }}</p>
                     <p>Role: {{ favoriteCast.role }}</p>
                 </div>
-                <p>Favorite Characters:</p>
-
-                <img src="{{ movie.data.imageUrl }}" />
-                <p>Ricky The Man</p>
-                <img src="{{ movie.data.imageUrl }}" />
-                <p>Ricky The Man</p>
-                <img src="{{ movie.data.imageUrl }}" />
-                <p>Ricky The Man</p>
+                <p>Top Castings Voted By Users:</p>
+                <div *ngFor="let cast of topCastings">
+                    <img src="{{ cast.imageUrl }}" />
+                    <p>{{ cast.role }}</p>
+                </div>
             </div>
         </div>
     </div>

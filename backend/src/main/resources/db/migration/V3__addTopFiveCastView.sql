@@ -22,7 +22,7 @@ SELECT
             tc.image_url,
             COUNT(ufsc.id) AS favorite_count
 FROM "show_cast" sc
-         JOIN "user_favorite_show_cast" ufsc ON sc.id = ufsc.cast_id
+         JOIN "user_favorite_show_cast" ufsc ON sc.cast_id = ufsc.cast_id
          JOIN "tracktv_cast" tc ON sc.cast_id = tc.id
 GROUP BY sc.show_id, tc.role, tc.name, tc.image_url
 ORDER BY sc.show_id, favorite_count DESC

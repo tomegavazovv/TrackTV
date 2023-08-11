@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, filter } from 'rxjs';
 import { Episode } from 'src/app/interfaces/Episode';
 import { TvShow } from 'src/app/interfaces/TvShow';
-import { Cast } from 'src/app/interfaces/cast';
+import { Cast } from 'src/app/interfaces/Cast';
 import { Comment } from 'src/app/interfaces/Comment';
 
 @Injectable({

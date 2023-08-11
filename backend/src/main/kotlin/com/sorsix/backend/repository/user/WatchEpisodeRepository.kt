@@ -10,4 +10,5 @@ interface WatchEpisodeRepository : JpaRepository<WatchedEpisode, Long>{
     fun findByUserIdAndEpisodeId(userId: Long, episodeId: Long): WatchedEpisode?
 
     fun findAllByEpisode_ShowIdAndUserId(showId: Long, userId: Long): List<WatchedEpisode>
+
 }

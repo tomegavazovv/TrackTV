@@ -30,11 +30,11 @@ class RatingServiceImpl(
 
         rateMovieRepository.save(rateMovie)
 
-        return rateMovieRepository.findAllByWatchedMovieMovieId(movieId.toInt())
-            .map { MovieRatingDto(rating, comment, user.email) }
+        return rateMovieRepository.findAllByWatchedMovieMovieIdOrderByDateDesc(movieId.toInt())
+            .map { MovieRatingDto(it.rating, it.comment, it.watchedMovie.user.email) }
     }
 
-    override fun getMovieRatingByUser(userId: Long, movieId: Long): RateMovie? {
+    override fun getMovieRatingByUser(userId: Long, movieId: Long): RateMovie {
         val watchedMovie =
             watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
 
@@ -42,10 +42,10 @@ class RatingServiceImpl(
     }
 
     override fun getMovieRatings(movieId: Long): List<MovieRatingDto> =
-        rateMovieRepository.findAllByWatchedMovieMovieId(movieId.toInt())
+        rateMovieRepository.findAllByWatchedMovieMovieIdOrderByDateDesc(movieId.toInt())
             .map { MovieRatingDto(it.rating, it.comment, it.watchedMovie.user.email) }
 
-    override fun rateEpisodeOfTvShow(userId: Long, episodeId: Long, rating: Int): RateEpisode? {
+    override fun rateEpisodeOfTvShow(userId: Long, episodeId: Long, rating: Int): RateEpisode {
         val watchedEpisode = watchEpisodeRepository.findByUserIdAndEpisodeId(userId, episodeId)
             ?: throw WatchedEpisodeNotFoundException()
 
@@ -53,7 +53,7 @@ class RatingServiceImpl(
         return rateEpisodeRepository.save(rateEpisode)
     }
 
-    override fun getRatingOfTvShowEpisodeByUser(userId: Long, showId: Long): RateEpisode? {
+    override fun getRatingOfTvShowEpisodeByUser(userId: Long, showId: Long): RateEpisode {
         val watchedEpisode =
             watchEpisodeRepository.findByUserIdAndEpisodeId(userId, showId) ?: throw WatchedEpisodeNotFoundException()
 

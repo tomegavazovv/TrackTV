@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { Cast } from '../interfaces/cast';
+import { Observable, Subject } from 'rxjs';
+import { Cast } from '../interfaces/Cast';
 
 @Injectable({
     providedIn: 'root',
@@ -50,6 +50,14 @@ export class CastService {
                 },
             })
             .subscribe((castings) => this.castings.next(castings));
+    }
+
+    getTopCastOfMovie(movieId: Number): Observable<Cast[]> {
+        return this.http.get<Cast[]>('/api/movies/topCast/1');
+    }
+
+    getTopCastOfShow(showId: Number): Observable<Cast[]> {
+        return this.http.get<Cast[]>('/api/tvshows/topCast/1');
     }
 
     voteForFavoriteCastOfMovie(movieId: Number, castId: Number) {

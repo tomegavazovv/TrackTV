@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 // import { Movie } from 'src/app/models/movie';
-import {Movie} from "../../interfaces/movie";
-import { Cast } from 'src/app/interfaces/cast';
+import { Movie } from '../../interfaces/movie';
+import { Cast } from 'src/app/interfaces/Cast';
 import { Comment } from 'src/app/interfaces/Comment';
 import { ActivatedRoute } from '@angular/router';
 

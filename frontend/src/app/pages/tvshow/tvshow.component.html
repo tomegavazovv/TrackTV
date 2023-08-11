@@ -35,14 +35,11 @@
                     <p>Name: {{ favoriteCast.name }}</p>
                     <p>Role: {{ favoriteCast.role }}</p>
                 </div>
-                <p>Favorite Characters:</p>
-
-                <img src="{{ tvShow.image_url }}" />
-                <p>Ricky The Man</p>
-                <img src="{{ tvShow.image_url }}" />
-                <p>Ricky The Man</p>
-                <img src="{{ tvShow.image_url }}" />
-                <p>Ricky The Man</p>
+                <p>Top Castings Voted By Users:</p>
+                <div *ngFor="let cast of topCastings">
+                    <img src="{{ cast.imageUrl }}" />
+                    <p>{{ cast.role }}</p>
+                </div>
             </div>
         </div>
     </div>
