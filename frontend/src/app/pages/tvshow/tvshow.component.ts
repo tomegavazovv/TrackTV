@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TvShow } from 'src/app/interfaces/TvShow';
 import { TvshowServiceService } from './tvshow-service.service';
 
-import { Cast } from 'src/app/interfaces/cast';
+import { Cast } from 'src/app/interfaces/Cast';
 import { CastService } from '../cast.service';
 import { CommentsService } from '../comments.service';
 
@@ -15,6 +15,7 @@ export class TvshowComponent implements OnInit {
     tvShow: TvShow | undefined;
     favoriteCast: Cast | undefined;
     watchedEpisodesNumber = 0;
+    topCastings: Cast[] = [];
 
     constructor(
         private tvShowService: TvshowServiceService,
@@ -40,6 +41,10 @@ export class TvshowComponent implements OnInit {
                 (e) => e.watched
             ).length;
         });
+
+        this.castService
+            .getTopCastOfShow(1)
+            .subscribe((top) => (this.topCastings = top));
     }
 
     onVoteFavorite(castId: Number) {

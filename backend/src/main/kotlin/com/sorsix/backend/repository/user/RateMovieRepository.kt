@@ -11,7 +11,7 @@ interface RateMovieRepository : JpaRepository<RateMovie, Long>{
 
     fun findByWatchedMovie(watchedMovie: WatchedMovie): RateMovie?
 
-    fun findAllByWatchedMovieMovieId(movieId: Int): List<RateMovie>
+    fun findAllByWatchedMovieMovieIdOrderByDateDesc(movieId: Int): List<RateMovie>
 
 
 }
