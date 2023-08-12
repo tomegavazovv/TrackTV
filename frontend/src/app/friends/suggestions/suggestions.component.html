@@ -1,0 +1,24 @@
+<div class="suggestions-container">
+    <ul class="list" *ngIf="suggestedMovies && suggestedMovies.length > 0">
+        <li *ngFor="let suggestedMovie of suggestedMovies" class="friend-item">
+<!--            {{ friend.name }}-->
+            <div class="actions">
+<!--                <button mat-icon-button color="warn" (click)="removeFriend(friend)">-->
+<!--                    <mat-icon>remove_circle</mat-icon>-->
+<!--                </button>-->
+            </div>
+        </li>
+    </ul>
+    <p *ngIf="suggestedMovies.length === 0" class="no-shows-message">You don't have any movie suggestions yet.</p>
+    <ul class="list" *ngIf="suggestedShows && suggestedShows.length > 0">
+        <li *ngFor="let suggestedShow of suggestedShows" class="friend-item">
+<!--            {{ friend.name }}-->
+<!--            <div class="actions">-->
+<!--                <button mat-icon-button color="warn" (click)="removeFriend(friend)">-->
+<!--                    <mat-icon>remove_circle</mat-icon>-->
+<!--                </button>-->
+<!--            </div>-->
+        </li>
+    </ul>
+    <p *ngIf="suggestedShows.length === 0" class="no-movies-message">You don't have any show suggestions yet.</p>
+</div>

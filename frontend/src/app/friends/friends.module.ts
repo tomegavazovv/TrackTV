@@ -9,10 +9,11 @@ import {MatListModule} from "@angular/material/list";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import { SuggestionsComponent } from './suggestions/suggestions.component';
 
 
 @NgModule({
-  declarations: [FriendRequestsComponent, FriendsComponent, SearchUsersComponent],
+  declarations: [FriendRequestsComponent, FriendsComponent, SearchUsersComponent, SuggestionsComponent],
     imports: [
         ReactiveFormsModule,
         CommonModule,

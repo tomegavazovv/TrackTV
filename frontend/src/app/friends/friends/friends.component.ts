@@ -1,10 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {User} from "../../interfaces/user";
 import {FriendsService} from "../../services/friends.service";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SearchUsersComponent} from "../search-users/search-users.component";
 import {FriendRequestsComponent} from "../friend-requests/friend-requests.component";
 import {tap} from "rxjs";
+import {SuggestionsComponent} from "../suggestions/suggestions.component";
+// import {DialogRef} from "@angular/cdk/dialog";
 
 @Component({
     selector: 'app-friends',
@@ -17,7 +19,8 @@ export class FriendsComponent implements OnInit {
     constructor(
         private cdr: ChangeDetectorRef,
         private friendsService: FriendsService,
-        private dialog: MatDialog) {
+        private dialog: MatDialog)
+    {
     }
 
     ngOnInit(): void {
@@ -26,7 +29,7 @@ export class FriendsComponent implements OnInit {
 
     removeFriend(friend: User): void {
         this.friendsService.removeFriend(friend.id).pipe(
-            tap( () => {
+            tap(() => {
                 this.getFriends();
             })
         ).subscribe({
@@ -36,9 +39,6 @@ export class FriendsComponent implements OnInit {
         });
     }
 
-    showSuggestions(): void {
-
-    }
 
     getFriends(): void {
         this.friendsService.getFriends().subscribe({
@@ -57,10 +57,12 @@ export class FriendsComponent implements OnInit {
 
 
     searchUsers(): void {
-        this.dialog.open(SearchUsersComponent, {
+        const dialogRef: MatDialogRef<SearchUsersComponent> = this.dialog.open(SearchUsersComponent, {
             width: '500px',
             panelClass: 'custom-dialog',
-        })
+        });
+        dialogRef.componentInstance.isFriendRequest = true;
+        dialogRef.componentInstance.isMovieSuggestion = false;
     }
 
     viewRequests(): void {
@@ -72,6 +74,13 @@ export class FriendsComponent implements OnInit {
         dialogRef.componentInstance.requestAccepted.subscribe(() => {
             this.getFriends();
         });
+    }
+
+    viewSuggestions() {
+        this.dialog.open(SuggestionsComponent, {
+            width: '800px',
+            panelClass: 'custom-dialog'
+        })
     }
 
 }

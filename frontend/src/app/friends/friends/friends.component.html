@@ -4,15 +4,13 @@
         <div class="title-buttons">
             <button mat-flat-button color="primary" (click)="searchUsers()">Add friend!</button>
             <button mat-flat-button color="primary" (click)="viewRequests()">View requests!</button>
+            <button mat-flat-button color="primary" (click)="viewSuggestions()">View suggestions!</button>
         </div>
     </div>
     <ul class="friend-list" *ngIf="friends && friends.length > 0">
         <li *ngFor="let friend of friends" class="friend-item">
             {{ friend.name }}
             <div class="actions">
-                <button mat-raised-button color="secondary" class="show-suggestions-button" (click)="showSuggestions()">
-                    Show suggestions!
-                </button>
                 <button mat-icon-button color="warn" (click)="removeFriend(friend)">
                     <mat-icon>remove_circle</mat-icon>
                 </button>

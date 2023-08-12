@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LogMovieComponent } from '../../movies/log-movie/log-movie.component';
 import { MovieItem } from 'src/app/interfaces/MovieItem';
+import {PopularTvShow} from "../../interfaces/PopularTvShow";
 
 @Component({
     selector: 'app-home-logged-in',
@@ -16,7 +17,7 @@ import { MovieItem } from 'src/app/interfaces/MovieItem';
 export class HomeLoggedInComponent implements OnInit {
     searchTerm: string = '';
     searchResults: MovieItem[] = [];
-    watchedShows: TvShow[] = [];
+    watchedShows: PopularTvShow[] = [];
     searchForm: FormControl = new FormControl('');
 
     constructor(
@@ -53,7 +54,7 @@ export class HomeLoggedInComponent implements OnInit {
 
     fetchWatchedShows(): void {
         this.movieTvService.getWatchedShows().subscribe({
-            next: (data: TvShow[]) => {
+            next: (data: PopularTvShow[]) => {
                 this.watchedShows = data;
             },
             error: (error) => {

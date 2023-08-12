@@ -25,8 +25,14 @@ export class FriendsService {
         return this.http.delete<any>(`/api/removeFriend/${friendId}`);
     }
 
-    searchUsers(searchTerm: string): Observable<User[]> {
-        return this.http.get<User[]>(`/api/searchUsersClean?username=${searchTerm}`);
+    searchUsers(searchTerm: string, isFriendRequest: boolean, isMovieSuggestion: boolean): Observable<User[]> {
+        if (isFriendRequest && !isMovieSuggestion) {
+            return this.http.get<User[]>(`/api/searchUsersClean?username=${searchTerm}`);
+        } else if(!isFriendRequest && isMovieSuggestion) {
+            return this.http.get<User[]>('/api/friends')
+        } else {
+            return new Observable<User[]>()
+        }
     }
 
     sendFriendRequest(friendId: number): Observable<any> {
@@ -44,5 +50,11 @@ export class FriendsService {
             }));
     }
 
+    suggestMovie(movieId: number, userId: number): Observable<any> {
+        return this.http.post<any>(`/api/suggestMovie/${movieId}/${userId}`, {},).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return throwError(error.error.error);
+            }));
+    }
 
 }

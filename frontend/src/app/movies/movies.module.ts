@@ -9,10 +9,11 @@ import {SharedModule} from "../shared/shared.module";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
+import { YourMoviesComponent } from './your-movies/your-movies.component';
 
 
 @NgModule({
-  declarations: [LogMovieComponent, MovieDetailsComponent, RecentlyWatchedComponent],
+  declarations: [LogMovieComponent, MovieDetailsComponent, RecentlyWatchedComponent, YourMoviesComponent],
     imports: [
         CommonModule,
         MatIconModule,

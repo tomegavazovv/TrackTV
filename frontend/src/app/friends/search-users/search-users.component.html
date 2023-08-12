@@ -3,8 +3,19 @@
         <input matInput type="text" [formControl]="searchForm" placeholder="Search a user!">
     </mat-form-field>
     <mat-nav-list *ngIf="users.length > 0 && searchForm.value.trim() !== ''" class="custom-width">
-        <mat-list-item *ngFor="let user of users" (click)="sendFriendRequest(user)">
-            {{ user.name }}
+        <mat-list-item *ngFor="let user of users">
+            <div>
+                <div
+                        *ngIf="isFriendRequest"
+                        (click)="sendFriendRequest(user)">
+                    {{ user.name }}
+                </div>
+                <div
+                        *ngIf="isMovieSuggestion"
+                        (click)="suggestMovie(movie, user)">
+                    {{ user.name }}
+                </div>
+            </div>
         </mat-list-item>
     </mat-nav-list>
 </div>
