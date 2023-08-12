@@ -62,7 +62,7 @@ export class FriendsComponent implements OnInit {
             panelClass: 'custom-dialog',
         });
         dialogRef.componentInstance.isFriendRequest = true;
-        dialogRef.componentInstance.isMovieSuggestion = false;
+        dialogRef.componentInstance.isSuggestion = false;
     }
 
     viewRequests(): void {

@@ -9,7 +9,6 @@
         <li *ngFor="let watchedMovie of yourMovies" class="movie-item">
             {{ watchedMovie.movie.title}}
             {{ watchedMovie.date }}
-
             <div class="actions">
                 <button mat-raised-button color="secondary" class="show-suggestions-button" (click)="suggestToFriend(watchedMovie)">
                     Suggest to

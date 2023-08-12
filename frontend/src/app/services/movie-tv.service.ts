@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Movie } from '../interfaces/movie';
-import { TvShow } from '../interfaces/TvShow';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { MovieItem } from '../interfaces/MovieItem';
 import { Cast } from '../interfaces/Cast';
 import {PopularTvShow} from "../interfaces/PopularTvShow";
 import {WatchedMovie} from "../interfaces/WatchedMovie";
+import {SuggestedMovie} from "../interfaces/SuggestedMovie";
+import {SuggestedShow} from "../interfaces/SuggestedShow";
+import {WatchedShow} from "../interfaces/WatchedShow";
 
 @Injectable({
     providedIn: 'root',
@@ -37,12 +39,11 @@ export class MovieTvService {
 
     }
 
-    getWatchedShows(): Observable<PopularTvShow[]> {
+    getWatchedShows(): Observable<WatchedShow[]> {
         return this.http
             .get<any[]>('/api/tvshows/watched', {
                 headers: this.getAuthorizationHeader(),
             })
-            .pipe(map((data) => data.map((item) => item.show)));
     }
 
     logMovie(
@@ -99,5 +100,17 @@ export class MovieTvService {
                 );
             })
         );
+    }
+
+    getSuggestedMovies(): Observable<SuggestedMovie[]> {
+        return this.http.get<SuggestedMovie[]>('/api/suggestedMovies', {
+            headers: this.getAuthorizationHeader(),
+        });
+    }
+
+    getSuggestedShows(): Observable<SuggestedShow[]> {
+        return this.http.get<SuggestedShow[]>('/api/suggestedShows', {
+            headers: this.getAuthorizationHeader(),
+        });
     }
 }

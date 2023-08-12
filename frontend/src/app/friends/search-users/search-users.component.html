@@ -11,8 +11,8 @@
                     {{ user.name }}
                 </div>
                 <div
-                        *ngIf="isMovieSuggestion"
-                        (click)="suggestMovie(movie, user)">
+                        *ngIf="isSuggestion"
+                        (click)="suggest(suggestion, user)">
                     {{ user.name }}
                 </div>
             </div>

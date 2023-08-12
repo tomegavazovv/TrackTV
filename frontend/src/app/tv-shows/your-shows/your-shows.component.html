@@ -1,1 +1,19 @@
-<p>your-shows works!</p>
+<div class="movie-list-container">
+    <div class="title">
+        <h2 class="mat-h2">Your movies:</h2>
+        <div class="title-buttons">
+        </div>
+    </div>
+    <ul class="movie-list" *ngIf="yourShows && yourShows.length > 0">
+        <p>Show title</p>
+        <li *ngFor="let watchedShow of yourShows" class="movie-item">
+            {{ watchedShow.show.title}}
+            <div class="actions">
+                <button mat-raised-button color="secondary" class="show-suggestions-button" (click)="suggestToFriend(watchedShow)">
+                    Suggest to
+                </button>
+            </div>
+        </li>
+    </ul>
+    <p *ngIf="yourShows.length === 0" class="no-movies-message">You don't have any watched movies yet.</p>
+</div>

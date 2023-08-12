@@ -57,4 +57,11 @@ export class FriendsService {
             }));
     }
 
+    suggestShow(showId: number, userId: number): Observable<any> {
+        return this.http.post<any>(`/api/suggestShow/${showId}/${userId}`, {},).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return throwError(error.error.error);
+            }));
+    }
+
 }

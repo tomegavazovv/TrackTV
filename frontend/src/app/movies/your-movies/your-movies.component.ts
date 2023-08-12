@@ -13,16 +13,13 @@ export class YourMoviesComponent implements OnInit{
 
     yourMovies: WatchedMovie[] = [];
 
-
     constructor(private movieTvService: MovieTvService, private dialog: MatDialog) {
     }
 
     fetchYourMovies(): void {
         this.movieTvService.getWatchedMovies().subscribe({
-
             next: (data) => {
                 this.yourMovies = data;
-                console.log(data[0])
             },
             error: (err) => {
                 console.log(err)
@@ -40,7 +37,7 @@ export class YourMoviesComponent implements OnInit{
             panelClass: 'custom-dialog'
         });
         dialogRef.componentInstance.isFriendRequest = false;
-        dialogRef.componentInstance.isMovieSuggestion = true;
-        dialogRef.componentInstance.movie = movie;
+        dialogRef.componentInstance.isSuggestion = true;
+        dialogRef.componentInstance.suggestion = movie;
     }
 }
