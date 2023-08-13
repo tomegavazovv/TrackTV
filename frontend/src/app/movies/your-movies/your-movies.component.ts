@@ -3,6 +3,7 @@ import {MovieTvService} from "../../services/movie-tv.service";
 import {WatchedMovie} from "../../interfaces/WatchedMovie";
 import {MatDialog} from "@angular/material/dialog";
 import {SearchUsersComponent} from "../../friends/search-users/search-users.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-your-movies',

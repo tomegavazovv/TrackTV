@@ -1,37 +1,17 @@
 .suggestions-container {
     padding: 5% 5%;
+    margin: 20px;
 }
-
-.list {
-    /*padding-top: 20px;*/
-    /*width: 50%;*/
-}
-
 
 a {
     text-decoration: none;
-    color: #fff;
-    background: #0077ff;
-    padding: 4px 26px;
     display: inline-block;
-    border-radius: 3px;
+    padding-left: 3px;
 }
 
 table, tr, td, th{
-
-
     margin: auto;
-
     border: none;
-
-}
-
-/*
-asdasdsadasd
-*/
-
-.suggestions-container {
-    margin: 20px;
 }
 
 .title {
@@ -60,10 +40,6 @@ td.mat-cell {
 tr.mat-header-row,
 tr.mat-row {
     border-bottom: 1px solid #e0e0e0;
-}
-
-a {
-    text-decoration: none;
 }
 
 a:hover {

@@ -48,10 +48,10 @@
         <mat-nav-list class="show-list custom-width">
             <mat-list-item
                 *ngFor="let show of watchedShows.slice(0, 5)"
-                [routerLink]="['/show', show.data.id]"
+                [routerLink]="['/tvshows', show.show.id]"
             >
                 <div class="tvshow-item">
-                    <p class="tvshow-title">{{ show.data.title }}</p>
+                    <p class="tvshow-title">{{ show.show.title }}</p>
                 </div>
             </mat-list-item>
         </mat-nav-list>

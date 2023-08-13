@@ -4,7 +4,7 @@ import {TvShowDetailsComponent} from "./tvshow-details/tv-show-details.component
 import { YourShowsComponent } from './your-shows/your-shows.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatTableModule} from "@angular/material/table";
-
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -12,7 +12,8 @@ import {MatTableModule} from "@angular/material/table";
     imports: [
         CommonModule,
         MatButtonModule,
-        MatTableModule
+        MatTableModule,
+        RouterLink
     ]
 })
 export class TvShowsModule { }

@@ -11,6 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import { YourMoviesComponent } from './your-movies/your-movies.component';
 import {MatTableModule} from "@angular/material/table";
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {MatTableModule} from "@angular/material/table";
         MatMenuModule,
         MatButtonModule,
         FormsModule,
-        MatTableModule
+        MatTableModule,
+        RouterLink
     ]
 })
 export class MoviesModule { }

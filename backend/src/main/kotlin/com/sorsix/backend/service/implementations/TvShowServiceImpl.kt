@@ -1,6 +1,7 @@
 package com.sorsix.backend.service.implementations
 
 import com.sorsix.backend.domain.Cast
+import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.domain.user.CommentShow
 import com.sorsix.backend.dto.EpisodeDto
 import com.sorsix.backend.dto.ShowCommentDto
