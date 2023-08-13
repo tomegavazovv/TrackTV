@@ -6,4 +6,5 @@ export interface Movie {
         popularity: number;
     };
     watched: boolean;
+    rating: Number;
 }

@@ -1,17 +1,22 @@
 package com.sorsix.backend.service
 
 import com.sorsix.backend.domain.user.RateEpisode
-import com.sorsix.backend.domain.user.RateMovie
-import com.sorsix.backend.dto.MovieRatingDto
+import com.sorsix.backend.domain.user.CommentMovie
+import com.sorsix.backend.dto.AverageEpisodeRatingDto
+import com.sorsix.backend.dto.MovieCommentDto
 
 interface RatingService {
-    fun rateMovie(userId: Long, movieId: Long, rating: Int, comment: String?): List<MovieRatingDto>
+    fun commentMovie(userId: Long, movieId: Long, comment: String): List<MovieCommentDto>
 
-    fun getMovieRatingByUser(userId: Long, movieId: Long): RateMovie
+    fun getMovieCommentByUser(userId: Long, movieId: Long): CommentMovie
 
-    fun getMovieRatings(movieId: Long): List<MovieRatingDto>
+    fun rateMovie(userId: Long, movieId: Long, rating: Int)
 
-    fun rateEpisodeOfTvShow(userId: Long, episodeId: Long, rating: Int): RateEpisode
+    fun getAverageMovieRating(movieId: Long): Double
+
+    fun getMovieComments(movieId: Long): List<MovieCommentDto>
+
+    fun rateEpisodeOfTvShow(userId: Long, episodeId: Long, rating: Int): AverageEpisodeRatingDto
 
     fun getRatingOfTvShowEpisodeByUser(userId: Long, showId: Long): RateEpisode
 

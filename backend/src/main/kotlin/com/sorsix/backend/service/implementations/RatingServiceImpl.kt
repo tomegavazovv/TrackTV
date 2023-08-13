@@ -1,56 +1,84 @@
 package com.sorsix.backend.service.implementations
 
 import com.sorsix.backend.domain.user.RateEpisode
+import com.sorsix.backend.domain.user.CommentMovie
 import com.sorsix.backend.domain.user.RateMovie
-import com.sorsix.backend.dto.MovieRatingDto
+import com.sorsix.backend.dto.AverageEpisodeRatingDto
+import com.sorsix.backend.dto.MovieCommentDto
 import com.sorsix.backend.exceptions.RatingNotFoundException
 import com.sorsix.backend.exceptions.WatchedEpisodeNotFoundException
 import com.sorsix.backend.exceptions.WatchedMovieNotFoundException
 import com.sorsix.backend.repository.UserRepository
-import com.sorsix.backend.repository.user.RateEpisodeRepository
-import com.sorsix.backend.repository.user.RateMovieRepository
-import com.sorsix.backend.repository.user.WatchEpisodeRepository
-import com.sorsix.backend.repository.user.WatchMovieRepository
+import com.sorsix.backend.repository.user.*
 import com.sorsix.backend.service.RatingService
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class RatingServiceImpl(
     private val watchMovieRepository: WatchMovieRepository,
-    private val rateMovieRepository: RateMovieRepository,
+    private val commentMovieRepository: CommentMovieRepository,
     private val rateEpisodeRepository: RateEpisodeRepository,
     private val watchEpisodeRepository: WatchEpisodeRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val rateMovieRepository: RateMovieRepository
 ) : RatingService {
-    override fun rateMovie(userId: Long, movieId: Long, rating: Int, comment: String?): List<MovieRatingDto> {
+    override fun commentMovie(userId: Long, movieId: Long, comment: String): List<MovieCommentDto> {
         val user = userRepository.findById(userId).get()
         val watchedMovie =
             watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
-        val rateMovie = RateMovie(watchedMovie = watchedMovie, rating = rating, comment = comment)
+        val commentMovie = CommentMovie(watchedMovie = watchedMovie, comment = comment)
 
-        rateMovieRepository.save(rateMovie)
+        commentMovieRepository.save(commentMovie)
 
-        return rateMovieRepository.findAllByWatchedMovieMovieIdOrderByDateDesc(movieId.toInt())
-            .map { MovieRatingDto(it.rating, it.comment, it.watchedMovie.user.email) }
+        return commentMovieRepository.findAllByWatchedMovieMovieIdOrderByDateDesc(movieId.toInt())
+            .map { MovieCommentDto(it.comment, it.watchedMovie.user.email, it.date) }
     }
 
-    override fun getMovieRatingByUser(userId: Long, movieId: Long): RateMovie {
+    override fun getMovieCommentByUser(userId: Long, movieId: Long): CommentMovie {
         val watchedMovie =
             watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
 
-        return rateMovieRepository.findByWatchedMovie(watchedMovie) ?: throw RatingNotFoundException()
+        return commentMovieRepository.findByWatchedMovie(watchedMovie) ?: throw RatingNotFoundException()
     }
 
-    override fun getMovieRatings(movieId: Long): List<MovieRatingDto> =
-        rateMovieRepository.findAllByWatchedMovieMovieIdOrderByDateDesc(movieId.toInt())
-            .map { MovieRatingDto(it.rating, it.comment, it.watchedMovie.user.email) }
+    override fun rateMovie(userId: Long, movieId: Long, rating: Int) {
+        val watchedMovie = watchMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: throw WatchedMovieNotFoundException()
 
-    override fun rateEpisodeOfTvShow(userId: Long, episodeId: Long, rating: Int): RateEpisode {
+        val rateMovie = rateMovieRepository.findByWatchedMovie(watchedMovie)?.let {
+            RateMovie(it.id, it.watchedMovie, LocalDateTime.now(), rating)
+        } ?: RateMovie(watchedMovie = watchedMovie, rating = rating)
+
+        rateMovieRepository.save(rateMovie)
+    }
+
+    override fun getAverageMovieRating(movieId: Long): Double {
+        val ratings = rateMovieRepository.findByWatchedMovieMovieId(movieId)
+        if (ratings.isEmpty()) {
+            return 0.0
+        }
+
+        val totalRating = ratings.sumOf { it.rating }.toDouble()
+        return totalRating / ratings.size
+    }
+
+    override fun getMovieComments(movieId: Long): List<MovieCommentDto> =
+        commentMovieRepository.findAllByWatchedMovieMovieIdOrderByDateDesc(movieId.toInt())
+            .map { MovieCommentDto(it.comment, it.watchedMovie.user.email, it.date) }
+
+    override fun rateEpisodeOfTvShow(userId: Long, episodeId: Long, rating: Int): AverageEpisodeRatingDto {
         val watchedEpisode = watchEpisodeRepository.findByUserIdAndEpisodeId(userId, episodeId)
             ?: throw WatchedEpisodeNotFoundException()
 
-        val rateEpisode = RateEpisode(watchedEpisode = watchedEpisode, rating = rating)
-        return rateEpisodeRepository.save(rateEpisode)
+        val rateEpisode = rateEpisodeRepository.findByWatchedEpisodeUserIdAndWatchedEpisodeEpisodeId(userId, episodeId)?.let {
+            RateEpisode(id=it.id, watchedEpisode = watchedEpisode, rating = rating)
+        } ?: RateEpisode(watchedEpisode=watchedEpisode, rating = rating)
+
+        rateEpisodeRepository.save(rateEpisode)
+        val ratings = rateEpisodeRepository.findAllByWatchedEpisode_EpisodeId(episodeId)
+        val avgRating = ratings.sumOf { it.rating } / ratings.size
+
+        return AverageEpisodeRatingDto(avgRating)
     }
 
     override fun getRatingOfTvShowEpisodeByUser(userId: Long, showId: Long): RateEpisode {

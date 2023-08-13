@@ -3,13 +3,10 @@ package com.sorsix.backend.api
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.domain.Cast
 import com.sorsix.backend.domain.movie.Movie
-import com.sorsix.backend.domain.user.RateMovie
+import com.sorsix.backend.domain.user.CommentMovie
 import com.sorsix.backend.domain.user.WatchedMovie
 import com.sorsix.backend.domain.views.TopFiveCastOfMovieViewEntity
-import com.sorsix.backend.dto.AddFavoriteCastDto
-import com.sorsix.backend.dto.MovieDto
-import com.sorsix.backend.dto.MovieRatingDto
-import com.sorsix.backend.dto.RateMovieDto
+import com.sorsix.backend.dto.*
 import com.sorsix.backend.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -42,6 +39,12 @@ class MovieController(
         return ResponseEntity.ok(favoriteCastService.getFavoriteCastOfMovieByUser(principal.userId, movieId))
     }
 
+    @PostMapping("/rate")
+    fun rateMovie(@AuthenticationPrincipal principal: CustomPrincipal, @RequestBody body: RateMovieDto): ResponseEntity<Unit>{
+        ratingService.rateMovie(principal.userId, body.movieId, body.rating.toInt())
+        return ResponseEntity.ok().build()
+    }
+
     @GetMapping("/topCast/{movieId}")
     fun getTopCast(@PathVariable movieId: Long): ResponseEntity<List<TopFiveCastOfMovieViewEntity>> {
         return ResponseEntity.ok(favoriteCastService.getTopFiveCastsOfMovie(movieId))
@@ -56,25 +59,30 @@ class MovieController(
         return ResponseEntity.ok().build()
     }
 
-    @PostMapping("/rate")
+    @PostMapping("/comment")
     fun rateMovie(
-        @Validated @RequestBody body: RateMovieDto,
+        @Validated @RequestBody body: com.sorsix.backend.dto.CommentMovieBody,
         @AuthenticationPrincipal principal: CustomPrincipal
-    ): ResponseEntity<List<MovieRatingDto>> {
-        return ResponseEntity.ok(ratingService.rateMovie(principal.userId, body.movieId, body.rating, body.comment))
+    ): ResponseEntity<List<MovieCommentDto>> {
+        return ResponseEntity.ok(ratingService.commentMovie(principal.userId, body.movieId, body.comment))
     }
 
     @GetMapping("/ratingByUser/{movieId}")
     fun getRatingOfMovie(
         @AuthenticationPrincipal principal: CustomPrincipal,
         @PathVariable movieId: Long
-    ): ResponseEntity<RateMovie> {
-        return ResponseEntity.ok(ratingService.getMovieRatingByUser(principal.userId, movieId))
+    ): ResponseEntity<CommentMovie> {
+        return ResponseEntity.ok(ratingService.getMovieCommentByUser(principal.userId, movieId))
     }
 
-    @GetMapping("/ratings/{movieId}")
-    fun getRatings(@PathVariable movieId: Long): ResponseEntity<List<MovieRatingDto>> {
-        return ResponseEntity.ok(ratingService.getMovieRatings(movieId))
+    @GetMapping("/averageRating/{movieId}")
+    fun getRatings(@PathVariable movieId: Long): ResponseEntity<Double> {
+        return ResponseEntity.ok(ratingService.getAverageMovieRating(movieId))
+    }
+
+    @GetMapping("/comments/{movieId}")
+    fun getComments(@PathVariable movieId: Long): ResponseEntity<List<MovieCommentDto>> {
+        return ResponseEntity.ok(ratingService.getMovieComments(movieId))
     }
 
     @PostMapping("/addWatched/{movieId}")

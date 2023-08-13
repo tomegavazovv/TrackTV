@@ -4,6 +4,7 @@ import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.user.UserWatchShow
 import com.sorsix.backend.domain.user.WatchedEpisode
 import com.sorsix.backend.domain.user.WatchedMovie
+import com.sorsix.backend.dto.TvShowDto
 import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.movie.MovieRepository
@@ -29,11 +30,11 @@ class WatchServiceImpl(
 ) : WatchService {
     override fun addWatchedMovie(userId: Long, movieId: Long): WatchedMovie {
         val user = userRepository.findById(userId).orElse(null)
-        val movie = movieRepository.findByIdOrNull(movieId)
-            ?: throw MovieNotFoundException(movieId)
+        val movie = movieRepository.findByIdOrNull(movieId) ?: throw MovieNotFoundException(movieId)
 
-        return watchMovieRepository.save(WatchedMovie(user=user, movie=movie))
+        return watchMovieRepository.save(WatchedMovie(user = user, movie = movie))
     }
+
     @Transactional
     override fun unwatchMovie(userId: Long, movieId: Long) {
         watchMovieRepository.findByUserIdAndMovieId(userId, movieId)?.let {
@@ -45,16 +46,18 @@ class WatchServiceImpl(
         return watchMovieRepository.findAllByUserId(userId)
     }
 
-    override fun addWatchedTvShow(userId: Long, showId: Long): UserWatchShow {
+    override fun addWatchedTvShow(userId: Long, showId: Long): TvShowDto {
         val user = userRepository.findById(userId).orElse(null)
-        val show = showRepository.findByIdOrNull(showId)
-            ?: throw ShowNotFoundException(showId)
+        val show = showRepository.findByIdOrNull(showId) ?: throw ShowNotFoundException(showId)
+        val uws = watchShowRepository.findByUserIdAndShowId(userId, showId)
+            ?: watchShowRepository.save(UserWatchShow(user = user, show = show))
 
-        return watchShowRepository.save(UserWatchShow(user = user, show = show))
+        return TvShowDto(uws.show, true)
+
     }
 
     override fun unwatchTvShow(userId: Long, showId: Long) {
-        watchShowRepository.findByUserIdAndShowId(userId,showId)?.let {
+        watchShowRepository.findByUserIdAndShowId(userId, showId)?.let {
             watchShowRepository.delete(it)
         } ?: throw WatchedShowNotFoundException()
     }
@@ -69,8 +72,7 @@ class WatchServiceImpl(
 
     override fun addWatchedEpisode(userId: Long, episodeId: Long): WatchedEpisode {
         val user = userRepository.findById(userId).orElse(null)
-        val episode = episodeRepository.findByIdOrNull(episodeId)
-            ?: throw EpisodeNotFoundException(episodeId)
+        val episode = episodeRepository.findByIdOrNull(episodeId) ?: throw EpisodeNotFoundException(episodeId)
 
         val showId = episode.show.id
 

@@ -11,5 +11,9 @@ interface RateEpisodeRepository : JpaRepository<RateEpisode, Long>{
 
     fun existsByWatchedEpisode(watchedEpisode: WatchedEpisode): Boolean
 
+    fun findByWatchedEpisodeEpisodeId(episodeId: Long): RateEpisode?
+
+    fun findByWatchedEpisodeUserIdAndWatchedEpisodeEpisodeId(userId: Long, episodeId: Long): RateEpisode?
+
     fun findAllByWatchedEpisode_EpisodeId(episodeId: Long): List<RateEpisode>
 }

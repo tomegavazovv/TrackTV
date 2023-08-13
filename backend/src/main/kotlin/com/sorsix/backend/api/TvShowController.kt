@@ -7,9 +7,7 @@ import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.domain.user.RateEpisode
 import com.sorsix.backend.domain.user.WatchedEpisode
 import com.sorsix.backend.domain.views.TopFiveCastOfShowViewEntity
-import com.sorsix.backend.dto.AddFavoriteCastDto
-import com.sorsix.backend.dto.CommentShowDto
-import com.sorsix.backend.dto.RateEpisodeDto
+import com.sorsix.backend.dto.*
 import com.sorsix.backend.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -27,8 +25,8 @@ class TvShowController(
     ) {
 
     @GetMapping("/{showId}")
-    fun getShow(@PathVariable showId: Long): ResponseEntity<Show> {
-        return ResponseEntity.ok(tvshowService.getById(showId))
+    fun getShow(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long): ResponseEntity<TvShowDto> {
+        return ResponseEntity.ok(tvshowService.getById(principal.userId, showId))
     }
 
     @PostMapping("/favoriteCast")
@@ -57,7 +55,7 @@ class TvShowController(
     @PostMapping("/rate")
     fun rateTvShow(
         @Validated @RequestBody body: RateEpisodeDto, @AuthenticationPrincipal principal: CustomPrincipal
-    ): ResponseEntity<RateEpisode> {
+    ): ResponseEntity<AverageEpisodeRatingDto> {
         return ResponseEntity.ok(
             ratingService.rateEpisodeOfTvShow(
                 principal.userId,
@@ -110,6 +108,10 @@ class TvShowController(
         return ResponseEntity.ok().build()
     }
 
+    @PostMapping("/watch/{showId}")
+    fun addToWatchedShows(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long): ResponseEntity<TvShowDto>{
+        return ResponseEntity.ok(watchService.addWatchedTvShow(principal.userId, showId))
+    }
 
 
     @GetMapping("/mostPopular")

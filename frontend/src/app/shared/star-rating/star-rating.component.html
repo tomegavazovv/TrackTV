@@ -1,3 +1,17 @@
-<div *ngFor="let star of stars" [ngClass]="[star.class]" (click)="selectStar(star.id)">
-    <mat-icon>{{star.icon}}</mat-icon>
+<div
+    class="tooltip-wrapper"
+    (mouseenter)="showTooltip = !isEnabled"
+    (mouseleave)="showTooltip = false"
+>
+    <div
+        *ngFor="let star of stars"
+        [ngClass]="[star.class]"
+        [class.disabled]="!isEnabled"
+        (click)="selectStar(star.id)"
+    >
+        <mat-icon>{{ star.icon }}</mat-icon>
+    </div>
+    <div class="tooltip" [class.active]="!isEnabled && showTooltip">
+        Select it as watched first
+    </div>
 </div>

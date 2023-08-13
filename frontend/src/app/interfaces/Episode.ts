@@ -5,4 +5,6 @@ export interface Episode {
         title: String;
     };
     watched: Boolean;
+    rating: Number;
+    averageRating: number;
 }

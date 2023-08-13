@@ -1,0 +1,52 @@
+.table-striped {
+    border-radius: 10px;
+    width: 100%; /* Expand table to available width */
+    font-size: 0.8em;
+}
+
+.table-striped tr {
+    border-radius: 30px;
+}
+
+.table-striped th,
+.table-striped td {
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.table-striped button.btn {
+    padding: 2px 5px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    width: 100%; /* Button takes full cell width */
+}
+
+mat-icon:hover {
+    cursor: pointer;
+}
+
+.watched {
+    color: #5cb85c;
+}
+
+.avgRating {
+    color: orange;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.notWatched {
+    color: #6c757d;
+}
+
+.table-striped button.btn-success {
+    background-color: #5cb85c;
+    color: #fff;
+    border-color: #4cae4c;
+}
+
+.table-striped button.btn-secondary {
+    background-color: #ccc;
+    color: #fff;
+    border-color: #aaa;
+}

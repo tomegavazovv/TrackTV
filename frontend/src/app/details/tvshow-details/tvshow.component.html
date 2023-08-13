@@ -1,0 +1,84 @@
+<div *ngIf="tvShow" class="movie-page">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="card col-10">
+                <div class="row inside">
+                    <div class="col-5">
+                        <img
+                            id="coverImg"
+                            src="{{ tvShow.data.imageUrl }}"
+                            alt="Movie Cover"
+                        />
+                    </div>
+
+                    <div class="col-7 description h-100 mt-1">
+                        <div class="text-center mb-3">
+                            <h1 class="mb-0">{{ tvShow.data.title }}</h1>
+                            <button
+                                (click)="onAddToMyShows()"
+                                class="btn"
+                                [class.btn-secondary]="tvShow.watched"
+                                [class.btn-primary]="!tvShow.watched"
+                                [disabled]="tvShow.watched"
+                            >
+                                <span *ngIf="tvShow.watched"
+                                    >Added to My TvShows</span
+                                >
+                                <span *ngIf="!tvShow.watched"
+                                    >Add to My TvShows</span
+                                >
+                            </button>
+                        </div>
+
+                        <div class="season-dropdown d-flex justify-content-end">
+                            <select
+                                (change)="onSeasonChange($event)"
+                                class="form-select w-25 mb-3"
+                                id="seasonSelect"
+                            >
+                                <option
+                                    *ngFor="
+                                        let item of [].constructor(
+                                            tvShow.data.numOfSeasons
+                                        );
+                                        let i = index
+                                    "
+                                    [value]="i + 1"
+                                >
+                                    Season {{ i + 1 }}
+                                </option>
+                            </select>
+                        </div>
+                        <app-episode-list />
+                    </div>
+                </div>
+                <div class="description-section">
+                    <h2>Short Description:</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Voluptatum repellat tempore et dolorem doloribus
+                        similique repudiandae reiciendis, enim libero corrupti
+                        itaque asperiores. Sapiente ea impedit delectus, nam
+                        quaerat iste. Quas accusantium rerum laborum pariatur
+                        sit doloribus debitis numquam possimus harum expedita
+                        alias, facilis praesentium ab voluptas neque
+                        dignissimos. Corporis, veniam.
+                    </p>
+                </div>
+                <div class="cast-section mt-3">
+                    <h3>Cast:</h3>
+                    <app-cast-list></app-cast-list>
+                    <hr />
+                </div>
+
+                <div class="comments-section">
+                    <h3>Comments</h3>
+                    <app-comments></app-comments>
+                </div>
+            </div>
+            <div class="col-2">
+                <app-favorite-cast-bar />
+            </div>
+        </div>
+    </div>
+</div>

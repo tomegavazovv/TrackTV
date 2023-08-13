@@ -4,6 +4,7 @@ import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.user.UserWatchShow
 import com.sorsix.backend.domain.user.WatchedEpisode
 import com.sorsix.backend.domain.user.WatchedMovie
+import com.sorsix.backend.dto.TvShowDto
 
 interface WatchService {
     fun addWatchedMovie(userId: Long, movieId: Long): WatchedMovie
@@ -12,7 +13,7 @@ interface WatchService {
 
     fun getWatchedMovies(userId: Long): List<WatchedMovie>
 
-    fun addWatchedTvShow(userId: Long, showId: Long): UserWatchShow
+    fun addWatchedTvShow(userId: Long, showId: Long): TvShowDto
 
     fun unwatchTvShow(userId: Long, movieId: Long)
 

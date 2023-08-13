@@ -1,0 +1,23 @@
+<div *ngIf="loading" class="text-center h-100 d-flex align-items-center">
+    <app-spinner></app-spinner>
+</div>
+<div class="favCast text-center col-2">
+    <div *ngIf="favoriteCast" class="favorite-cast">
+        <h3>Your vote for favorite cast:</h3>
+        <img [src]="favoriteCast.imageUrl" alt="Favorite Cast" />
+        <p>{{ favoriteCast.role }}</p>
+    </div>
+    <div class="top-castings mt-5">
+        <p id="topCastingsTitle">Top Castings Voted By Users:</p>
+        <div *ngFor="let cast of topCastings" class="top-casting">
+            <img [src]="cast.imageUrl" alt="Top Casting" />
+            <p>{{ cast.role }}</p>
+            <p *ngIf="favoriteCast?.id == cast.id; else other">
+                Votes: {{ +cast.count + 1 }}
+            </p>
+            <ng-template #other>
+                <p>Votes: {{ cast.count }}</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

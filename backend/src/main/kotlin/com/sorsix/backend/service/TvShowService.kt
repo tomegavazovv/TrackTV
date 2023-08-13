@@ -4,10 +4,11 @@ import com.sorsix.backend.domain.Cast
 import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.dto.ShowCommentDto
 import com.sorsix.backend.dto.EpisodeDto
+import com.sorsix.backend.dto.TvShowDto
 
 interface TvShowService {
 
-    fun getById(id: Long): Show
+    fun getById(userId: Long, id: Long): TvShowDto
 
     fun commentShow(userId: Long, showId: Long, comment: String): List<ShowCommentDto>
 
