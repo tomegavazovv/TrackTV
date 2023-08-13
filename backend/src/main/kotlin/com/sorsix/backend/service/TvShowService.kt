@@ -18,4 +18,6 @@ interface TvShowService {
 
     fun getEpisodes(userId: Long, showId: Long, seasonNumber: Long): List<EpisodeDto>
 
+    fun searchByTitle(title: String): List<Show>
+
 }

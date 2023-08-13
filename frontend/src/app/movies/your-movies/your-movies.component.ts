@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MovieTvService} from "../../services/movie-tv.service";
 import {WatchedMovie} from "../../interfaces/WatchedMovie";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {SearchUsersComponent} from "../../friends/search-users/search-users.component";
 
 @Component({
@@ -32,12 +32,15 @@ export class YourMoviesComponent implements OnInit{
     }
 
     suggestToFriend(movie: WatchedMovie): void {
-        const dialogRef: MatDialogRef<SearchUsersComponent> = this.dialog.open(SearchUsersComponent, {
+        movie.type = 'movie';
+        this.dialog.open(SearchUsersComponent, {
             width: '500px',
-            panelClass: 'custom-dialog'
+            panelClass: 'custom-dialog',
+            data: {
+                isFriendRequest: false,
+                isSuggestion: true,
+                suggestion: movie
+            }
         });
-        dialogRef.componentInstance.isFriendRequest = false;
-        dialogRef.componentInstance.isSuggestion = true;
-        dialogRef.componentInstance.suggestion = movie;
     }
 }

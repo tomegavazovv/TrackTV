@@ -139,6 +139,8 @@ class FriendsController(
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         } catch (ex: UserNotFoundException) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
+        } catch (ex: ShowSuggestionExists) {
+            ResponseEntity.status(HttpStatus.CONFLICT).body(mapOf("error" to ex.message))
         }
     }
 

@@ -10,6 +10,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
 import { YourMoviesComponent } from './your-movies/your-movies.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { YourMoviesComponent } from './your-movies/your-movies.component';
         SharedModule,
         MatMenuModule,
         MatButtonModule,
-        FormsModule
+        FormsModule,
+        MatTableModule
     ]
 })
 export class MoviesModule { }

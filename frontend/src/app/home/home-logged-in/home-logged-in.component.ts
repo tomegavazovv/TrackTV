@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LogMovieComponent } from '../../movies/log-movie/log-movie.component';
 import { MovieItem } from 'src/app/interfaces/MovieItem';
 import {WatchedShow} from "../../interfaces/WatchedShow";
+import {PopularTvShow} from "../../interfaces/PopularTvShow";
 
 @Component({
     selector: 'app-home-logged-in',
@@ -16,9 +17,11 @@ import {WatchedShow} from "../../interfaces/WatchedShow";
 })
 export class HomeLoggedInComponent implements OnInit {
     searchTerm: string = '';
-    searchResults: MovieItem[] = [];
+    movieSearchResults: MovieItem[] = [];
+    tvshowSearchResults: PopularTvShow[] = [];
     watchedShows: WatchedShow[] = [];
-    searchForm: FormControl = new FormControl('');
+    movieSearchForm: FormControl = new FormControl('');
+    tvshowSearchForm: FormControl = new FormControl('');
 
     constructor(
         private movieTvService: MovieTvService,
@@ -28,7 +31,7 @@ export class HomeLoggedInComponent implements OnInit {
     ngOnInit(): void {
         this.fetchWatchedShows();
 
-        this.searchForm.valueChanges
+        this.movieSearchForm.valueChanges
             .pipe(
                 distinctUntilChanged(),
                 debounceTime(400),
@@ -36,10 +39,24 @@ export class HomeLoggedInComponent implements OnInit {
             )
             .subscribe({
                 next: (data: MovieItem[]) => {
-                    this.searchResults = data;
+                    this.movieSearchResults = data;
                 },
                 error: (error) => {
                     console.error('Error fetching movies:', error);
+                },
+            });
+        this.tvshowSearchForm.valueChanges
+            .pipe(
+                distinctUntilChanged(),
+                debounceTime(400),
+                switchMap((word) => this.movieTvService.searchTvShows(word))
+            )
+            .subscribe({
+                next: (data: PopularTvShow[]) => {
+                    this.tvshowSearchResults = data;
+                },
+                error: (error) => {
+                    console.error('Error fetching tv shows:', error);
                 },
             });
     }

@@ -3,6 +3,7 @@ import {MovieTvService} from "../../services/movie-tv.service";
 import {SuggestedMovie} from "../../interfaces/SuggestedMovie";
 import {MatTableDataSource} from "@angular/material/table";
 import {SuggestedShow} from "../../interfaces/SuggestedShow";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-suggestions',
@@ -16,7 +17,7 @@ export class SuggestionsComponent implements OnInit{
     displayedColumns: string[] = ['movieTitle', 'suggestedBy'];
     dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-    constructor(private movieTvService: MovieTvService) {
+    constructor(private movieTvService: MovieTvService, private dialogRef: MatDialogRef<SuggestionsComponent>) {
     }
     ngOnInit(): void {
         this.fetchSuggestedMovies();
@@ -44,6 +45,9 @@ export class SuggestionsComponent implements OnInit{
                 console.error(err);
             }
         })
+    }
+    closeDialog(): void {
+        this.dialogRef.close();
     }
 
 }

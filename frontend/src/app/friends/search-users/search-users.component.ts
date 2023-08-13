@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {FriendsService} from "../../services/friends.service";
 import {debounceTime, distinctUntilChanged, switchMap} from "rxjs";
 import {User} from "../../interfaces/user";
-import {MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {ErrorDialogComponent} from "../../core/error-dialog/error-dialog.component";
 import {WatchedMovie} from "../../interfaces/WatchedMovie";
 import {WatchedShow} from "../../interfaces/WatchedShow";
@@ -20,10 +20,14 @@ export class SearchUsersComponent implements OnInit {
     isFriendRequest: boolean = false;
     isSuggestion: boolean = false;
 
-    constructor(private friendsService: FriendsService, private dialog: MatDialog) {
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private friendsService: FriendsService, private dialog: MatDialog) {
     }
 
     ngOnInit(): void {
+        this.isFriendRequest = this.data.isFriendRequest;
+        this.isSuggestion = this.data.isSuggestion;
+        this.suggestion = this.data.suggestion;
+
         this.searchForm.valueChanges.pipe(
             distinctUntilChanged(),
             debounceTime(400),
@@ -54,11 +58,11 @@ export class SearchUsersComponent implements OnInit {
                 error: error => {
                     this.dialog.open(ErrorDialogComponent, {
                         width: '400px',
-                        data: {errorMessage: error.error.error}
+                        data: {errorMessage: error}
                     })
                 }
             })
-        } else {
+        } else if (suggestion.type === 'show') {
             this.friendsService.suggestShow(suggestion.id, user.id).subscribe({
                 error: error => {
                     this.dialog.open(ErrorDialogComponent, {

@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {User} from "../../interfaces/user";
 import {FriendsService} from "../../services/friends.service";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {SearchUsersComponent} from "../search-users/search-users.component";
 import {FriendRequestsComponent} from "../friend-requests/friend-requests.component";
 import {tap} from "rxjs";
@@ -57,12 +57,15 @@ export class FriendsComponent implements OnInit {
 
 
     searchUsers(): void {
-        const dialogRef: MatDialogRef<SearchUsersComponent> = this.dialog.open(SearchUsersComponent, {
+        this.dialog.open(SearchUsersComponent, {
             width: '500px',
             panelClass: 'custom-dialog',
+            data: {
+                isFriendRequest: true,
+                isSuggestion: false,
+                suggestion: undefined
+            }
         });
-        dialogRef.componentInstance.isFriendRequest = true;
-        dialogRef.componentInstance.isSuggestion = false;
     }
 
     viewRequests(): void {

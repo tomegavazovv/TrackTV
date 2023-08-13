@@ -2,6 +2,7 @@ package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.domain.Cast
+import com.sorsix.backend.domain.movie.Movie
 import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.domain.user.RateEpisode
@@ -139,6 +140,11 @@ class TvShowController(
     @GetMapping("/episodes/{showId}/{seasonNumber}")
     fun getEpisodesOfShow(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long, @PathVariable seasonNumber: Long): ResponseEntity<*> {
         return ResponseEntity.ok(tvshowService.getEpisodes(principal.userId,showId, seasonNumber))
+    }
+
+    @GetMapping("/search")
+    fun searchByTitle(@RequestParam("title") title: String): ResponseEntity<List<Show>> {
+        return ResponseEntity.ok(tvshowService.searchByTitle(title))
     }
 
 }

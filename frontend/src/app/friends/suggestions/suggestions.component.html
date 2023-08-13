@@ -1,19 +1,55 @@
 <div class="suggestions-container">
-    <h2>Suggested movies:</h2>
-    <ul class="list" *ngIf="suggestedMovies && suggestedMovies.length > 0">
-        <li *ngFor="let suggestedMovie of suggestedMovies" class="friend-item">
-            {{ suggestedMovie.movieId.title }}
-            {{ suggestedMovie.suggestedFromUserId.name}}
-        </li>
-    </ul>
-    <p *ngIf="suggestedMovies.length === 0" class="no-shows-message">You don't have any movie suggestions yet.</p>
-    <h2>Suggested shows:</h2>
+    <div class="title">
+        <h2 class="mat-h2">Suggested movies:</h2>
+    </div>
 
-    <ul class="list" *ngIf="suggestedShows && suggestedShows.length > 0">
-        <li *ngFor="let suggestedShow of suggestedShows" class="friend-item">
-            {{ suggestedShow.showId.title }}
-            {{ suggestedShow.suggestedFromUserId.name}}
-        </li>
-    </ul>
-    <p *ngIf="suggestedShows.length === 0" class="no-movies-message">You don't have any show suggestions yet.</p>
+    <div *ngIf="suggestedMovies && suggestedMovies.length > 0; else noMovies">
+        <table mat-table [dataSource]="suggestedMovies" class="mat-elevation-z0">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef class="custom-show"> Movie title</th>
+                <td mat-cell *matCellDef="let suggestedMovie">
+                    <a [routerLink]="['/movies', suggestedMovie.movieId.id]" (click)="closeDialog()">
+                        {{ suggestedMovie.movieId.title }}
+                    </a>
+            </ng-container>
+            <ng-container matColumnDef="suggestedFrom">
+                <th mat-header-cell *matHeaderCellDef> Suggested from</th>
+                <td mat-cell *matCellDef="let suggestedMovie"> {{ suggestedMovie.suggestedFromUserId.name }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['title', 'suggestedFrom']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['title', 'suggestedFrom']"></tr>
+        </table>
+    </div>
+
+    <ng-template #noMovies>
+        <p class="no-movies-message">You don't have any movie suggestions yet.</p>
+    </ng-template>
+
+    <div class="title">
+        <h2 class="mat-h2">Suggested tv shows:</h2>
+    </div>
+
+    <div *ngIf="suggestedShows && suggestedShows.length > 0; else noShows">
+        <table mat-table [dataSource]="suggestedShows" class="mat-elevation-z0">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef class="custom-show"> Show title</th>
+                <td mat-cell *matCellDef="let suggestedShow">
+                    <a [routerLink]="['/tvshows', suggestedShow.showId.id]" (click)="closeDialog()">
+                        {{ suggestedShow.showId.title }}
+                    </a>
+            </ng-container>
+            <ng-container matColumnDef="suggestedFrom">
+                <th mat-header-cell *matHeaderCellDef> Suggested from</th>
+                <td mat-cell *matCellDef="let suggestedShow"> {{ suggestedShow.suggestedFromUserId.name }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['title', 'suggestedFrom']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['title', 'suggestedFrom']"></tr>
+        </table>
+    </div>
+
+    <ng-template #noShows>
+        <p class="no-shows-message">You don't have any show suggestions yet.</p>
+    </ng-template>
 </div>

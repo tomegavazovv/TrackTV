@@ -89,4 +89,8 @@ class TvShowServiceImpl(
         }
     }
 
+    override fun searchByTitle(title: String): List<Show> {
+        return showRepository.searchByTitleContainingIgnoreCase(title)
+    }
+
 }
