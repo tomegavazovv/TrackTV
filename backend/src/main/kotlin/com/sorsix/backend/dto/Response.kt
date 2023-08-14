@@ -3,6 +3,7 @@ package com.sorsix.backend.dto
 import com.sorsix.backend.domain.movie.Movie
 import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.show.Show
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class LoginResponseDto(
@@ -33,6 +34,15 @@ data class MovieDto(
     val watched: Boolean,
     val description: String,
     val rating: Number
+)
+
+data class WatchedMovieDto(
+    val data: Movie,
+    val date: LocalDate
+)
+
+data class WatchedShowDto(
+    val data: Show,
 )
 
 data class TvShowDto(

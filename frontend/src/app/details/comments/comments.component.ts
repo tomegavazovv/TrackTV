@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from 'src/app/interfaces/Comment';
-import { CommentsService } from '../../comments.service';
+import { CommentsService } from '../comments.service';
 import { Observable, switchMap } from 'rxjs';
 
 @Component({

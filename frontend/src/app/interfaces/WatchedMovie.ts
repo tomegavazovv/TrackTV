@@ -1,11 +1,7 @@
-import {User} from "./user";
-import {MovieItem} from "./MovieItem";
+import { MovieItem } from './MovieItem';
 
 export interface WatchedMovie {
-    type: 'movie',
-    id: number,
-    user: User,
-    movie: MovieItem,
-    date: Date
+    type: 'movie';
+    data: MovieItem;
+    date: Date;
 }
-

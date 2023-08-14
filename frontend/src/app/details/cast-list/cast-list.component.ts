@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cast } from 'src/app/interfaces/Cast';
-import { CastService } from '../../cast.service';
+import { CastService } from '../cast.service';
 import { Observable, mergeMap } from 'rxjs';
 
 @Component({
@@ -10,6 +10,8 @@ import { Observable, mergeMap } from 'rxjs';
     styleUrls: ['./cast-list.component.css'],
 })
 export class CastListComponent implements OnInit {
+    @Input()
+    isEnabled = false;
     castings: Cast[] = [];
     favoriteCast: Cast | undefined;
     loading: Boolean = false;
@@ -58,13 +60,11 @@ export class CastListComponent implements OnInit {
     }
 
     onVoteFavorite(castId: Number) {
-        if (this.favoriteCast?.id) {
-            const entityId = +this.route.snapshot.url[1].path;
-            if (this.isTvShow) {
-                this.castService.voteForFavoriteCastOfShow(entityId, castId);
-            } else {
-                this.castService.voteForFavoriteCastOfMovie(entityId, castId);
-            }
+        const entityId = +this.route.snapshot.url[1].path;
+        if (this.isTvShow) {
+            this.castService.voteForFavoriteCastOfShow(entityId, castId);
+        } else {
+            this.castService.voteForFavoriteCastOfMovie(entityId, castId);
         }
     }
 }

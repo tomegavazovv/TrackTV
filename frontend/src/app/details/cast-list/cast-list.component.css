@@ -61,3 +61,7 @@ img {
     color: white;
     font-weight: bold;
 }
+
+.disabled {
+    cursor: not-allowed;
+}

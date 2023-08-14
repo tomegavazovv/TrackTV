@@ -1,6 +1,8 @@
 package com.sorsix.backend.service.implementations.WatchServiceImpl
 
 import com.sorsix.backend.domain.user.WatchMovie
+import com.sorsix.backend.dto.MovieDto
+import com.sorsix.backend.dto.WatchedMovieDto
 import com.sorsix.backend.exceptions.MovieNotFoundException
 import com.sorsix.backend.exceptions.WatchedMovieNotFoundException
 import com.sorsix.backend.repository.UserRepository
@@ -32,8 +34,10 @@ class MovieWatchServiceImpl(
         } ?: throw WatchedMovieNotFoundException()
     }
 
-    override fun getWatchedMovies(userId: Long): List<WatchMovie> {
-        return watchMovieRepository.findAllByUserId(userId)
+    override fun getWatchedMovies(userId: Long): List<WatchedMovieDto> {
+        return watchMovieRepository.findAllByUserId(userId).map {
+            WatchedMovieDto(it.movie, it.date)
+        }
     }
 
     override fun getRecentlyWatched(userId: Long): List<WatchMovie> {

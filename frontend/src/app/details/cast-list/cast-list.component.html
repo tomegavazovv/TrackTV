@@ -13,6 +13,8 @@
                 *ngIf="favoriteCast?.id !== cast.id"
                 (click)="onVoteFavorite(cast.id)"
                 class="btn vote-button"
+                [class.disabled]="!isEnabled"
+                [disabled]="!isEnabled"
             >
                 Vote as Favorite
             </button>

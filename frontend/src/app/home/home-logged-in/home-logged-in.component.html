@@ -9,7 +9,10 @@
             />
         </mat-form-field>
         <mat-nav-list
-            *ngIf="movieSearchResults.length > 0 && movieSearchForm.value.trim() !== ''"
+            *ngIf="
+                movieSearchResults.length > 0 &&
+                movieSearchForm.value.trim() !== ''
+            "
             class="custom-width"
         >
             <mat-list-item
@@ -31,7 +34,10 @@
             />
         </mat-form-field>
         <mat-nav-list
-            *ngIf="tvshowSearchResults.length > 0 && tvshowSearchForm.value.trim() !== ''"
+            *ngIf="
+                tvshowSearchResults.length > 0 &&
+                tvshowSearchForm.value.trim() !== ''
+            "
             class="custom-width"
         >
             <mat-list-item
@@ -48,10 +54,10 @@
         <mat-nav-list class="show-list custom-width">
             <mat-list-item
                 *ngFor="let show of watchedShows.slice(0, 5)"
-                [routerLink]="['/tvshows', show.show.id]"
+                [routerLink]="['/tvshows', show.data.id]"
             >
                 <div class="tvshow-item">
-                    <p class="tvshow-title">{{ show.show.title }}</p>
+                    <p class="tvshow-title">{{ show.data.title }}</p>
                 </div>
             </mat-list-item>
         </mat-nav-list>

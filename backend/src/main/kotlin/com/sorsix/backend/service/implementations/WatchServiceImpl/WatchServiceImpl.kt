@@ -1,10 +1,13 @@
 package com.sorsix.backend.service.implementations.WatchServiceImpl
 
+import com.sorsix.backend.domain.movie.Movie
 import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.user.UserWatchShow
 import com.sorsix.backend.domain.user.WatchEpisode
 import com.sorsix.backend.domain.user.WatchMovie
 import com.sorsix.backend.dto.TvShowDto
+import com.sorsix.backend.dto.WatchedMovieDto
+import com.sorsix.backend.dto.WatchedShowDto
 import com.sorsix.backend.service.interfaces.WatchService.MovieWatchService
 import com.sorsix.backend.service.interfaces.WatchService.TvShowWatchService
 import com.sorsix.backend.service.interfaces.WatchService.WatchService
@@ -23,7 +26,7 @@ class WatchServiceImpl(
         movieWatchService.unwatchMovie(userId, movieId)
     }
 
-    override fun getWatchedMovies(userId: Long): List<WatchMovie> {
+    override fun getWatchedMovies(userId: Long): List<WatchedMovieDto> {
         return movieWatchService.getWatchedMovies(userId)
     }
 
@@ -39,7 +42,7 @@ class WatchServiceImpl(
         tvShowWatchService.unwatchEpisode(userId, episodeId)
     }
 
-    override fun getWatchedTvShows(userId: Long): List<UserWatchShow> {
+    override fun getWatchedTvShows(userId: Long): List<WatchedShowDto> {
         return tvShowWatchService.getWatchedTvShows(userId)
     }
 

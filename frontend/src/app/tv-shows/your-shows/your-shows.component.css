@@ -23,3 +23,22 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+.show-suggestions-button {
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 700;
+    margin-left: -20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.showImage {
+    width: 80px;
+    height: 100px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 20px;
+    margin-right: 5px;
+    margin-left: -10px;
+}

@@ -108,7 +108,7 @@ class TvShowController(
     }
 
     @GetMapping("/watched")
-    fun getWatchedMovies(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<*> {
+    fun getWatchedMovies(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<List<WatchedShowDto>> {
         return ResponseEntity.ok(watchService.getWatchedTvShows(principal.userId))
     }
 

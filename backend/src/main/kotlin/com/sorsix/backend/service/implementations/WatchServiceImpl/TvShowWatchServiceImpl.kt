@@ -4,6 +4,7 @@ import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.user.UserWatchShow
 import com.sorsix.backend.domain.user.WatchEpisode
 import com.sorsix.backend.dto.TvShowDto
+import com.sorsix.backend.dto.WatchedShowDto
 import com.sorsix.backend.exceptions.EpisodeNotFoundException
 import com.sorsix.backend.exceptions.ShowNotFoundException
 import com.sorsix.backend.exceptions.WatchedShowNotFoundException
@@ -49,7 +50,8 @@ class TvShowWatchServiceImpl(
         }
     }
 
-    override fun getWatchedTvShows(userId: Long): List<UserWatchShow> = watchShowRepository.findByUserId(userId)
+    override fun getWatchedTvShows(userId: Long): List<WatchedShowDto> =
+        watchShowRepository.findByUserId(userId).map { WatchedShowDto(it.show) }
 
     override fun addWatchedEpisode(userId: Long, episodeId: Long): WatchEpisode {
         val user = userRepository.findById(userId).orElse(null)

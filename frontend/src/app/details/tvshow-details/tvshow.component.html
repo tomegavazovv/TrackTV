@@ -67,7 +67,9 @@
                 </div>
                 <div class="cast-section mt-3">
                     <h3>Cast:</h3>
-                    <app-cast-list></app-cast-list>
+                    <app-cast-list
+                        [isEnabled]="tvShow.watched.valueOf()"
+                    ></app-cast-list>
                     <hr />
                 </div>
 

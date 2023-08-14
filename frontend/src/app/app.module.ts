@@ -17,11 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FavoriteCastBarComponent } from './details/favorite-cast-bar/favorite-cast-bar.component';
 import { MatIconModule } from '@angular/material/icon';
-import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { TvshowComponent } from './details/tvshow-details/tvshow.component';
 import { EpisodeListComponent } from './details/tvshow-details/episode-list/episode-list.component';
-import { CastListComponent } from './details/tvshow-details/cast-list/cast-list.component';
-import { CommentsComponent } from './details/tvshow-details/comments/comments.component';
+import { CastListComponent } from './details/cast-list/cast-list.component';
+import { CommentsComponent } from './details/comments/comments.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +31,6 @@ import { CommentsComponent } from './details/tvshow-details/comments/comments.co
         CommentsComponent,
         MovieComponent,
         FavoriteCastBarComponent,
-        SpinnerComponent,
     ],
     imports: [
         FormsModule,
