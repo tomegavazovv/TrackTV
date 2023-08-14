@@ -2,19 +2,25 @@
     <mat-card-title class="card-title">Popular TV Shows</mat-card-title>
     <mat-card-content>
         <ul class="tvshow-list">
-            <li
-                *ngFor="let tvshow of popularTvShows.slice(0, 5)"
-                class="tvshow-list-item"
-            >
-                <div class="tvshow-item" [routerLink]="['/tvshows', tvshow.id]">
-                    <img
-                        [src]="tvshow.imageUrl"
-                        alt="{{ tvshow.title }} Image"
-                        class="tvshow-image"
-                    />
-                    <p class="tvshow-title">{{ tvshow.title }}</p>
-                </div>
-            </li>
+            <div *ngIf="loading" class="text-center"><app-spinner /></div>
+            <div *ngIf="!loading">
+                <li
+                    *ngFor="let tvshow of popularTvShows.slice(0, 5)"
+                    class="tvshow-list-item"
+                >
+                    <div
+                        class="tvshow-item"
+                        [routerLink]="['/tvshows', tvshow.id]"
+                    >
+                        <img
+                            [src]="tvshow.imageUrl"
+                            alt="{{ tvshow.title }} Image"
+                            class="tvshow-image"
+                        />
+                        <p class="tvshow-title">{{ tvshow.title }}</p>
+                    </div>
+                </li>
+            </div>
         </ul>
     </mat-card-content>
 </mat-card>

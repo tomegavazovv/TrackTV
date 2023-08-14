@@ -9,6 +9,7 @@ import { MovieItem } from 'src/app/interfaces/MovieItem';
 })
 export class PopularMoviesComponent implements OnInit {
     popularMovies: MovieItem[] = [];
+    loading = false;
 
     constructor(private http: HttpClient) {}
 
@@ -17,13 +18,16 @@ export class PopularMoviesComponent implements OnInit {
     }
 
     fetchPopularMovies(): void {
+        this.loading = true;
         const apiUrl = '/api/movies/mostPopular';
         this.http.get<any[]>(apiUrl).subscribe({
             next: (data) => {
                 this.popularMovies = data;
+                this.loading = false;
             },
             error: (error) => {
                 console.error('Error fetching popular movies:', error);
+                this.loading = false;
             },
         });
     }
