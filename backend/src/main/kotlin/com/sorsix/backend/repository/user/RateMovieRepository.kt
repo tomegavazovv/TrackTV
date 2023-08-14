@@ -1,14 +1,14 @@
 package com.sorsix.backend.repository.user
 
 import com.sorsix.backend.domain.user.RateMovie
-import com.sorsix.backend.domain.user.WatchedMovie
+import com.sorsix.backend.domain.user.WatchMovie
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
 interface RateMovieRepository : CrudRepository<RateMovie, Long> {
-    fun findByWatchedMovie(watchedMovie: WatchedMovie): RateMovie?
+    fun findByWatchMovie(watchMovie: WatchMovie): RateMovie?
 
-    fun findByWatchedMovieMovieId(movieId: Long): List<RateMovie>
+    fun findByWatchMovieMovieId(movieId: Long): List<RateMovie>
 
 }

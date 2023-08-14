@@ -9,7 +9,7 @@ import com.sorsix.backend.exceptions.UserNotFoundException
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.movie.MovieRepository
 import com.sorsix.backend.repository.movie.SuggestMovieRepository
-import com.sorsix.backend.service.SuggestMovieService
+import com.sorsix.backend.service.interfaces.SuggestMovieService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 

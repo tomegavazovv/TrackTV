@@ -7,13 +7,12 @@ import jakarta.persistence.*
 data class RateEpisode(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0 ,
+    val id: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "user_episode_id")
-    val watchedEpisode: WatchedEpisode,
+    val watchEpisode: WatchEpisode,
 
     @Column(name = "rating", nullable = false)
-    val rating: Int ,
-
+    val rating: Int,
 )

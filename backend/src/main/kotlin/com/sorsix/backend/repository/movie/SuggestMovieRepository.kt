@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service
 
 @Service
 interface SuggestMovieRepository : JpaRepository<SuggestMovie, Long> {
-
-
     fun existsBySuggestedFromUserIdAndSuggestedToUserIdAndMovieId(from: User, to: User, movie: Movie): Boolean
 
     fun findAllBySuggestedToUserId(user: User): List<SuggestMovie>

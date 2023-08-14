@@ -40,8 +40,6 @@ data class TvShowDto(
     val watched: Boolean
 )
 
-
-
 data class AverageEpisodeRatingDto(
     val averageRating: Number
 )

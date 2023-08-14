@@ -2,14 +2,18 @@ package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.domain.Cast
-import com.sorsix.backend.domain.movie.Movie
 import com.sorsix.backend.domain.show.Episode
 import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.domain.user.RateEpisode
-import com.sorsix.backend.domain.user.WatchedEpisode
+import com.sorsix.backend.domain.user.WatchEpisode
 import com.sorsix.backend.domain.views.TopFiveCastOfShowViewEntity
 import com.sorsix.backend.dto.*
 import com.sorsix.backend.service.*
+import com.sorsix.backend.service.interfaces.CastService.CastService
+import com.sorsix.backend.service.interfaces.CommentService.CommentService
+import com.sorsix.backend.service.interfaces.RatingService.RatingService
+import com.sorsix.backend.service.interfaces.TvShowService
+import com.sorsix.backend.service.interfaces.WatchService.WatchService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
@@ -18,11 +22,11 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/tvshows")
 class TvShowController(
-    private val favoriteCastService: FavoriteCastService,
+    private val castService: CastService,
     private val ratingService: RatingService,
     private val watchService: WatchService,
-    private val popularityService: PopularityService,
     private val tvshowService: TvShowService,
+    private val commentService: CommentService
     ) {
 
     @GetMapping("/{showId}")
@@ -35,7 +39,7 @@ class TvShowController(
         @RequestBody body: AddFavoriteCastDto, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Cast> {
         return ResponseEntity.ok(
-            favoriteCastService.addFavoriteCastOfTvShow(
+            castService.addFavoriteCastOfTvShow(
                 principal.userId, body.id, body.castId
             )
         )
@@ -45,12 +49,12 @@ class TvShowController(
     fun getFavoriteCastOfTvShowByUser(
         @AuthenticationPrincipal principal: CustomPrincipal, @PathVariable tvshowId: Long
     ): ResponseEntity<Cast> {
-        return ResponseEntity.ok(favoriteCastService.getFavoriteCastOfTvShowByUser(principal.userId, tvshowId))
+        return ResponseEntity.ok(castService.getFavoriteCastOfTvShowByUser(principal.userId, tvshowId))
     }
 
     @GetMapping("/topCast/{tvshowId}")
     fun getTopCast(@PathVariable tvshowId: Long): ResponseEntity<List<TopFiveCastOfShowViewEntity>> {
-        return ResponseEntity.ok(favoriteCastService.getTopFiveCastsOfTvShow(tvshowId))
+        return ResponseEntity.ok(castService.getTopFiveCastsOfTvShow(tvshowId))
     }
 
     @PostMapping("/rate")
@@ -89,7 +93,7 @@ class TvShowController(
     @PostMapping("/watched/{episodeId}")
     fun addWatchedEpisode(
         @AuthenticationPrincipal principal: CustomPrincipal, @PathVariable episodeId: Long
-    ): ResponseEntity<WatchedEpisode> {
+    ): ResponseEntity<WatchEpisode> {
         return ResponseEntity.ok(watchService.addWatchedEpisode(principal.userId, episodeId))
     }
 
@@ -117,24 +121,24 @@ class TvShowController(
 
     @GetMapping("/mostPopular")
     fun getMostPopular(): ResponseEntity<*> {
-        return ResponseEntity.ok(popularityService.getMostPopularTvShows())
+        return ResponseEntity.ok(tvshowService.getMostPopularTvShows())
     }
 
     @GetMapping("/comments/{showId}")
     fun getCommentsForShow(@PathVariable showId: Long): ResponseEntity<*> {
-        return ResponseEntity.ok(tvshowService.getComments(showId))
+        return ResponseEntity.ok(commentService.getShowComments(showId))
     }
 
     @PostMapping("/comments")
     fun commentShow(
         @AuthenticationPrincipal principal: CustomPrincipal, @RequestBody body: CommentShowDto
     ): ResponseEntity<*> {
-        return ResponseEntity.ok(tvshowService.commentShow(principal.userId, body.showId, body.comment))
+        return ResponseEntity.ok(commentService.commentShow(principal.userId, body.showId, body.comment))
     }
 
     @GetMapping("/cast/{showId}")
     fun getCastOfShow(@PathVariable showId: Long): ResponseEntity<*> {
-        return ResponseEntity.ok(tvshowService.getCast(showId))
+        return ResponseEntity.ok(castService.getShowCast(showId))
     }
 
     @GetMapping("/episodes/{showId}/{seasonNumber}")
