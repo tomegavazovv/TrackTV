@@ -19,17 +19,17 @@ class FriendRequestServiceImpl(
 ) : FriendRequestService {
     override fun findFriendRequestsByReceiverId(id: Long): List<FriendRequest> {
         val receiver: User =
-            userRepository.findByIdOrNull(id) ?: throw UserNotFoundException("Receiver with id $id not found.")
+            userRepository.findByIdOrNull(id) ?: throw UserNotFoundException(id)
         return friendRequestRepository.findFriendRequestsByReceiverId(receiver)
     }
 
     override fun acceptRequest(fromId: Long, toId: Long) {
         val friendRequest: FriendRequest = friendRequestRepository.findFriendRequestByReceiverAndSender(fromId, toId)
-            ?: throw FriendRequestNotFoundException("There is no friend request between users with id $fromId and $toId")
+            ?: throw FriendRequestNotFoundException(fromId, toId)
         val fromUser =
-            userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException("User with id $fromId not found.")
+            userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException(fromId)
         val toUser =
-            userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException(("User with id $fromId not found."))
+            userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException((fromId))
 
         friendRepository.save(
             Friend(
@@ -42,7 +42,7 @@ class FriendRequestServiceImpl(
 
     override fun declineRequest(fromId: Long, toId: Long) {
         val friendRequest: FriendRequest = friendRequestRepository.findFriendRequestByReceiverAndSender(fromId, toId)
-            ?: throw FriendRequestNotFoundException("There is no friend request between users with id $fromId and $toId.")
+            ?: throw FriendRequestNotFoundException(fromId, toId)
 
         friendRequestRepository.deleteById(friendRequest.id)
     }

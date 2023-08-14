@@ -3,7 +3,7 @@
     <mat-card-content>
         <ul class="tvshow-list">
             <div *ngIf="loading" class="text-center"><app-spinner /></div>
-            <div *ngIf="!loading">
+            <div *ngIf="!loading" class="tvshow-list">
                 <li
                     *ngFor="let tvshow of popularTvShows.slice(0, 5)"
                     class="tvshow-list-item"
