@@ -39,6 +39,12 @@ data class CommentMovieBody(
     val comment: String
 )
 
+data class CommentShowDto(
+    val showId: Long,
+    val comment: String
+)
+
+
 data class RateEpisodeDto(
     val episodeId: Long,
 
@@ -47,13 +53,9 @@ data class RateEpisodeDto(
     val rating: Int,
 )
 
-data class CommentShowDto(
-    val showId: Long,
-    val comment: String
-)
-
 data class RateMovieDto(
     val movieId: Long,
     val rating: Number
 )
+
 

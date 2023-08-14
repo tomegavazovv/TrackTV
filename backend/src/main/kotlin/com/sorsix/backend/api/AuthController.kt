@@ -5,7 +5,7 @@ import com.sorsix.backend.authentication.service.TokenService
 import com.sorsix.backend.dto.LoginDto
 import com.sorsix.backend.dto.LoginResponseDto
 import com.sorsix.backend.dto.RegisterDto
-import com.sorsix.backend.service.UserService
+import com.sorsix.backend.service.interfaces.UserService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

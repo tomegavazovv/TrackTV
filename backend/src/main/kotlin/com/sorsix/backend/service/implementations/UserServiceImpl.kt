@@ -3,7 +3,7 @@ package com.sorsix.backend.service.implementations
 import com.sorsix.backend.authentication.service.HashService
 import com.sorsix.backend.domain.User
 import com.sorsix.backend.repository.UserRepository
-import com.sorsix.backend.service.UserService
+import com.sorsix.backend.service.interfaces.UserService
 import org.springframework.stereotype.Service
 
 @Service

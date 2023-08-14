@@ -1,7 +1,8 @@
-package com.sorsix.backend.service
+package com.sorsix.backend.service.interfaces
 
 import com.sorsix.backend.domain.Cast
 import com.sorsix.backend.domain.movie.Movie
+import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.dto.MovieDto
 
 interface MovieService {
@@ -10,5 +11,7 @@ interface MovieService {
 
     fun findById(userId: Long, movieId: Long): MovieDto
 
-    fun getCast(movieId: Long): List<Cast>
+    fun getMostPopularMovies(): List<Movie>
+
+
 }

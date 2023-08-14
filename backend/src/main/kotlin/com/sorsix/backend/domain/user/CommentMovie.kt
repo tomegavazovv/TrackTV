@@ -12,7 +12,7 @@ data class CommentMovie(
 
     @ManyToOne
     @JoinColumn(name = "watched_movie_id")
-    val watchedMovie: WatchedMovie,
+    val watchMovie: WatchMovie,
 
     val date: LocalDateTime = LocalDateTime.now(),
 

@@ -1,4 +1,4 @@
-package com.sorsix.backend.api
+package com.sorsix.backend.api.errorHandler
 
 import com.sorsix.backend.exceptions.CustomRuntimeException
 import org.springframework.http.HttpStatus

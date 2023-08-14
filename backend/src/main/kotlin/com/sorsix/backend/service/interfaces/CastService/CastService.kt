@@ -1,12 +1,10 @@
-package com.sorsix.backend.service
+package com.sorsix.backend.service.interfaces.CastService
 
 import com.sorsix.backend.domain.Cast
-import com.sorsix.backend.domain.user.FavoriteMovieCast
-import com.sorsix.backend.domain.user.FavoriteShowCast
 import com.sorsix.backend.domain.views.TopFiveCastOfMovieViewEntity
 import com.sorsix.backend.domain.views.TopFiveCastOfShowViewEntity
 
-interface FavoriteCastService {
+interface CastService {
     fun addFavoriteCastOfMovie(userId: Long, movieId: Long, castId: Long): Cast
 
     fun getFavoriteCastOfMovieByUser(userId: Long, movieId: Long): Cast
@@ -14,6 +12,10 @@ interface FavoriteCastService {
     fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastOfMovieViewEntity>
 
     fun addFavoriteCastOfTvShow(userId: Long, showId: Long, castId: Long): Cast
+
+    fun getMovieCast(movieId: Long): List<Cast>
+
+    fun getShowCast(showId: Long): List<Cast>
 
     fun getFavoriteCastOfTvShowByUser(userId: Long, showId: Long): Cast
 

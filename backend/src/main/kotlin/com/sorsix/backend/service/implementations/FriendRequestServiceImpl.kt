@@ -8,7 +8,7 @@ import com.sorsix.backend.exceptions.UserNotFoundException
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.friendship.FriendRepository
 import com.sorsix.backend.repository.friendship.FriendRequestRepository
-import com.sorsix.backend.service.FriendRequestService
+import com.sorsix.backend.service.interfaces.FriendRequestService
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,14 +24,13 @@ class FriendRequestServiceImpl(
     }
 
     override fun acceptRequest(fromId: Long, toId: Long) {
-
         val friendRequest: FriendRequest = friendRequestRepository.findFriendRequestByReceiverAndSender(fromId, toId)
             ?: throw FriendRequestNotFoundException("There is no friend request between users with id $fromId and $toId")
-
         val fromUser =
             userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException("User with id $fromId not found.")
         val toUser =
             userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException(("User with id $fromId not found."))
+
         friendRepository.save(
             Friend(
                 user = fromUser, friend = toUser

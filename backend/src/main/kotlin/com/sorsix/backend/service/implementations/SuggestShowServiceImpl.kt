@@ -7,7 +7,7 @@ import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.show.ShowRepository
 import com.sorsix.backend.repository.show.SuggestShowRepository
-import com.sorsix.backend.service.SuggestShowService
+import com.sorsix.backend.service.interfaces.SuggestShowService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 

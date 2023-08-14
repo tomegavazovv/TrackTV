@@ -3,19 +3,15 @@ package com.sorsix.backend.api
 import com.sorsix.backend.authentication.CustomPrincipal
 import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
-import com.sorsix.backend.repository.friendship.FriendRepository
-import com.sorsix.backend.repository.friendship.FriendRequestRepository
 import com.sorsix.backend.service.*
+import com.sorsix.backend.service.interfaces.FriendRequestService
+import com.sorsix.backend.service.interfaces.FriendService
+import com.sorsix.backend.service.interfaces.SuggestMovieService
+import com.sorsix.backend.service.interfaces.SuggestShowService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
@@ -25,8 +21,6 @@ class FriendsController(
     val userRepository: UserRepository,
     val suggestMovieService: SuggestMovieService,
     val suggestShowService: SuggestShowService,
-    val friendRequestRepository: FriendRequestRepository,
-    val friendRepository: FriendRepository
 ) {
     @GetMapping("/friends")
     fun getFriends(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
@@ -74,7 +68,10 @@ class FriendsController(
     }
 
     @PostMapping("/acceptRequest/{id}")
-    fun acceptRequest(@PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+    fun acceptRequest(
+        @PathVariable id: Long,
+        @AuthenticationPrincipal principal: CustomPrincipal
+    ): ResponseEntity<Any> {
         return try {
             friendRequestService.acceptRequest(id, principal.userId)
             ResponseEntity.noContent().build()
@@ -86,7 +83,10 @@ class FriendsController(
     }
 
     @PostMapping("/declineRequest/{id}")
-    fun declineRequest(@PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+    fun declineRequest(
+        @PathVariable id: Long,
+        @AuthenticationPrincipal principal: CustomPrincipal
+    ): ResponseEntity<Any> {
         return try {
             friendRequestService.declineRequest(id, principal.userId)
             ResponseEntity.noContent().build()
@@ -98,13 +98,19 @@ class FriendsController(
     }
 
     @GetMapping("/searchUsers")
-    fun searchUsers(@RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+    fun searchUsers(
+        @RequestParam username: String,
+        @AuthenticationPrincipal principal: CustomPrincipal
+    ): ResponseEntity<Any> {
         val users = userRepository.findAllByNameContainingAndEmailNot(username, principal.name)
         return ResponseEntity.ok(users)
     }
 
     @GetMapping("/searchUsersClean")
-    fun searchUsersClean(@RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<Any> {
+    fun searchUsersClean(
+        @RequestParam username: String,
+        @AuthenticationPrincipal principal: CustomPrincipal
+    ): ResponseEntity<Any> {
         val users = friendService.getCleanUsers(username, principal.userId)
         return ResponseEntity.ok(users)
     }
@@ -126,7 +132,8 @@ class FriendsController(
     }
 
     @GetMapping("/suggestedMovies")
-    fun suggestedMovies(@AuthenticationPrincipal principal: CustomPrincipal) = suggestMovieService.getSuggestions(principal.userId)
+    fun suggestedMovies(@AuthenticationPrincipal principal: CustomPrincipal) =
+        suggestMovieService.getSuggestions(principal.userId)
 
     @PostMapping("/suggestShow/{showId}/{friendId}")
     fun suggestShow(

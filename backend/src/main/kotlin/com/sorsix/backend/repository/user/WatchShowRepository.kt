@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface WatchShowRepository : JpaRepository<UserWatchShow, Long>{
     fun findByUserIdAndShowId(userId: Long, showId: Long): UserWatchShow?
-
     fun findByUserId(userId: Long): List<UserWatchShow>
 }

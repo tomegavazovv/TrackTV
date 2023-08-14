@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface FriendRequestRepository : JpaRepository<FriendRequest, Long> {
-
     @Query(
         "SELECT * FROM friend_request fr WHERE fr.sender_id = :senderId " +
                 "AND fr.receiver_id = :receiverId " +

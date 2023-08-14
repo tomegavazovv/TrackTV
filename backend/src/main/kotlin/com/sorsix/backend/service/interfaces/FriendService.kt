@@ -1,4 +1,4 @@
-package com.sorsix.backend.service
+package com.sorsix.backend.service.interfaces
 
 import com.sorsix.backend.domain.User
 import com.sorsix.backend.domain.friendship.FriendRequest

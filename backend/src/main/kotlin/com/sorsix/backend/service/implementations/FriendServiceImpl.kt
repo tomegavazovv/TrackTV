@@ -6,7 +6,7 @@ import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.friendship.FriendRepository
 import com.sorsix.backend.repository.friendship.FriendRequestRepository
-import com.sorsix.backend.service.FriendService
+import com.sorsix.backend.service.interfaces.FriendService
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
