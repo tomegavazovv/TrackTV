@@ -25,28 +25,30 @@ class TvShowController(
     private val castService: CastService,
     private val ratingService: RatingService,
     private val watchService: WatchService,
-    private val tvshowService: TvShowService,
+    private val tvShowService: TvShowService,
     private val commentService: CommentService
-    ) {
+) {
 
     @GetMapping("/{showId}")
-    fun getShow(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long): ResponseEntity<TvShowDto> {
-        return ResponseEntity.ok(tvshowService.getById(principal.userId, showId))
+    fun getShowById(
+        @AuthenticationPrincipal principal: CustomPrincipal,
+        @PathVariable showId: Long
+    ): ResponseEntity<TvShowDto> {
+        return ResponseEntity.ok(tvShowService.getById(principal.userId, showId))
     }
 
-    @PostMapping("/favoriteCast")
-    fun addFavoriteCastOfTvShow(
-        @RequestBody body: AddFavoriteCastDto, @AuthenticationPrincipal principal: CustomPrincipal
-    ): ResponseEntity<Cast> {
-        return ResponseEntity.ok(
-            castService.addFavoriteCastOfTvShow(
-                principal.userId, body.id, body.castId
-            )
-        )
+    @GetMapping("/search")
+    fun searchByTitle(@RequestParam("title") title: String): ResponseEntity<List<Show>> {
+        return ResponseEntity.ok(tvShowService.searchByTitle(title))
+    }
+
+    @GetMapping("/cast/{showId}")
+    fun getCastOfShow(@PathVariable showId: Long): ResponseEntity<*> {
+        return ResponseEntity.ok(castService.getShowCast(showId))
     }
 
     @GetMapping("/favoriteCast/{tvshowId}")
-    fun getFavoriteCastOfTvShowByUser(
+    fun getFavoriteCastByUser(
         @AuthenticationPrincipal principal: CustomPrincipal, @PathVariable tvshowId: Long
     ): ResponseEntity<Cast> {
         return ResponseEntity.ok(castService.getFavoriteCastOfTvShowByUser(principal.userId, tvshowId))
@@ -57,15 +59,13 @@ class TvShowController(
         return ResponseEntity.ok(castService.getTopFiveCastsOfTvShow(tvshowId))
     }
 
-    @PostMapping("/rate")
-    fun rateTvShow(
-        @Validated @RequestBody body: RateEpisodeDto, @AuthenticationPrincipal principal: CustomPrincipal
-    ): ResponseEntity<AverageEpisodeRatingDto> {
+    @PostMapping("/favoriteCast")
+    fun addFavoriteCastOfTvShow(
+        @RequestBody body: AddFavoriteCastDto, @AuthenticationPrincipal principal: CustomPrincipal
+    ): ResponseEntity<Cast> {
         return ResponseEntity.ok(
-            ratingService.rateEpisodeOfTvShow(
-                principal.userId,
-                body.episodeId,
-                body.rating,
+            castService.addFavoriteCastOfTvShow(
+                principal.userId, body.id, body.castId
             )
         )
     }
@@ -82,46 +82,17 @@ class TvShowController(
         return ResponseEntity.ok(ratingService.getRatingOfTvShowEpisode(episodeId))
     }
 
-    @GetMapping("/{showId}/watchedEpisodes")
-    fun getWatchedEpisodesOfShow(
-        @AuthenticationPrincipal principal: CustomPrincipal,
-        @PathVariable showId: Long
-    ): ResponseEntity<List<Episode>> {
-        return ResponseEntity.ok(watchService.getWatchedEpisodesOfShow(principal.userId, showId))
-    }
-
-    @PostMapping("/watched/{episodeId}")
-    fun addWatchedEpisode(
-        @AuthenticationPrincipal principal: CustomPrincipal, @PathVariable episodeId: Long
-    ): ResponseEntity<WatchEpisode> {
-        return ResponseEntity.ok(watchService.addWatchedEpisode(principal.userId, episodeId))
-    }
-
-    @PostMapping("/unwatchEpisode/{episodeId}")
-    fun unwatchEpisode(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable episodeId: Long){
-        watchService.unwatchEpisode(principal.userId, episodeId)
-    }
-
-    @GetMapping("/watched")
-    fun getWatchedMovies(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<*> {
-        return ResponseEntity.ok(watchService.getWatchedTvShows(principal.userId))
-    }
-
-    @PostMapping("/unwatch/{showId}")
-    fun unwatchShow(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long): ResponseEntity<Unit>{
-        watchService.unwatchTvShow(principal.userId, showId)
-        return ResponseEntity.ok().build()
-    }
-
-    @PostMapping("/watch/{showId}")
-    fun addToWatchedShows(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long): ResponseEntity<TvShowDto>{
-        return ResponseEntity.ok(watchService.addWatchedTvShow(principal.userId, showId))
-    }
-
-
-    @GetMapping("/mostPopular")
-    fun getMostPopular(): ResponseEntity<*> {
-        return ResponseEntity.ok(tvshowService.getMostPopularTvShows())
+    @PostMapping("/rate")
+    fun rateTvShow(
+        @Validated @RequestBody body: RateEpisodeDto, @AuthenticationPrincipal principal: CustomPrincipal
+    ): ResponseEntity<AverageEpisodeRatingDto> {
+        return ResponseEntity.ok(
+            ratingService.rateEpisodeOfTvShow(
+                principal.userId,
+                body.episodeId,
+                body.rating,
+            )
+        )
     }
 
     @GetMapping("/comments/{showId}")
@@ -136,19 +107,60 @@ class TvShowController(
         return ResponseEntity.ok(commentService.commentShow(principal.userId, body.showId, body.comment))
     }
 
-    @GetMapping("/cast/{showId}")
-    fun getCastOfShow(@PathVariable showId: Long): ResponseEntity<*> {
-        return ResponseEntity.ok(castService.getShowCast(showId))
+    @GetMapping("/watched")
+    fun getWatchedMovies(@AuthenticationPrincipal principal: CustomPrincipal): ResponseEntity<*> {
+        return ResponseEntity.ok(watchService.getWatchedTvShows(principal.userId))
     }
 
     @GetMapping("/episodes/{showId}/{seasonNumber}")
-    fun getEpisodesOfShow(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long, @PathVariable seasonNumber: Long): ResponseEntity<*> {
-        return ResponseEntity.ok(tvshowService.getEpisodes(principal.userId,showId, seasonNumber))
+    fun getEpisodesOfShow(
+        @AuthenticationPrincipal principal: CustomPrincipal,
+        @PathVariable showId: Long,
+        @PathVariable seasonNumber: Long
+    ): ResponseEntity<*> {
+        return ResponseEntity.ok(tvShowService.getEpisodes(principal.userId, showId, seasonNumber))
     }
 
-    @GetMapping("/search")
-    fun searchByTitle(@RequestParam("title") title: String): ResponseEntity<List<Show>> {
-        return ResponseEntity.ok(tvshowService.searchByTitle(title))
+    @GetMapping("/{showId}/watchedEpisodes")
+    fun getWatchedEpisodesOfShow(
+        @AuthenticationPrincipal principal: CustomPrincipal, @PathVariable showId: Long
+    ): ResponseEntity<List<Episode>> {
+        return ResponseEntity.ok(watchService.getWatchedEpisodesOfShow(principal.userId, showId))
+    }
+
+
+    @PostMapping("/watch/{showId}")
+    fun addToWatchedShows(
+        @AuthenticationPrincipal principal: CustomPrincipal,
+        @PathVariable showId: Long
+    ): ResponseEntity<TvShowDto> {
+        return ResponseEntity.ok(watchService.addWatchedTvShow(principal.userId, showId))
+    }
+
+    @PostMapping("/watched/{episodeId}")
+    fun addWatchedEpisode(
+        @AuthenticationPrincipal principal: CustomPrincipal, @PathVariable episodeId: Long
+    ): ResponseEntity<WatchEpisode> {
+        return ResponseEntity.ok(watchService.addWatchedEpisode(principal.userId, episodeId))
+    }
+
+    @PostMapping("/unwatchEpisode/{episodeId}")
+    fun unwatchEpisode(@AuthenticationPrincipal principal: CustomPrincipal, @PathVariable episodeId: Long) {
+        watchService.unwatchEpisode(principal.userId, episodeId)
+    }
+
+    @PostMapping("/unwatch/{showId}")
+    fun unwatchShow(
+        @AuthenticationPrincipal principal: CustomPrincipal,
+        @PathVariable showId: Long
+    ): ResponseEntity<Unit> {
+        watchService.unwatchTvShow(principal.userId, showId)
+        return ResponseEntity.ok().build()
+    }
+
+    @GetMapping("/mostPopular")
+    fun getMostPopular(): ResponseEntity<*> {
+        return ResponseEntity.ok(tvShowService.getMostPopularTvShows())
     }
 
 }
