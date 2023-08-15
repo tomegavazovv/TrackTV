@@ -12,5 +12,6 @@ interface TopFiveCastOfShowViewRepository : JpaRepository<TopFiveCastOfShowViewE
 
     fun getTopFiveCastOfShowViewEntityByShowId(movieId: Long): List<TopFiveCastOfShowViewEntity>
 
+    fun getAllByShowId(showId: Long): List<TopFiveCastOfShowViewEntity>
 
 }

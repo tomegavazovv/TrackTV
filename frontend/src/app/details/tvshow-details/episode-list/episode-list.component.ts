@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Episode } from 'src/app/interfaces/Episode';
 import { TvshowService } from '../tvshow.service';
 import { ActivatedRoute } from '@angular/router';
+import { filter, map, switchMap, take, tap } from 'rxjs';
 
 @Component({
     selector: 'app-episode-list',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EpisodeListComponent implements OnInit {
     episodes: Episode[] = [];
-    loading: Boolean = false;
+    loading = false;
 
     constructor(
         private tvShowService: TvshowService,
@@ -18,14 +19,20 @@ export class EpisodeListComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.loading = true;
-        this.route.url.subscribe((url) => {
-            this.tvShowService
-                .getEpisodesOfShow(+url[1].path, 1)
-                .subscribe((episodes) => {
-                    this.episodes = episodes;
-                    this.loading = false;
-                });
+        this.route.paramMap
+            .pipe(
+                take(1),
+                filter((paramMap) => paramMap.has('id')),
+                map((paramMap) => +paramMap.get('id')!),
+                switchMap((id) =>
+                    this.tvShowService.getEpisodesOfShowObv(id, 1)
+                ),
+                tap((episodes) => (this.episodes = episodes))
+            )
+            .subscribe();
+
+        this.tvShowService.episodes$.asObservable().subscribe({
+            next: (episodes) => (this.episodes = episodes),
         });
     }
 
@@ -56,7 +63,7 @@ export class EpisodeListComponent implements OnInit {
             .rateEpisode(episodeId, rating)
             .subscribe((averageRating) => {
                 let index = this.episodes.findIndex(
-                    (ep) => (ep.episode.id = episodeId)
+                    (ep) => ep.episode.id == episodeId
                 );
                 let updatedEpisodes = [...this.episodes];
                 updatedEpisodes[index] = {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { TvShow } from 'src/app/interfaces/TvShow';
 import { Cast } from 'src/app/interfaces/Cast';
 import { CastService } from '../cast.service';
@@ -26,11 +26,13 @@ export class TvshowComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        this.route.url
+        this.route.paramMap
             .pipe(
-                switchMap((urlSegments) => {
-                    const tvShowId = +urlSegments[1].path;
-                    return this.tvShowService.getTvShow(tvShowId);
+                take(1),
+                filter((paramMap) => paramMap.has('id')),
+                map((paramMap) => +paramMap.get('id')!),
+                switchMap((id) => {
+                    return this.tvShowService.getTvShow(id);
                 })
             )
             .subscribe((tvShow) => {

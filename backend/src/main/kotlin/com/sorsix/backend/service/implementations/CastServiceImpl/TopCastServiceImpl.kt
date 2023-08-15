@@ -13,8 +13,8 @@ class TopCastServiceImpl(
     private val topFiveCastOfShowViewRepository: TopFiveCastOfShowViewRepository
 ) : TopCastService {
     override fun getTopFiveCastsOfMovie(movieId: Long): List<TopFiveCastOfMovieViewEntity> =
-        topFiveCastOfMovieViewRepository.getTopFiveCastOfMovieViewEntitiesByMovieId(movieId)
+        topFiveCastOfMovieViewRepository.getAllByMovieId(movieId)
 
     override fun getTopFiveCastsOfTvShow(showId: Long): List<TopFiveCastOfShowViewEntity> =
-        topFiveCastOfShowViewRepository.getTopFiveCastOfShowViewEntityByShowId(showId)
+        topFiveCastOfShowViewRepository.getAllByShowId(showId)
 }

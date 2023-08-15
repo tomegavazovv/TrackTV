@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { Cast } from 'src/app/interfaces/Cast';
 import { CastService } from '../cast.service';
 import { TopCast } from 'src/app/interfaces/TopCast';
+import { Observable, filter } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-favorite-cast-bar',
@@ -20,32 +22,54 @@ export class FavoriteCastBarComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.route.url.subscribe((url) => {
-            this.loading = true;
-            const id = +url[1].path;
-            if (url[0].path == 'movies') {
-                this.loadTopCastOfMovie(id);
-            } else {
-                this.loadTopCastOfShow(id);
+        this.route.url
+            .pipe(
+                filter(
+                    (url) => url[0].path == 'movies' || url[0].path == 'tvshows'
+                ),
+                switchMap((url) => this.loadCast(url))
+            )
+            .subscribe((topCast) => (this.topCastings = topCast));
+
+        this.castService.favoriteCast$.subscribe((favCast) => {
+            const prevCast = this.favoriteCast;
+            this.favoriteCast = favCast;
+
+            if (this.topCastings && prevCast) {
+                const indexToIncrease = this.topCastings.findIndex(
+                    (cast) => cast.name === favCast.name
+                );
+                const indexToDecrease = this.topCastings.findIndex(
+                    (cast) => cast.name === prevCast.name
+                );
+
+                if (indexToIncrease !== -1) {
+                    this.topCastings[indexToIncrease].count =
+                        this.topCastings[indexToIncrease].count.valueOf() + 1;
+                }
+                if (indexToDecrease !== -1) {
+                    console.log(indexToDecrease);
+                    this.topCastings[indexToDecrease].count =
+                        this.topCastings[indexToDecrease].count.valueOf() - 1;
+                }
             }
         });
-
-        this.castService.favoriteCast$.subscribe(
-            (favCast) => (this.favoriteCast = favCast)
-        );
     }
 
-    private loadTopCastOfMovie(movieId: number) {
-        this.castService.getTopCastOfMovie(movieId).subscribe((top) => {
-            this.topCastings = top;
-            this.loading = false;
-        });
+    private loadCast(url: UrlSegment[]): Observable<TopCast[]> {
+        const id = +url[1].path;
+        if (url[0].path == 'movies') {
+            return this.loadTopCastOfMovie(id);
+        } else {
+            return this.loadTopCastOfShow(id);
+        }
     }
 
-    private loadTopCastOfShow(showId: number) {
-        this.castService.getTopCastOfShow(showId).subscribe((top) => {
-            this.topCastings = top;
-            this.loading = false;
-        });
+    private loadTopCastOfMovie(movieId: number): Observable<TopCast[]> {
+        return this.castService.getTopCastOfMovie(movieId);
+    }
+
+    private loadTopCastOfShow(showId: number): Observable<TopCast[]> {
+        return this.castService.getTopCastOfShow(showId);
     }
 }

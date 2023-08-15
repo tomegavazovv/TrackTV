@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Episode } from 'src/app/interfaces/Episode';
 import { TvShow } from 'src/app/interfaces/TvShow';
 
@@ -8,13 +8,22 @@ import { TvShow } from 'src/app/interfaces/TvShow';
     providedIn: 'root',
 })
 export class TvshowService {
+    episodesLoading$ = new Subject<Boolean>();
+    episodes$ = new Subject<Episode[]>();
+
     constructor(private http: HttpClient) {}
 
     getTvShow(tvshowId: number): Observable<TvShow> {
         return this.http.get<TvShow>(`/api/tvshows/${tvshowId}`);
     }
 
-    getEpisodesOfShow(
+    getEpisodesOfShow(tvShowId: Number, seasonNumber: Number) {
+        this.http
+            .get<Episode[]>(`/api/tvshows/episodes/${tvShowId}/${seasonNumber}`)
+            .subscribe((episodes) => this.episodes$.next(episodes));
+    }
+
+    getEpisodesOfShowObv(
         tvShowId: Number,
         seasonNumber: Number
     ): Observable<Episode[]> {

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TopFiveCastOfMovieViewRepository : JpaRepository<TopFiveCastOfMovieViewEntity, Long> {
 
-
+    fun getAllByMovieId(movieId: Long): List<TopFiveCastOfMovieViewEntity>
     fun getTopFiveCastOfMovieViewEntitiesByMovieId(movieId: Long): List<TopFiveCastOfMovieViewEntity>
 }

@@ -10,14 +10,11 @@
     <div class="top-castings mt-5">
         <p id="topCastingsTitle">Top Castings Voted By Users:</p>
         <div *ngFor="let cast of topCastings" class="top-casting">
-            <img [src]="cast.imageUrl" alt="Top Casting" />
-            <p>{{ cast.role }}</p>
-            <p *ngIf="favoriteCast?.id == cast.id; else other">
-                Votes: {{ +cast.count + 1 }}
-            </p>
-            <ng-template #other>
-                <p>Votes: {{ cast.count }}</p>
-            </ng-template>
+            <div *ngIf="cast.count.valueOf() > 0">
+                <img [src]="cast.imageUrl" alt="Top Casting" />
+                <p>{{ cast.role }}</p>
+                <p>Votes: {{ +cast.count }}</p>
+            </div>
         </div>
     </div>
 </div>
