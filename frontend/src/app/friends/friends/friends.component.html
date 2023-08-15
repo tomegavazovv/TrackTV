@@ -11,7 +11,9 @@
             </button>
         </div>
     </div>
-    <ul class="friend-list" *ngIf="friends && friends.length > 0">
+    <div class="text-center" *ngIf="loading"><app-spinner /></div>
+
+    <ul class="friend-list" *ngIf="!loading && friends && friends.length > 0">
         <li *ngFor="let friend of friends" class="friend-item">
             {{ friend.name }}
             <div class="actions">
@@ -25,7 +27,7 @@
             </div>
         </li>
     </ul>
-    <p *ngIf="friends.length === 0" class="no-friends-message">
+    <p *ngIf="friends.length === 0 && !loading" class="no-friends-message">
         You don't have any friends yet.
     </p>
 </div>

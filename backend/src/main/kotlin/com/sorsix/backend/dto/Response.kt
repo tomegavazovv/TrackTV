@@ -53,3 +53,13 @@ data class TvShowDto(
 data class AverageEpisodeRatingDto(
     val averageRating: Number
 )
+
+data class MovieSuggestionDto(
+    val userId: Long,
+    val movieId: Long
+)
+
+data class ShowSuggestionDto(
+    val userId: Long,
+    val showId: Long
+)

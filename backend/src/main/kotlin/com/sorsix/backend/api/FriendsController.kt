@@ -1,6 +1,8 @@
 package com.sorsix.backend.api
 
 import com.sorsix.backend.authentication.CustomPrincipal
+import com.sorsix.backend.dto.MovieSuggestionDto
+import com.sorsix.backend.dto.ShowSuggestionDto
 import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.service.*
@@ -30,6 +32,22 @@ class FriendsController(
         } catch (ex: FriendNotFoundException) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("error" to ex.message))
         }
+    }
+
+    @GetMapping("/myMovieSuggestions/{movieId}")
+    fun getMySuggestionsForMovieWithId(
+        @AuthenticationPrincipal principal: CustomPrincipal,
+        @PathVariable movieId: Long
+    ): ResponseEntity<List<MovieSuggestionDto>> {
+        return ResponseEntity.ok(suggestMovieService.getSuggestionsByUserAndMovieId(principal.userId, movieId))
+    }
+
+    @GetMapping("/myShowSuggestions/{showId}")
+    fun getMySuggestionsForShowWithId(
+        @AuthenticationPrincipal principal: CustomPrincipal,
+        @PathVariable showId: Long
+    ): ResponseEntity<List<ShowSuggestionDto>> {
+        return ResponseEntity.ok(suggestShowService.getSuggestionsByUserAndShowId(principal.userId, showId))
     }
 
     @PostMapping("/addFriend/{id}")
@@ -69,8 +87,7 @@ class FriendsController(
 
     @PostMapping("/acceptRequest/{id}")
     fun acceptRequest(
-        @PathVariable id: Long,
-        @AuthenticationPrincipal principal: CustomPrincipal
+        @PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Any> {
         return try {
             friendRequestService.acceptRequest(id, principal.userId)
@@ -84,8 +101,7 @@ class FriendsController(
 
     @PostMapping("/declineRequest/{id}")
     fun declineRequest(
-        @PathVariable id: Long,
-        @AuthenticationPrincipal principal: CustomPrincipal
+        @PathVariable id: Long, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Any> {
         return try {
             friendRequestService.declineRequest(id, principal.userId)
@@ -99,8 +115,7 @@ class FriendsController(
 
     @GetMapping("/searchUsers")
     fun searchUsers(
-        @RequestParam username: String,
-        @AuthenticationPrincipal principal: CustomPrincipal
+        @RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Any> {
         val users = userRepository.findAllByNameContainingAndEmailNot(username, principal.name)
         return ResponseEntity.ok(users)
@@ -108,8 +123,7 @@ class FriendsController(
 
     @GetMapping("/searchUsersClean")
     fun searchUsersClean(
-        @RequestParam username: String,
-        @AuthenticationPrincipal principal: CustomPrincipal
+        @RequestParam username: String, @AuthenticationPrincipal principal: CustomPrincipal
     ): ResponseEntity<Any> {
         val users = friendService.getCleanUsers(username, principal.userId)
         return ResponseEntity.ok(users)
@@ -149,6 +163,13 @@ class FriendsController(
         } catch (ex: ShowSuggestionExists) {
             ResponseEntity.status(HttpStatus.CONFLICT).body(mapOf("error" to ex.message))
         }
+    }
+
+    @DeleteMapping("/suggestion/{id}")
+    fun deleteSuggestion(@PathVariable id: Long): ResponseEntity<Unit>{
+        suggestMovieService.deleteSuggestion(id)
+        suggestShowService.deleteSuggestion(id)
+        return ResponseEntity.ok().build()
     }
 
     @GetMapping("/suggestedShows")

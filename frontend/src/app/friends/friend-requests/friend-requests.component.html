@@ -3,14 +3,28 @@
         <li *ngFor="let request of requests" class="friend-item">
             {{ request.name }}
             <div class="actions">
-                <button mat-raised-button color="secondary" class="show-suggestions-button" (click)="acceptRequest(request)" tabindex="-1">
+                <button
+                    mat-raised-button
+                    color="secondary"
+                    class="show-suggestions-button"
+                    (click)="acceptRequest(request)"
+                    tabindex="-1"
+                >
                     Accept!
                 </button>
-                <button mat-raised-button color="secondary" class="show-suggestions-button" (click)="declineRequest(request)" tabindex="-1">
+                <button
+                    mat-raised-button
+                    color="secondary"
+                    class="show-suggestions-button"
+                    (click)="declineRequest(request)"
+                    tabindex="-1"
+                >
                     Decline!
                 </button>
             </div>
         </li>
     </ul>
-    <p *ngIf="requests.length === 0" class="no-requests-message">You don't have any friends requests yet.</p>
+    <p *ngIf="requests.length === 0" class="no-requests-message">
+        You don't have any friends requests.
+    </p>
 </div>

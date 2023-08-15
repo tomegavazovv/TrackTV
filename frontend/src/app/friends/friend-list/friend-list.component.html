@@ -1,0 +1,32 @@
+<div class="table-container">
+    <div class="text-center" *ngIf="loading"><app-spinner /></div>
+    <table *ngIf="!loading" class="friend-table">
+        <thead>
+            <tr>
+                <th>Friend Username</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let friend of friends">
+                <td class="friend-name">{{ friend.name }}</td>
+                <td class="suggest-cell">
+                    <button
+                        *ngIf="!hasSuggested(friend.id)"
+                        (click)="onClickSuggest(friend.id)"
+                        class="suggest-button"
+                    >
+                        Suggest
+                    </button>
+                    <button
+                        disabled
+                        *ngIf="hasSuggested(friend.id)"
+                        class="suggested-button"
+                    >
+                        Suggested
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

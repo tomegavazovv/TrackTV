@@ -3,6 +3,7 @@ package com.sorsix.backend.service.implementations
 import com.sorsix.backend.domain.User
 import com.sorsix.backend.domain.show.Show
 import com.sorsix.backend.domain.show.SuggestShow
+import com.sorsix.backend.dto.ShowSuggestionDto
 import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.show.ShowRepository
@@ -41,5 +42,15 @@ class SuggestShowServiceImpl(
     override fun getSuggestions(userId: Long): List<SuggestShow> {
         val user: User = userRepository.findById(userId).get()
         return suggestShowRepository.findAllBySuggestedToUserId(user)
+    }
+
+    override fun getSuggestionsByUserAndShowId(userId: Long, showId: Long): List<ShowSuggestionDto> {
+        return suggestShowRepository.findBySuggestedFromUserIdIdAndShowIdId(userId, showId).map {
+            ShowSuggestionDto(it.suggestedToUserId.id!!, it.showId.id)
+        }
+    }
+
+    override fun deleteSuggestion(id: Long) {
+        suggestShowRepository.deleteById(id)
     }
 }

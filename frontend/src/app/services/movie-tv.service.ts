@@ -120,4 +120,8 @@ export class MovieTvService {
             headers: this.getAuthorizationHeader(),
         });
     }
+
+    deleteSuggestion(id: number) {
+        this.http.delete(`/api/suggestion/${id}`).subscribe();
+    }
 }

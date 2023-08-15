@@ -6,7 +6,6 @@ import { SearchUsersComponent } from '../search-users/search-users.component';
 import { FriendRequestsComponent } from '../friend-requests/friend-requests.component';
 import { tap } from 'rxjs';
 import { SuggestionsComponent } from '../suggestions/suggestions.component';
-// import {DialogRef} from "@angular/cdk/dialog";
 
 @Component({
     selector: 'app-friends',
@@ -15,9 +14,9 @@ import { SuggestionsComponent } from '../suggestions/suggestions.component';
 })
 export class FriendsComponent implements OnInit {
     friends: User[] = [];
+    loading = false;
 
     constructor(
-        private cdr: ChangeDetectorRef,
         private friendsService: FriendsService,
         private dialog: MatDialog
     ) {}
@@ -42,11 +41,14 @@ export class FriendsComponent implements OnInit {
     }
 
     getFriends(): void {
+        this.loading = true;
         this.friendsService.getFriends().subscribe({
             next: (response) => {
                 this.friends = response;
+                this.loading = false;
             },
             error: (err) => {
+                this.loading = false;
                 if (err.status === 404) {
                     this.friends = [];
                 } else {

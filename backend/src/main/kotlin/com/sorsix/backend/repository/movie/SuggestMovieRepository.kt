@@ -11,4 +11,7 @@ interface SuggestMovieRepository : JpaRepository<SuggestMovie, Long> {
     fun existsBySuggestedFromUserIdAndSuggestedToUserIdAndMovieId(from: User, to: User, movie: Movie): Boolean
 
     fun findAllBySuggestedToUserId(user: User): List<SuggestMovie>
+
+    fun findBySuggestedFromUserIdIdAndMovieIdId(from: Long, movieId: Long): List<SuggestMovie>
+
 }

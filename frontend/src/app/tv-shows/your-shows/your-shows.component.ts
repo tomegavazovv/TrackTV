@@ -3,6 +3,7 @@ import { WatchedShow } from '../../interfaces/WatchedShow';
 import { MovieTvService } from '../../services/movie-tv.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchUsersComponent } from '../../friends/search-users/search-users.component';
+import { FriendListComponent } from 'src/app/friends/friend-list/friend-list.component';
 
 @Component({
     selector: 'app-your-shows',
@@ -38,12 +39,10 @@ export class YourShowsComponent implements OnInit {
 
     suggestToFriend(show: WatchedShow): void {
         show.type = 'show';
-        this.dialog.open(SearchUsersComponent, {
+        this.dialog.open(FriendListComponent, {
             width: '500px',
             panelClass: 'custom-dialog',
             data: {
-                isFriendRequest: false,
-                isSuggestion: true,
                 suggestion: show,
             },
         });

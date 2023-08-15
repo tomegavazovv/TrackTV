@@ -7,6 +7,7 @@ import {
 import { catchError, Observable, throwError } from 'rxjs';
 import { User } from '../interfaces/User';
 import { FriendRequest } from '../interfaces/FriendRequest';
+import { Suggestion } from '../interfaces/Suggestion';
 
 @Injectable({
     providedIn: 'root',
@@ -66,6 +67,16 @@ export class FriendsService {
                     return throwError(error.error.error);
                 })
             );
+    }
+
+    getMySuggestionsForMovie(movieId: number): Observable<Suggestion[]> {
+        return this.http.get<Suggestion[]>(
+            `/api/myMovieSuggestions/${movieId}`
+        );
+    }
+
+    getMySuggestionsForShow(showId: number): Observable<Suggestion[]> {
+        return this.http.get<Suggestion[]>(`/api/myShowSuggestions/${showId}`);
     }
 
     suggestShow(showId: number, userId: number): Observable<any> {
