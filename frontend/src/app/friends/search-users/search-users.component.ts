@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FriendsService } from '../../services/friends.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { User } from '../../interfaces/user';
+import { User } from '../../interfaces/User';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../core/error-dialog/error-dialog.component';
 import { WatchedMovie } from '../../interfaces/WatchedMovie';

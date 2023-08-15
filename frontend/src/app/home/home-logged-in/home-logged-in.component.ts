@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../interfaces/movie';
+import { Movie } from '../../interfaces/Movie';
 import { MovieTvService } from '../../services/movie-tv.service';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { FormControl } from '@angular/forms';

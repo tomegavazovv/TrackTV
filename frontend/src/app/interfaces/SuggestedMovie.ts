@@ -1,9 +1,9 @@
-import {User} from "./user";
-import {MovieItem} from "./MovieItem";
+import { User } from './User';
+import { MovieItem } from './MovieItem';
 
 export interface SuggestedMovie {
-    id: Number,
-    movieId: MovieItem,
-    suggestedFromUserId: User,
-    suggestedToUserId: User
+    id: Number;
+    movieId: MovieItem;
+    suggestedFromUserId: User;
+    suggestedToUserId: User;
 }

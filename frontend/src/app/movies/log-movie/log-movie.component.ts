@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../../authentication/login/login.component';
-import { Movie } from '../../interfaces/movie';
+import { Movie } from '../../interfaces/Movie';
 import { Cast } from '../../interfaces/Cast';
 import { CastService } from '../../services/cast.service';
 import { MovieTvService } from '../../services/movie-tv.service';

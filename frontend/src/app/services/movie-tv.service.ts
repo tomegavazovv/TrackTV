@@ -1,21 +1,20 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Movie} from '../interfaces/movie';
-import {map, Observable, of, switchMap} from 'rxjs';
-import {MovieItem} from '../interfaces/MovieItem';
-import {Cast} from '../interfaces/Cast';
-import {PopularTvShow} from "../interfaces/PopularTvShow";
-import {WatchedMovie} from "../interfaces/WatchedMovie";
-import {SuggestedMovie} from "../interfaces/SuggestedMovie";
-import {SuggestedShow} from "../interfaces/SuggestedShow";
-import {WatchedShow} from "../interfaces/WatchedShow";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Movie } from '../interfaces/Movie';
+import { map, Observable, of, switchMap } from 'rxjs';
+import { MovieItem } from '../interfaces/MovieItem';
+import { Cast } from '../interfaces/Cast';
+import { PopularTvShow } from '../interfaces/PopularTvShow';
+import { WatchedMovie } from '../interfaces/WatchedMovie';
+import { SuggestedMovie } from '../interfaces/SuggestedMovie';
+import { SuggestedShow } from '../interfaces/SuggestedShow';
+import { WatchedShow } from '../interfaces/WatchedShow';
 
 @Injectable({
     providedIn: 'root',
 })
 export class MovieTvService {
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     private getAuthorizationHeader(): HttpHeaders {
         return new HttpHeaders({
@@ -24,33 +23,34 @@ export class MovieTvService {
     }
 
     searchMovies(searchTerm: string): Observable<MovieItem[]> {
-        return this.http.get<MovieItem[]>(`/api/movies/search?title=${searchTerm}`, {
-                headers: this.getAuthorizationHeader()
+        return this.http.get<MovieItem[]>(
+            `/api/movies/search?title=${searchTerm}`,
+            {
+                headers: this.getAuthorizationHeader(),
             }
         );
     }
 
     searchTvShows(searchTerm: string): Observable<PopularTvShow[]> {
-        return this.http.get<PopularTvShow[]>(`/api/tvshows/search?title=${searchTerm}`, {
+        return this.http.get<PopularTvShow[]>(
+            `/api/tvshows/search?title=${searchTerm}`,
+            {
                 headers: this.getAuthorizationHeader(),
             }
         );
     }
 
     getWatchedMovies(): Observable<WatchedMovie[]> {
-        return this.http
-            .get<any[]>('/api/movies/watched', {
-                headers: this.getAuthorizationHeader(),
-            })
+        return this.http.get<any[]>('/api/movies/watched', {
+            headers: this.getAuthorizationHeader(),
+        });
         // .pipe(map((data) => data.map((item) => item.movie)));
-
     }
 
     getWatchedShows(): Observable<WatchedShow[]> {
-        return this.http
-            .get<any[]>('/api/tvshows/watched', {
-                headers: this.getAuthorizationHeader(),
-            })
+        return this.http.get<any[]>('/api/tvshows/watched', {
+            headers: this.getAuthorizationHeader(),
+        });
     }
 
     logMovie(
@@ -64,7 +64,7 @@ export class MovieTvService {
         const watchedRequest = this.http.post<any[]>(
             `/api/movies/addWatched/${movie.data.id}`,
             {},
-            {headers}
+            { headers }
         );
 
         return watchedRequest.pipe(
@@ -78,7 +78,7 @@ export class MovieTvService {
                 const rateRequest = this.http.post<any[]>(
                     `/api/movies/rate`,
                     rateBody,
-                    {headers}
+                    { headers }
                 );
 
                 return rateRequest.pipe(
@@ -91,7 +91,7 @@ export class MovieTvService {
                         const castRequest = this.http.post<any[]>(
                             `/api/movies/favoriteCast`,
                             castBody,
-                            {headers}
+                            { headers }
                         );
 
                         return castRequest.pipe(

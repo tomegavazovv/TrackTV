@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cast } from 'src/app/interfaces/Cast';
-import { Movie } from '../../interfaces/movie';
+import { Movie } from '../../interfaces/Movie';
 import { MovieService } from './movie.service';
 import { CastService } from '../cast.service';
 import { CommentsService } from '../comments.service';

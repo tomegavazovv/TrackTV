@@ -1,9 +1,9 @@
-import {User} from "./user";
-import {PopularTvShow} from "./PopularTvShow";
+import { User } from './User';
+import { PopularTvShow } from './PopularTvShow';
 
 export interface SuggestedShow {
-    id: Number,
-    showId: PopularTvShow,
-    suggestedFromUserId: User,
-    suggestedToUserId: User
+    id: Number;
+    showId: PopularTvShow;
+    suggestedFromUserId: User;
+    suggestedToUserId: User;
 }
