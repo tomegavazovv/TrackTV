@@ -9,12 +9,12 @@
     </div>
     <div class="top-castings mt-5">
         <p id="topCastingsTitle">Top Castings Voted By Users:</p>
-        <div *ngFor="let cast of topCastings" class="top-casting">
-            <div *ngIf="cast.count.valueOf() > 0">
+        <ng-container *ngFor="let cast of topCastings">
+            <div class="top-casting" *ngIf="cast.count.valueOf() > 0">
                 <img [src]="cast.imageUrl" alt="Top Casting" />
                 <p>{{ cast.role }}</p>
-                <p>Votes: {{ +cast.count }}</p>
+                <p>Votes: {{ cast.count }}</p>
             </div>
-        </div>
+        </ng-container>
     </div>
 </div>

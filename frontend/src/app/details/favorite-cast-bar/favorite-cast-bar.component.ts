@@ -46,7 +46,19 @@ export class FavoriteCastBarComponent implements OnInit {
                 if (indexToIncrease !== -1) {
                     this.topCastings[indexToIncrease].count =
                         this.topCastings[indexToIncrease].count.valueOf() + 1;
+                } else {
+                    this.topCastings = [
+                        ...this.topCastings,
+                        {
+                            id: favCast.id,
+                            role: favCast.role,
+                            name: favCast.name,
+                            imageUrl: favCast.imageUrl,
+                            count: 1,
+                        },
+                    ];
                 }
+
                 if (indexToDecrease !== -1) {
                     console.log(indexToDecrease);
                     this.topCastings[indexToDecrease].count =
