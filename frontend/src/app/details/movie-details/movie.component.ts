@@ -5,7 +5,7 @@ import { Movie } from '../../interfaces/Movie';
 import { MovieService } from './movie.service';
 import { CastService } from '../cast.service';
 import { CommentsService } from '../comments.service';
-import { mergeMap, switchMap } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs';
 
 @Component({
     selector: 'app-movie',
@@ -28,10 +28,12 @@ export class MovieComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        this.route.url
+        this.route.paramMap
             .pipe(
-                switchMap((url) => {
-                    const id = +url[1].path;
+                take(1),
+                filter((paramMap) => paramMap.has('id')),
+                map((paramMap) => +paramMap.get('id')!),
+                switchMap((id) => {
                     return this.movieService.getMovieById(id);
                 })
             )

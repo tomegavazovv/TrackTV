@@ -1,13 +1,10 @@
 <div class="container">
     <div class="search-movie-container">
-        <mat-form-field class="search-input custom-width">
-            <input
-                matInput
-                type="text"
-                [formControl]="movieSearchForm"
-                placeholder="Search movie!"
-            />
-        </mat-form-field>
+        <input
+            type="text"
+            [formControl]="movieSearchForm"
+            placeholder="Search movie!"
+        />
         <div *ngIf="movieSearchLoading" class="text-center">
             <app-spinner />
         </div>
@@ -17,10 +14,11 @@
                 movieSearchResults.length > 0 &&
                 movieSearchForm.value.trim() !== ''
             "
-            class="custom-width"
+            class="custom-width w-100"
         >
-            <div *ngIf="!movieSearchLoading">
+            <div *ngIf="!movieSearchLoading" class="searchResult">
                 <mat-list-item
+                    class="mt-2"
                     *ngFor="let movie of movieSearchResults.slice(0, 5)"
                     [routerLink]="['/movies', movie.id]"
                 >
@@ -32,14 +30,11 @@
     </div>
 
     <div class="search-tvshow-container">
-        <mat-form-field class="search-input custom-width">
-            <input
-                matInput
-                type="text"
-                [formControl]="tvshowSearchForm"
-                placeholder="Search Tv Show!"
-            />
-        </mat-form-field>
+        <input
+            type="text"
+            [formControl]="tvshowSearchForm"
+            placeholder="Search Tv Show!"
+        />
         <div *ngIf="showSearchLoading" class="text-center">
             <app-spinner />
         </div>
@@ -48,10 +43,11 @@
                 tvshowSearchResults.length > 0 &&
                 tvshowSearchForm.value.trim() !== ''
             "
-            class="custom-width"
+            class="custom-width w-100"
         >
-            <div *ngIf="!showSearchLoading">
+            <div *ngIf="!showSearchLoading" class="searchResult">
                 <mat-list-item
+                    class="mt-2"
                     *ngFor="let show of tvshowSearchResults.slice(0, 5)"
                     [routerLink]="['/tvshows', show.id]"
                 >

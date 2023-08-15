@@ -2,20 +2,30 @@
     <div class="title">
         <h2 class="mat-h2">Friendslist</h2>
         <div class="title-buttons">
-            <button mat-flat-button color="primary" (click)="searchUsers()">Add friend!</button>
-            <button mat-flat-button color="primary" (click)="viewRequests()">View requests!</button>
-            <button mat-flat-button color="primary" (click)="viewSuggestions()">View suggestions!</button>
+            <button color="primary" (click)="searchUsers()">Add friend</button>
+            <button color="primary" (click)="viewRequests()">
+                View requests
+            </button>
+            <button color="primary" (click)="viewSuggestions()">
+                View suggestions
+            </button>
         </div>
     </div>
     <ul class="friend-list" *ngIf="friends && friends.length > 0">
         <li *ngFor="let friend of friends" class="friend-item">
             {{ friend.name }}
             <div class="actions">
-                <button mat-icon-button color="warn" (click)="removeFriend(friend)">
+                <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="removeFriend(friend)"
+                >
                     <mat-icon>remove_circle</mat-icon>
                 </button>
             </div>
         </li>
     </ul>
-    <p *ngIf="friends.length === 0" class="no-friends-message">You don't have any friends yet.</p>
+    <p *ngIf="friends.length === 0" class="no-friends-message">
+        You don't have any friends yet.
+    </p>
 </div>
