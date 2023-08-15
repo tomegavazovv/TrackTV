@@ -3,4 +3,5 @@ export interface MovieItem {
     title: string;
     imageUrl: string;
     popularity: number;
+    releaseYear: string;
 }

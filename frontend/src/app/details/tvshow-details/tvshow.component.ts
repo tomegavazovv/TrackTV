@@ -15,6 +15,7 @@ import { TvshowService } from './tvshow.service';
 export class TvshowComponent implements OnInit {
     tvShow: TvShow | undefined;
     favoriteCast: Cast | undefined;
+    loading = false;
 
     constructor(
         private tvShowService: TvshowService,
@@ -24,6 +25,7 @@ export class TvshowComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.loading = true;
         this.route.url
             .pipe(
                 switchMap((urlSegments) => {
@@ -34,6 +36,7 @@ export class TvshowComponent implements OnInit {
             .subscribe((tvShow) => {
                 this.tvShow = tvShow;
                 this.initializeData(tvShow.data.id);
+                this.loading = false;
             });
 
         this.castService.favoriteCast$.subscribe(

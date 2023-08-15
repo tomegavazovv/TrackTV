@@ -8,6 +8,10 @@
                 placeholder="Search movie!"
             />
         </mat-form-field>
+        <div *ngIf="movieSearchLoading" class="text-center">
+            <app-spinner />
+        </div>
+
         <mat-nav-list
             *ngIf="
                 movieSearchResults.length > 0 &&
@@ -15,12 +19,15 @@
             "
             class="custom-width"
         >
-            <mat-list-item
-                *ngFor="let movie of movieSearchResults.slice(0, 5)"
-                [routerLink]="['/movies', movie.id]"
-            >
-                {{ movie.title }}
-            </mat-list-item>
+            <div *ngIf="!movieSearchLoading">
+                <mat-list-item
+                    *ngFor="let movie of movieSearchResults.slice(0, 5)"
+                    [routerLink]="['/movies', movie.id]"
+                >
+                    <img class="itemImage" src="{{ movie.imageUrl }}" />
+                    {{ movie.title }} - {{ movie.releaseYear }}
+                </mat-list-item>
+            </div>
         </mat-nav-list>
     </div>
 
@@ -33,6 +40,9 @@
                 placeholder="Search Tv Show!"
             />
         </mat-form-field>
+        <div *ngIf="showSearchLoading" class="text-center">
+            <app-spinner />
+        </div>
         <mat-nav-list
             *ngIf="
                 tvshowSearchResults.length > 0 &&
@@ -40,28 +50,46 @@
             "
             class="custom-width"
         >
-            <mat-list-item
-                *ngFor="let show of tvshowSearchResults.slice(0, 5)"
-                [routerLink]="['/tvshows', show.id]"
-            >
-                {{ show.title }}
-            </mat-list-item>
+            <div *ngIf="!showSearchLoading">
+                <mat-list-item
+                    *ngFor="let show of tvshowSearchResults.slice(0, 5)"
+                    [routerLink]="['/tvshows', show.id]"
+                >
+                    <img class="itemImage" src="{{ show.imageUrl }}" />
+                    {{ show.title }} - {{ show.releaseYear }}
+                </mat-list-item>
+            </div>
         </mat-nav-list>
     </div>
 
-    <div class="recent-tvshow-container">
-        <h1>Recently watched shows:</h1>
+    <div class="recently-watched-card">
+        <div class="text-center">
+            <h2>Recently watched shows:</h2>
+        </div>
+        <div *ngIf="recentlyWatchedLoading" class="text-center">
+            <app-spinner />
+        </div>
         <mat-nav-list class="show-list custom-width">
             <mat-list-item
                 *ngFor="let show of watchedShows.slice(0, 5)"
                 [routerLink]="['/tvshows', show.data.id]"
             >
                 <div class="tvshow-item">
-                    <p class="tvshow-title">{{ show.data.title }}</p>
+                    <p class="tvshow-title">
+                        <img
+                            class="recentlyWatchedImage"
+                            src="{{ show.data.imageUrl }}"
+                            alt=""
+                        />
+                        {{ show.data.title }}
+                    </p>
                 </div>
             </mat-list-item>
         </mat-nav-list>
-        <p *ngIf="watchedShows.length === 0" class="no-friends-message">
+        <p
+            *ngIf="watchedShows.length === 0 && !recentlyWatchedLoading"
+            class="no-friends-message"
+        >
             You haven't watched anything recently.
         </p>
     </div>

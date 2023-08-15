@@ -20,5 +20,8 @@ data class Show(
     @Column(name = "num_of_episodes")
     val numOfEpisodes: Int,
 
+    @Column(name = "release_year")
+    val releaseYear: String = "2000",
+
     val popularity: Int
 )

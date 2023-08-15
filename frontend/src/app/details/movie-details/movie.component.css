@@ -85,3 +85,21 @@ button {
     color: orange;
     font-weight: 700;
 }
+
+#duration {
+    font-weight: 500;
+}
+
+#release {
+    font-weight: 500;
+}
+
+.details {
+    font-size: 0.9em;
+    margin-top: -15px;
+}
+
+.descriptionText {
+    overflow: hidden; /* Hides any overflowing content */
+    text-overflow: ellipsis; /* Displays an ellipsis (...) when content is truncated */
+}

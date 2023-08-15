@@ -17,6 +17,7 @@ export class MovieComponent implements OnInit {
     favoriteCast: Cast | undefined;
     castings: Cast[] = [];
     averageRating = 0;
+    loading = false;
 
     constructor(
         private movieService: MovieService,
@@ -26,6 +27,7 @@ export class MovieComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.loading = true;
         this.route.url
             .pipe(
                 switchMap((url) => {
@@ -36,6 +38,7 @@ export class MovieComponent implements OnInit {
             .subscribe((movie) => {
                 this.movie = movie;
                 this.movieService.getAverageRating(movie.data.id);
+                this.loading = false;
             });
 
         this.castService.favoriteCast$.subscribe(
