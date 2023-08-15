@@ -1,0 +1,30 @@
+<div class="cast-list">
+    <div *ngIf="loading" class="w-100 text-center">
+        <app-spinner />
+    </div>
+    <div *ngFor="let cast of castings" class="cast-item">
+        <div class="cast-image">
+            <img src="{{ cast.imageUrl }}" alt="" />
+        </div>
+        <div class="cast-details">
+            <p class="cast-name">{{ cast.name }}</p>
+            <p class="cast-role">{{ cast.role }}</p>
+            <button
+                *ngIf="favoriteCast?.id !== cast.id"
+                (click)="onVoteFavorite(cast.id)"
+                class="btn vote-button"
+                [class.disabled]="!isEnabled"
+                [disabled]="!isEnabled"
+            >
+                Vote as Favorite
+            </button>
+            <button
+                disabled
+                *ngIf="favoriteCast?.id == cast.id"
+                class="btn fav-button"
+            >
+                Favorite
+            </button>
+        </div>
+    </div>
+</div>

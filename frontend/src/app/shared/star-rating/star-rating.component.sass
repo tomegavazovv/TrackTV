@@ -8,8 +8,8 @@
 
 .star
     mat-icon
-        width: 40px
-        height: 40px
+        width: 22px
+        height: 22px
 
 .star-gold
     color: orange
@@ -22,3 +22,33 @@
 
 .star-rating-animation .star-hover:hover
     transform: scale(1.3)
+
+.disabled
+    cursor: not-allowed
+
+
+.tooltip-wrapper
+    position: relative
+    display: inline-block
+
+
+.tooltip
+    position: absolute
+    background-color: rgba(0, 0, 0, 0.8)
+    color: white
+    padding: 5px
+    border-radius: 5px
+    top: -50px
+    left: 50%
+    transform: translateX(-50%)
+    z-index: 999
+    opacity: 0
+    width: 100%
+    pointer-events: none
+    transition: opacity 0.2s ease-in-out
+
+
+.tooltip.active
+    opacity: 1
+    pointer-events: auto
+

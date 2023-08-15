@@ -1,5 +1,11 @@
 export interface TvShow {
-    imdb_id: Number;
-    title: String;
-    image_url: String;
+    data: {
+        id: Number;
+        title: String;
+        imageUrl: String;
+        numOfSeasons: Number;
+        releaseYear: String;
+    };
+
+    watched: Boolean;
 }

@@ -1,0 +1,25 @@
+<div class="comment-section">
+    <div class="comment-post">
+        <textarea
+            placeholder="Enter your comment here"
+            [(ngModel)]="comment"
+            class="comment-input"
+        ></textarea>
+
+        <button class="btn post-button" (click)="onPostComment()">POST</button>
+    </div>
+    <div class="text-center" *ngIf="commentsLoading">
+        <app-spinner />
+    </div>
+    <div *ngIf="!commentsLoading" class="comment-list">
+        <div *ngFor="let comment of comments" class="comment-item">
+            <div class="comment-header">
+                <span class="user-name">{{ comment.user }}</span>
+                <span class="comment-time">{{
+                    comment.date | date : "short"
+                }}</span>
+            </div>
+            <p class="comment-text">{{ comment.comment }}</p>
+        </div>
+    </div>
+</div>

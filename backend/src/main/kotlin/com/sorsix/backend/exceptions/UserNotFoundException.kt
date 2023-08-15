@@ -1,3 +1,3 @@
 package com.sorsix.backend.exceptions
 
-class UserNotFoundException(message: String): RuntimeException(message)
+class UserNotFoundException(id: Long): RuntimeException("User with id $id not found.")

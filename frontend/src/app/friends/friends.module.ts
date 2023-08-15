@@ -9,18 +9,22 @@ import {MatListModule} from "@angular/material/list";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-
+import { SuggestionsComponent } from './suggestions/suggestions.component';
+import {MatTableModule} from "@angular/material/table";
+import {RouterLink} from "@angular/router";
 
 @NgModule({
-  declarations: [FriendRequestsComponent, FriendsComponent, SearchUsersComponent],
+  declarations: [FriendRequestsComponent, FriendsComponent, SearchUsersComponent, SuggestionsComponent],
     imports: [
+        MatTableModule,
         ReactiveFormsModule,
         CommonModule,
         MatButtonModule,
         MatIconModule,
         MatListModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        RouterLink
     ]
 })
 export class FriendsModule { }

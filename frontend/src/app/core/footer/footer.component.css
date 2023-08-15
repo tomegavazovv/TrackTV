@@ -1,7 +1,10 @@
 .footer {
-    background-color: #4f46e5;;
+    background-color: #4f46e5;
     padding: 20px 0;
     text-align: center;
+    position: fixed;
+    bottom: -15px;
+    width: 100%;
 }
 
 .footer-content {
@@ -10,5 +13,5 @@
 }
 
 .footer-text {
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
 }

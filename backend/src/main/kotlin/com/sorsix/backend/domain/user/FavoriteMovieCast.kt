@@ -8,11 +8,11 @@ import jakarta.persistence.*
 data class FavoriteMovieCast(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0 ,
+    val id: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "user_movie_id")
-    val watchedMovie: WatchedMovie,
+    val watchMovie: WatchMovie,
 
     @ManyToOne
     @JoinColumn(name = "cast_id")

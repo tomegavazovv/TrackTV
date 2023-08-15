@@ -1,0 +1,66 @@
+.suggestions-container {
+    padding: 5% 5%;
+    margin: 20px;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding-left: 3px;
+}
+
+table, tr, td, th{
+    margin: auto;
+    border: none;
+}
+
+.title {
+    margin-top: 20px;
+}
+
+.mat-h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.mat-elevation-z0 {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+}
+
+th.mat-header-cell,
+td.mat-cell {
+    padding: 10px 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+tr.mat-header-row,
+tr.mat-row {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.no-movies-message,
+.no-shows-message {
+    font-size: 1rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    th.mat-header-cell,
+    td.mat-cell {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+.custom-show {
+    padding-left: 5%;
+}

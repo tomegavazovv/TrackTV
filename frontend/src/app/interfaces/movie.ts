@@ -4,6 +4,9 @@ export interface Movie {
         title: string;
         imageUrl: string;
         popularity: number;
+        releaseYear: string;
+        duration: string;
     };
     watched: boolean;
+    rating: Number;
 }

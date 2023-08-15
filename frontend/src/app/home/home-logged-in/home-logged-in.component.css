@@ -1,5 +1,5 @@
 .container {
-    padding: 0 20%;
+    padding: 0 10%;
     display: flex;
     justify-content: center;
 }
@@ -7,16 +7,53 @@
 .search-movie-container,
 .search-tvshow-container {
     padding-top: 20px;
-    width: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recent-tvshow-container {
+    padding-top: 20px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .custom-width {
-    width: 75%;
+    width: 80%;
+}
+
+.tvshow-title {
+    padding-top: 8%;
+    text-align: center;
 }
 
 ul li {
     list-style: none;
+}
+
+.itemImage {
+    width: 50px;
+    height: 50px;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.recentlyWatchedImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    margin-right: 5px;
+}
+
+.recently-watched-card {
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: #fff;
 }

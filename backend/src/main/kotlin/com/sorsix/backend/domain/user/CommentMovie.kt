@@ -1,24 +1,20 @@
 package com.sorsix.backend.domain.user
 
-import com.sorsix.backend.domain.User
-import com.sorsix.backend.domain.movie.Movie
-import com.sorsix.backend.domain.show.Show
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 @Entity
-@Table(name = "movie_comment")
+@Table(name = "user_comment_movie")
 data class CommentMovie(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    val user: User,
+    @JoinColumn(name = "watched_movie_id")
+    val watchMovie: WatchMovie,
 
-    @ManyToOne
-    @JoinColumn(name = "show_id")
-    val movie: Movie,
+    val date: LocalDateTime = LocalDateTime.now(),
 
-    val comment: String
+    var comment: String = ""
 )

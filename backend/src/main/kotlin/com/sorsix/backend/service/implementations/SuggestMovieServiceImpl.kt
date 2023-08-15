@@ -9,7 +9,7 @@ import com.sorsix.backend.exceptions.UserNotFoundException
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.movie.MovieRepository
 import com.sorsix.backend.repository.movie.SuggestMovieRepository
-import com.sorsix.backend.service.SuggestMovieService
+import com.sorsix.backend.service.interfaces.SuggestMovieService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -21,9 +21,9 @@ class SuggestMovieServiceImpl(
 ) : SuggestMovieService {
     override fun suggest(fromId: Long, toId: Long, movieId: Long): SuggestMovie {
         val suggestedFromUser: User =
-            userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException("User with id $fromId not found.")
+            userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException(fromId)
         val suggestedToUser: User =
-            userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException("User with id $toId not found.")
+            userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException(toId)
         val movie: Movie =
             movieRepository.findByIdOrNull(movieId) ?: throw MovieNotFoundException(movieId)
 
@@ -31,7 +31,7 @@ class SuggestMovieServiceImpl(
                 suggestedFromUser, suggestedToUser, movie
             )
         ) {
-            throw MovieSuggestionExists("Suggestion for movie with id $movieId from user with id $fromId to user with id $toId already exists.")
+            throw MovieSuggestionExists(movieId, fromId, toId)
         }
         return suggestMovieRepository.save(
             SuggestMovie(

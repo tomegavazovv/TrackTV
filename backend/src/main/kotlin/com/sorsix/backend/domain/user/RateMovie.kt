@@ -1,7 +1,7 @@
 package com.sorsix.backend.domain.user
 
+
 import jakarta.persistence.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
@@ -13,12 +13,10 @@ data class RateMovie(
 
     @ManyToOne
     @JoinColumn(name = "watched_movie_id")
-    val watchedMovie: WatchedMovie,
-
-    @Column(name = "rating", nullable = false)
-    var rating: Int,
+    val watchMovie: WatchMovie,
 
     val date: LocalDateTime = LocalDateTime.now(),
 
-    var comment: String? = ""
+    @Column(name = "rating", nullable = false)
+    var rating: Int,
 )

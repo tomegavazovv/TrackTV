@@ -1,15 +1,17 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {User} from "../../interfaces/user";
-import {FriendsService} from "../../services/friends.service";
-import {MatDialog} from "@angular/material/dialog";
-import {SearchUsersComponent} from "../search-users/search-users.component";
-import {FriendRequestsComponent} from "../friend-requests/friend-requests.component";
-import {tap} from "rxjs";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { User } from '../../interfaces/User';
+import { FriendsService } from '../../services/friends.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchUsersComponent } from '../search-users/search-users.component';
+import { FriendRequestsComponent } from '../friend-requests/friend-requests.component';
+import { tap } from 'rxjs';
+import { SuggestionsComponent } from '../suggestions/suggestions.component';
+// import {DialogRef} from "@angular/cdk/dialog";
 
 @Component({
     selector: 'app-friends',
     templateUrl: './friends.component.html',
-    styleUrls: ['./friends.component.css']
+    styleUrls: ['./friends.component.css'],
 })
 export class FriendsComponent implements OnInit {
     friends: User[] = [];
@@ -17,27 +19,26 @@ export class FriendsComponent implements OnInit {
     constructor(
         private cdr: ChangeDetectorRef,
         private friendsService: FriendsService,
-        private dialog: MatDialog) {
-    }
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit(): void {
-        this.getFriends()
+        this.getFriends();
     }
 
     removeFriend(friend: User): void {
-        this.friendsService.removeFriend(friend.id).pipe(
-            tap( () => {
-                this.getFriends();
-            })
-        ).subscribe({
-            error: (err) => {
-                console.log(err.error);
-            }
-        });
-    }
-
-    showSuggestions(): void {
-
+        this.friendsService
+            .removeFriend(friend.id)
+            .pipe(
+                tap(() => {
+                    this.getFriends();
+                })
+            )
+            .subscribe({
+                error: (err) => {
+                    console.log(err.error);
+                },
+            });
     }
 
     getFriends(): void {
@@ -51,16 +52,20 @@ export class FriendsComponent implements OnInit {
                 } else {
                     console.log(err.error);
                 }
-            }
+            },
         });
     }
-
 
     searchUsers(): void {
         this.dialog.open(SearchUsersComponent, {
             width: '500px',
             panelClass: 'custom-dialog',
-        })
+            data: {
+                isFriendRequest: true,
+                isSuggestion: false,
+                suggestion: undefined,
+            },
+        });
     }
 
     viewRequests(): void {
@@ -74,4 +79,10 @@ export class FriendsComponent implements OnInit {
         });
     }
 
+    viewSuggestions() {
+        this.dialog.open(SuggestionsComponent, {
+            width: '800px',
+            panelClass: 'custom-dialog',
+        });
+    }
 }

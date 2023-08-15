@@ -1,0 +1,121 @@
+<div *ngIf="loading" class="h-100 w-100 text-center"><app-spinner /></div>
+<div *ngIf="movie && !loading" class="movie-page">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="card col-10">
+                <div class="row inside">
+                    <div class="col-md-5">
+                        <img
+                            id="coverImg"
+                            src="{{ movie.data.imageUrl }}"
+                            alt="Movie Cover"
+                        />
+                    </div>
+
+                    <div class="col-md-7 description h-100">
+                        <div class="text-center mb-3 relative-position">
+                            <div class="title">
+                                <h1 class="mb-0">
+                                    {{ movie.data.title }}
+                                </h1>
+                                <div class="star-rating">
+                                    <div id="rateMovie">Rate the Movie</div>
+                                    <app-star-rating
+                                        (ratingChanged)="onRateMovie($event)"
+                                        [selectedRating]="movie.rating"
+                                        [isEnabled]="movie.watched"
+                                    ></app-star-rating>
+                                    <div class="ratingContainer">
+                                        Average Rating:
+                                        <span id="avgRating">{{
+                                            averageRating | number : "1.2"
+                                        }}</span>
+                                    </div>
+                                </div>
+                                <button
+                                    (click)="onAddToWatchedMovies()"
+                                    class="btn"
+                                    [class.btn-secondary]="movie.watched"
+                                    [class.btn-primary]="!movie.watched"
+                                    [disabled]="movie.watched"
+                                >
+                                    <span *ngIf="movie.watched"
+                                        >Added to My Movies</span
+                                    >
+                                    <span *ngIf="!movie.watched"
+                                        >Add to My Movies</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                        <p class="details">
+                            <span id="release">Release Year:</span>
+                            {{ movie.data.releaseYear }}
+                        </p>
+                        <p class="details">
+                            <span id="duration">Duration:</span>
+                            {{ movie.data.duration }}
+                        </p>
+                        <h2 class="mt-3 descriptionText">Short Description:</h2>
+                        <p class="descriptionText h-75">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Voluptatum repellat tempore et dolorem
+                            doloribus similique repudiandae reiciendis, enim
+                            libero corrupti itaque asperiores. Sapiente ea
+                            impedit delectus, nam quaerat iste. Quas accusantium
+                            rerum laborum pariatur sit doloribus debitis numquam
+                            possimus harum expedita alias, facilis praesentium
+                            ab voluptas neque dignissimos. Corporis, veniam.
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Voluptatum repellat tempore et dolorem
+                            doloribus similique repudiandae reiciendis, enim
+                            libero corrupti itaque asperiores. Sapiente ea
+                            impedit delectus, nam quaerat iste. Quas accusantium
+                            rerum laborum pariatur sit doloribus debitis numquam
+                            possimus harum expedita alias, facilis praesentium
+                            ab voluptas neque dignissimos. Corporis, veniam.
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Voluptatum repellat tempore et dolorem
+                            doloribus similique repudiandae reiciendis, enim
+                            libero corrupti itaque asperiores. Sapiente ea
+                            impedit delectus, nam quaerat iste. Quas accusantium
+                            rerum laborum pariatur sit doloribus debitis numquam
+                            possimus harum expedita alias, facilis praesentium
+                            ab voluptas neque dignissimos. Corporis, veniam.
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Voluptatum repellat tempore et dolorem
+                            doloribus similique repudiandae reiciendis, enim
+                            libero corrupti itaque asperiores. Sapiente ea
+                            impedit delectus, nam quaerat iste. Quas accusantium
+                            rerum laborum pariatur sit doloribus debitis numquam
+                            possimus harum expedita alias, facilis praesentium
+                            ab voluptas neque dignissimos. Corporis,
+                            veniam.Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Voluptatum repellat tempore et
+                            dolorem doloribus similique repudiandae reiciendis,
+                            enim libero corrupti itaque asperiores. Sapiente ea
+                            impedit delectus, nam quaerat iste. Quas accusantium
+                            rerum laborum pariatur sit doloribus debitis numquam
+                            possimus harum expedita alias, facilis praesentium
+                            ab voluptas neque dignissimos. Corporis, veniam.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cast-section">
+                    <h2>Cast:</h2>
+                    <app-cast-list [isEnabled]="movie.watched"></app-cast-list>
+                    <hr />
+                </div>
+
+                <div class="comments-section">
+                    <h3>Comments</h3>
+                    <app-comments></app-comments>
+                </div>
+            </div>
+            <div class="col-2">
+                <app-favorite-cast-bar />
+            </div>
+        </div>
+    </div>
+</div>

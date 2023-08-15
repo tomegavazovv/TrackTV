@@ -7,7 +7,7 @@ import com.sorsix.backend.exceptions.*
 import com.sorsix.backend.repository.UserRepository
 import com.sorsix.backend.repository.show.ShowRepository
 import com.sorsix.backend.repository.show.SuggestShowRepository
-import com.sorsix.backend.service.SuggestShowService
+import com.sorsix.backend.service.interfaces.SuggestShowService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -19,9 +19,9 @@ class SuggestShowServiceImpl(
 ) : SuggestShowService {
     override fun suggest(fromId: Long, toId: Long, showId: Long): SuggestShow {
         val suggestedFromUser: User =
-            userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException("User with id $fromId not found.")
+            userRepository.findByIdOrNull(fromId) ?: throw UserNotFoundException(fromId)
         val suggestedToUser: User =
-            userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException("User with id $toId not found.")
+            userRepository.findByIdOrNull(toId) ?: throw UserNotFoundException(toId)
         val show: Show =
             showRepository.findByIdOrNull(showId) ?: throw ShowNotFoundException(showId )
 
@@ -29,7 +29,7 @@ class SuggestShowServiceImpl(
                 suggestedFromUser, suggestedToUser, show
             )
         ) {
-            throw ShowSuggestionExists("Suggestion for show with id $showId from user with id $fromId to user with id $toId already exists.")
+            throw ShowSuggestionExists(showId, fromId, toId)
         }
         return suggestShowRepository.save(
             SuggestShow(

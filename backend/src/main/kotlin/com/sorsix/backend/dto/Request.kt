@@ -29,15 +29,21 @@ data class AddFavoriteCastDto(
     val castId: Long
 )
 
-data class RateMovieDto(
+data class CommentMovieBody(
     val movieId: Long,
 
     @get: Max(10, message = "Rating value must be between 1 and 10.")
     val rating: Int,
 
     @get: Size(max=400, message = "Comment length must be less than 400 characters.")
-    val comment: String?
+    val comment: String
 )
+
+data class CommentShowDto(
+    val showId: Long,
+    val comment: String
+)
+
 
 data class RateEpisodeDto(
     val episodeId: Long,
@@ -47,8 +53,9 @@ data class RateEpisodeDto(
     val rating: Int,
 )
 
-data class CommentShowDto(
-    val showId: Long,
-    val comment: String
+data class RateMovieDto(
+    val movieId: Long,
+    val rating: Number
 )
+
 

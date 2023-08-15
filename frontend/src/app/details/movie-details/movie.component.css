@@ -1,0 +1,105 @@
+img {
+    width: 80px;
+    height: 70px;
+}
+
+#coverImg {
+    width: 60%;
+    height: 50%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.row {
+    height: 25em !important;
+}
+
+.description {
+    margin-left: -11%;
+    margin-top: -3em;
+}
+
+.movie-page {
+    padding: 20px;
+}
+
+#stars {
+    margin-top: 10px;
+}
+
+.title h2 {
+    color: var(--primary-color);
+}
+
+.row .inside {
+    align-items: center; /* Center vertically */
+}
+
+.card {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.1); /* Adjusted box-shadow */
+}
+
+.top-castings {
+    margin-top: 20px;
+}
+
+.cast-section {
+    margin-top: 5em;
+}
+
+button {
+    font-size: small;
+    width: 12em;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.title {
+    position: relative;
+}
+
+.star-rating {
+    position: absolute;
+    top: 5px;
+    right: -30px;
+}
+
+#rateMovie {
+    font-weight: 500;
+    color: orange;
+}
+
+.ratingContainer {
+    font-size: 0.9em;
+}
+
+#avgRating {
+    color: orange;
+    font-weight: 700;
+}
+
+#duration {
+    font-weight: 500;
+}
+
+#release {
+    font-weight: 500;
+}
+
+.details {
+    font-size: 0.9em;
+    margin-top: -15px;
+}
+
+.descriptionText {
+    overflow: hidden; /* Hides any overflowing content */
+    text-overflow: ellipsis; /* Displays an ellipsis (...) when content is truncated */
+}

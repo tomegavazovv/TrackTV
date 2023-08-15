@@ -1,5 +1,5 @@
 #tvshows {
-    background-color: #E9F1FA;
+    background-color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -24,11 +24,64 @@
     box-sizing: border-box;
 }
 
+.tvshow-item:hover {
+    cursor: pointer;
+}
+
 .tvshow-item img {
-    width: 80%;
+    width: 100%;
+    height: 100%;
 }
 
 .tvshow-title {
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+.tvshow-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.card-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+.tvshow-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tvshow-list-item {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tvshow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tvshow-image {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tvshow-title {
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    color: #555;
 }

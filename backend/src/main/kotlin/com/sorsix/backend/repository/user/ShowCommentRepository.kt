@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ShowCommentRepository : JpaRepository<CommentShow, Long> {
 
-    fun existsByUserAndShow(user: User, show: Show): Boolean
-
     fun findAllByShowOrderByDateDesc(show: Show): List<CommentShow>
 }
