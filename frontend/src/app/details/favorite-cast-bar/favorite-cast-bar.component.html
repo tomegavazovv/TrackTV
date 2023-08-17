@@ -13,7 +13,7 @@
             <div class="top-casting" *ngIf="cast.count.valueOf() > 0">
                 <img [src]="cast.imageUrl" alt="Top Casting" />
                 <p>{{ cast.role }}</p>
-                <p>Votes: {{ cast.count }}</p>
+                <p class="votes">Votes: {{ cast.count }}</p>
             </div>
         </ng-container>
     </div>

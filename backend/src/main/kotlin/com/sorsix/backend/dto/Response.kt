@@ -51,7 +51,7 @@ data class TvShowDto(
 )
 
 data class AverageEpisodeRatingDto(
-    val averageRating: Number
+    val averageRating: Double
 )
 
 data class MovieSuggestionDto(

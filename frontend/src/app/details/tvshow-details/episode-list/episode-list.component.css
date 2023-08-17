@@ -50,3 +50,8 @@ mat-icon:hover {
     color: #fff;
     border-color: #aaa;
 }
+
+.table-container {
+    max-height: 200px; /* Set the maximum height for the table container */
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
+}

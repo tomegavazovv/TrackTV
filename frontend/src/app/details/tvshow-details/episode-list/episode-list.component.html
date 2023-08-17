@@ -1,45 +1,50 @@
-<div class="table-responsive w-100" style="overflow-y: hidden">
-    <div *ngIf="loading" class="text-center"><app-spinner /></div>
+<div class="table-container">
+    <div class="table-responsive w-100">
+        <div *ngIf="loading" class="text-center"><app-spinner /></div>
 
-    <table *ngIf="!loading" class="table table-striped episode-list">
-        <thead>
-            <tr>
-                <th>Episode Number</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Rate</th>
-                <th>Average Rating</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let episode of episodes; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ episode.episode.title }}</td>
-                <td>
-                    <mat-icon
-                        [class.watched]="episode.watched"
-                        [class.notWatched]="!episode.watched"
-                        (click)="
-                            onClickEpisode(episode.episode.id, episode.watched)
-                        "
-                        id="eye"
-                        >remove_red_eye</mat-icon
-                    >
-                </td>
-                <td>
-                    <app-star-rating
-                        [isEnabled]="episode.watched"
-                        (ratingChanged)="
-                            onRatingChange(episode.episode.id, $event)
-                        "
-                        [selectedRating]="episode.rating"
-                    />
-                </td>
+        <table *ngIf="!loading" class="table table-striped episode-list">
+            <thead>
+                <tr>
+                    <th>Episode Number</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Rate</th>
+                    <th>Average Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let episode of episodes; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ episode.episode.title }}</td>
+                    <td>
+                        <mat-icon
+                            [class.watched]="episode.watched"
+                            [class.notWatched]="!episode.watched"
+                            (click)="
+                                onClickEpisode(
+                                    episode.episode.id,
+                                    episode.watched
+                                )
+                            "
+                            id="eye"
+                            >remove_red_eye</mat-icon
+                        >
+                    </td>
+                    <td>
+                        <app-star-rating
+                            [isEnabled]="episode.watched"
+                            (ratingChanged)="
+                                onRatingChange(episode.episode.id, $event)
+                            "
+                            [selectedRating]="episode.rating"
+                        />
+                    </td>
 
-                <td class="avgRating">
-                    {{ episode.averageRating | number : "1.2" }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    <td class="avgRating">
+                        {{ episode.averageRating | number : "1.2" }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

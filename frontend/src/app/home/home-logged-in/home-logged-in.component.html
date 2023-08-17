@@ -65,9 +65,8 @@
         <div *ngIf="recentlyWatchedLoading" class="text-center">
             <app-spinner />
         </div>
-        <mat-nav-list class="show-list w-100 custom-width text-center">
-            <mat-list-item
-                class="text-center"
+        <mat-nav-list class="show-list w-100 custom-width">
+            <div
                 *ngFor="let show of watchedShows.slice(0, 5)"
                 [routerLink]="['/tvshows', show.data.id]"
             >
@@ -81,7 +80,7 @@
                         {{ show.data.title }}
                     </p>
                 </div>
-            </mat-list-item>
+            </div>
         </mat-nav-list>
         <p
             *ngIf="watchedShows.length === 0 && !recentlyWatchedLoading"

@@ -42,6 +42,10 @@
     font-weight: bold;
 }
 
+.votes {
+    color: orange;
+}
+
 .favorite-cast,
 .top-casting {
     padding: 15px;

@@ -25,7 +25,7 @@ class ShowRatingServiceImpl(
 
         rateEpisodeRepository.save(rateEpisode)
         val ratings = rateEpisodeRepository.findAllByWatchEpisode_EpisodeId(episodeId)
-        val avgRating = ratings.sumOf { it.rating } / ratings.size
+        val avgRating: Double = ratings.sumOf { it.rating }.toDouble() / ratings.size
 
         return AverageEpisodeRatingDto(avgRating)
     }

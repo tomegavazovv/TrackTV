@@ -73,7 +73,7 @@ export class FriendListComponent implements OnInit {
         ];
     }
 
-    hasSuggested(friendId: number) {
-        return this.mySuggestions.findIndex((s) => (s.userId = friendId)) != -1;
+    hasSuggested(friendId: number): Boolean {
+        return this.mySuggestions.findIndex((s) => s.userId == friendId) != -1;
     }
 }
